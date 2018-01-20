@@ -587,23 +587,34 @@ Worker worker2 = new Worker(new BStrategy());
 worker1.work();
 worker2.work();
 </code></pre><p>在java中实现这种策略模式难免需要先定义好策略的接口，然后根据接口实现不同的策略， 在Kotlin中完全可以用用高阶函数来简化策略模式，上面的例子用Kotlin实现：</p>
-<p>/**</p>
-<ul>
-<li>策略实施者</li>
-<li>@param strategy lambda类型的策略<br>*/<br>class Worker(private val strategy: () -&gt; Unit) {<br> fun work() {<pre><code>println(&quot;START&quot;)
-strategy.invoke()
-println(&quot;END&quot;)
-</code></pre> }</li>
-</ul>
-<p>}</p>
-<p>/*</p>
-<ul>
-<li>测试</li>
-<li>*/<br>fun testStrategy() {<br>  val worker1 = Worker({<pre><code>println(&quot;Do A Strategy&quot;)
-</code></pre>  })<br>  val bStrategy = {<pre><code>println(&quot;Do B Strategy&quot;)
-</code></pre>  }<br>  val worker2 = Worker(bStrategy)<br>  worker1.work()<br>  worker2.work()<br>}</li>
-</ul>
-<p>不需要先定义策略的接口，直接把策略以函数的形式传进来就行了。</p>
+<pre><code>/**
+* 策略实施者
+* @param strategy lambda类型的策略
+*/
+class Worker(private val strategy: () -&gt; Unit) {
+    fun work() {
+        println(&quot;START&quot;)
+        strategy.invoke()
+        println(&quot;END&quot;)
+    }
+
+}
+
+/*
+* 测试
+* */
+fun testStrategy() {
+    val worker1 = Worker({
+        println(&quot;Do A Strategy&quot;)
+    })
+    val bStrategy = {
+        println(&quot;Do B Strategy&quot;)
+    }
+    val worker2 = Worker(bStrategy)
+    worker1.work()
+    worker2.work()
+}
+</code></pre><p>不需要先定义策略的接口，直接把策略以函数的形式传进来就行了。</p>
 <h4 id="模板方法模式："><a href="#模板方法模式：" class="headerlink" title="模板方法模式："></a>模板方法模式：</h4><blockquote>
 <p>在操作中定义算法（步骤）的骨架，将一些步骤委托给子类</p>
 </blockquote>
@@ -633,22 +644,34 @@ execute {
 <p>命令模式将“请求”封装成对象，以便使用不同的请求，队列或者日志来参数化其它对象，命令模式也支持可撤销的操作</p>
 </blockquote>
 <p>Java中的例子：</p>
-<p>public interface Command{<br>    public void execute();<br>}</p>
-<p>public class LightOnCommand implements Command{<br>    Light light;<br>    public LightOnCommand(Light light){<br>        this.light=light;<br>    }</p>
-<pre><code>publick void execute(){
-    light.on();
-}
-</code></pre><p>}</p>
-<p>publick class SimpleRemoteControl{<br>    Command slot;<br>    public SimpleRemoteControl(){}</p>
-<pre><code>public void setCommand(Command command){
-    slot=command;
+<pre><code>public interface Command{
+    public void execute();
 }
 
-public void buttomWasPressed(){
-    slot.execute();
+public class LightOnCommand implements Command{
+    Light light;
+    public LightOnCommand(Light light){
+        this.light=light;
+    }
+
+    publick void execute(){
+        light.on();
+    }
 }
-</code></pre><p>}</p>
-<p>Java中实现命令模式需要屏蔽的具体命令操作需要包装成一个命令对象传入到控制器内，而Kotlin中高阶函数可以直接传入被需要操作的命令，而不需要定义接口并包装成一个对象传入</p>
+
+publick class SimpleRemoteControl{
+    Command slot;
+    public SimpleRemoteControl(){}
+
+    public void setCommand(Command command){
+        slot=command;
+    }
+
+    public void buttomWasPressed(){
+        slot.execute();
+    }
+}
+</code></pre><p>Java中实现命令模式需要屏蔽的具体命令操作需要包装成一个命令对象传入到控制器内，而Kotlin中高阶函数可以直接传入被需要操作的命令，而不需要定义接口并包装成一个对象传入</p>
 <pre><code>class SimpleRemoteControl{
 
     public void buttomWasPressed(command:()-&gt; Unit){
@@ -711,7 +734,9 @@ fun testApply(context: Context) {
         address = &quot;bbb&quot;
     }
 }
-</code></pre><h4 id="with"><a href="#with" class="headerlink" title="with"></a>with</h4><p> inline fun <t, r=""> with(receiver: T, block: T.() -&gt; R): R = receiver.block()</t,></p>
+</code></pre><h4 id="with"><a href="#with" class="headerlink" title="with"></a>with</h4><blockquote>
+<p>inline fun <t, r=""> with(receiver: T, block: T.() -&gt; R): R = receiver.block()</t,></p>
+</blockquote>
 <p> 可以用with语句来省略同一个变量的多次声明</p>
 <pre><code>/*
 * 通过with语句，将result参数作为参数，在内部this也可以省略掉
