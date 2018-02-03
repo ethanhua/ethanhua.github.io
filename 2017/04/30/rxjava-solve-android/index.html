@@ -546,7 +546,7 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 </code></pre><p>当然还有另一种通用的侵入式写法就是一开始提到的。 可以在 <code>BaseActivity</code> 和<code>BaseFragment</code> 里面创建 <code>Subject</code> 然后在对应的回调中去发射对应的事件，这种写法的优缺点也比较明显：必须在基类中做这些处理，对代码的侵入性比较大，但是兼用性较好，可以处理一切回调方法（不需要考虑 <code>fragment</code> 的事件同步问题），性能也最优（不需要创建一个中转 <code>fragment</code> 或者 <code>activity</code>）</p>
 <p>选择两种方式都是可以的 我个人倾向于选用第一种利用中间件（ <code>Fragment</code> 或者<code>Activity</code> ）的方式，主要是无侵入性，随到随用，需要使用时就调用提前包装好的方法即可，只要了解处理好生命周期的兼容性问题即可。</p>
 <p>其实当我们获取到 <code>Activity</code> 或者 <code>Fragment</code> 中这些回调事件事件源 <code>Observable</code> 后我们可以有一些其他的用途，例如可以组合<code>onDestory</code> 和<code>OnDestoryView</code> 的 <code>Observable</code> 到网络请求的事件中，这样就可以在页面销毁时及时停止掉网络请求避免一些内存泄漏和空指针异常，这个也有类似已经实现了的库也是上面的两种方式:<br><a href="https://github.com/trello/RxLifecycle" target="_blank" rel="noopener">RxLifecycle</a><br><a href="https://github.com/zhihu/RxLifecycle" target="_blank" rel="noopener">RxLifecycle（利用fragment承载事件）</a></p>
-<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>谢谢阅读！ 谢谢RxJava带给我们这些好用的功能</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>谢谢阅读！ 谢谢RxJava带给我们这些好用的功能<br><img src="/img/hxz0203-1.jpg" alt=""></p>
 
     
 
@@ -566,7 +566,7 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2018/01/09/genericity/" id="post_nav-newer" class="prev-content">
+        <a href="/2017/05/29/constraintlayout1/" id="post_nav-newer" class="prev-content">
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
                 <i class="material-icons">arrow_back</i>
             </button>
@@ -664,7 +664,7 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2018/01/">一月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a>
+                <a class="sidebar_archives-link" href="/archives/2018/01/">一月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a>
             </ul>
         </li>
         
@@ -682,7 +682,7 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
             </a>
             <ul class="dropdown-menu">
                 <li>
-                <a class="sidebar_archives-link" href="/categories/RxJava-Android/">RxJava/Android<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/语言基础/">语言基础<span class="sidebar_archives-count">1</span></a>
+                <a class="sidebar_archives-link" href="/categories/RxJava-Android/">RxJava/Android<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/UI-Android/">UI/Android<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/语言基础/">语言基础<span class="sidebar_archives-count">1</span></a>
             </ul>
         </li>
         
@@ -696,7 +696,7 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         <li>
             <a href="/archives">
                 文章总数
-                <span class="sidebar-badge">3</span>
+                <span class="sidebar-badge">4</span>
             </a>
         </li>
         
