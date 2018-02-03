@@ -12,7 +12,7 @@
     
     <title>
         
-            Kotlin中的高阶函数 | 
+            标签: Arithmetic | 
         
         Ethanhua&#39;s blog
     </title>
@@ -36,7 +36,7 @@
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="Ethan Hua">
     <meta name="description" itemprop="description" content="">
-    <meta name="keywords" content="blog,语言基础">
+    <meta name="keywords" content="blog">
 
     <!-- Site Verification -->
     
@@ -65,18 +65,15 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://yoursite.com">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="Kotlin中的高阶函数 | Ethanhua&#39;s blog">
+    <meta property="og:title" content="标签: Arithmetic | Ethanhua&#39;s blog">
     <meta property="og:image" content="/img/avatar.jpg" />
     <meta property="og:description" content="">
-    <meta property="og:article:tag" content="语言基础"> 
-
     
-        <meta property="article:published_time" content="1月 20, 2018" />
-        <meta property="article:modified_time" content="2月 03, 2018" />
+
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="Kotlin中的高阶函数 | Ethanhua&#39;s blog">
+    <meta name="twitter:title" content="标签: Arithmetic | Ethanhua&#39;s blog">
     <meta name="twitter:description" content="">
     <meta name="twitter:image" content="/img/avatar.jpg">
     <meta name="twitter:card" content="summary_large_image" />
@@ -84,43 +81,13 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://yoursite.com/2018/01/20/kotlin-function-md/index.html" />
+        <link rel="canonical" href="http://yoursite.com/tags/Arithmetic/index.html" />
     
 
     <!-- Structured-data for SEO -->
     
         
 
-
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "publisher": {
-        "@type": "Organization",
-        "name": "Ethanhua&#39;s blog",
-        "logo": "/img/avatar.jpg"
-    },
-    "author": {
-        "@type": "Person",
-        "name": "Ethan Hua",
-        "image": {
-            "@type": "ImageObject",
-            "url": "/img/avatar.jpg"
-        },
-        "description": "keep calm and be happy :)"
-    },
-    "headline": "Kotlin中的高阶函数",
-    "url": "http://yoursite.com/2018/01/20/kotlin-function-md/index.html",
-    "datePublished": "1月 20, 2018",
-    "dateModified": "2月 03, 2018",
-    "description": "",
-    "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": "http://yoursite.com"
-    }
-}
-</script>
 
 
     
@@ -300,499 +267,97 @@
                         </button>
                     
 
-                    <!-- Post TOC -->
-
+                    <!-- Index Module -->
+<div class="material-index mdl-grid">
     
-    <!-- Back Button -->
-    <!--
-    <div class="material-back" id="backhome-div" tabindex="0">
-        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
-           href="#" onclick="window.history.back();return false;"
-           target="_self"
-           role="button"
-           data-upgraded=",MaterialButton,MaterialRipple">
-            <i class="material-icons" role="presentation">arrow_back</i>
-            <span class="mdl-button__ripple-container">
-                <span class="mdl-ripple"></span>
-            </span>
-        </a>
-    </div>
-    -->
+    <div class="locate-thumbnail-symbol"></div>
 
-    <!-- Left aligned menu below button -->
-    <button id="post-toc-trigger-btn"
-        class="mdl-button mdl-js-button mdl-button--icon">
-        <i class="material-icons">format_list_numbered</i>
-    </button>
-
-    
-    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#函数式编程"><span class="post-toc-number">1.</span> <span class="post-toc-text">函数式编程</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Kotlin中的高阶函数"><span class="post-toc-number">2.</span> <span class="post-toc-text">Kotlin中的高阶函数</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#高阶函数对于Gof设计模式的取代"><span class="post-toc-number">2.0.1.</span> <span class="post-toc-text">高阶函数对于Gof设计模式的取代</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#策略模式："><span class="post-toc-number">2.0.1.1.</span> <span class="post-toc-text">策略模式：</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#模板方法模式："><span class="post-toc-number">2.0.1.2.</span> <span class="post-toc-text">模板方法模式：</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#命令模式："><span class="post-toc-number">2.0.1.3.</span> <span class="post-toc-text">命令模式：</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#迭代器模式"><span class="post-toc-number">2.0.1.4.</span> <span class="post-toc-text">迭代器模式</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#装饰者模式"><span class="post-toc-number">2.0.1.5.</span> <span class="post-toc-text">装饰者模式</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Kotlin中的一些好用的高阶函数："><span class="post-toc-number">2.0.2.</span> <span class="post-toc-text">Kotlin中的一些好用的高阶函数：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#let"><span class="post-toc-number">2.0.2.1.</span> <span class="post-toc-text">let</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#apply"><span class="post-toc-number">2.0.2.2.</span> <span class="post-toc-text">apply</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#with"><span class="post-toc-number">2.0.2.3.</span> <span class="post-toc-text">with</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#最后"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">最后</span></a></li></ol></li></ol>
-        <!--
-        <li class="mdl-menu__item">
-            Some Action
-        </li>
-        -->
-    </ul>
+    <!-- Pin on top -->
     
 
-
-
-
-
-<!-- Layouts -->
-
-    <!-- Post Module -->
-    <div class="material-post_container">
-
-        <div class="material-post mdl-grid">
-            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
-
-                <!-- Post Header(Thumbnail & Title) -->
-                
-    <!-- Paradox Post Header -->
+    <!-- Normal Post -->
+    
+        
+            
+                <!-- Paradox Thumbnail -->
+                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
+    <!-- Post Thumbnail -->
     
         
             <!-- Random Thumbnail -->
             <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-            <script type="text/ls-javascript" id="post-thumbnail-script">
-    var randomNum = Math.floor(Math.random() * 19 + 1);
-
-    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
-    $('.post_thumbnail-random').addClass('lazy');
-</script>
-
         
     
-            <p class="article-headline-p">
-                Kotlin中的高阶函数
-            </p>
-        </div>
 
-
-
-
-
-                
-                    <!-- Paradox Post Info -->
-                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
-
-    <!-- Author Avatar -->
-    <div id="author-avatar">
-        <img src="/img/avatar.jpg" width="44px" height="44px" alt="Author Avatar"/>
-    </div>
-    <!-- Author Name & Date -->
-    <div>
-        <strong>Ethan Hua</strong>
-        <span>1月 20, 2018</span>
+        <!-- Post Title -->
+        <p class="article-headline-p"><a href="/2017/07/02/lrucache/">开发中常见的缓存算法--Lru算法</a></p>
     </div>
 
-    <div class="section-spacer"></div>
+    <!-- Post Excerpt -->
+    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
+        
+            在软件开发中经常要用到缓存，如api网络请求结果缓存，图片加载缓存，本地操作记录缓存，比较常见的缓存算法就是Lru算法。
 
-    <!-- Favorite -->
-    <!--
-        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
-            <i class="material-icons" role="presentation">favorite</i>
-            <span class="visuallyhidden">favorites</span>
-        </button>
-    -->
-
-    <!-- Qrcode -->
-    
-
-    <!-- Tags (bookmark) -->
-    
-    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-        <i class="material-icons" role="presentation">bookmark</i>
-        <span class="visuallyhidden">bookmark</span>
-    </button>
-    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
-        <li class="mdl-menu__item">
-        <a class="post_tag-link" href="/tags/语言基础/">语言基础</a>
-    </ul>
-    
-
-    <!-- Share -->
-    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-    <i class="material-icons" role="presentation">share</i>
-    <span class="visuallyhidden">share</span>
-</button>
-<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
-    
-
-    
-
-    <!-- Share Weibo -->
-    
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Kotlin中的高阶函数&url=http://yoursite.com/2018/01/20/kotlin-function-md/index.html&pic=&searchPic=false&style=simple" target="_blank">
-            <li class="mdl-menu__item">
-                分享到微博
-            </li>
-        </a>
-    
-
-    <!-- Share Twitter -->
-    
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Kotlin中的高阶函数&url=http://yoursite.com/2018/01/20/kotlin-function-md/index.html&via=Ethan Hua" target="_blank">
-            <li class="mdl-menu__item">
-                分享到 Twitter
-            </li>
-        </a>
-    
-
-    <!-- Share Facebook -->
-    
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/01/20/kotlin-function-md/index.html" target="_blank">
-            <li class="mdl-menu__item">
-                分享到 Facebook
-            </li>
-        </a>
-    
-
-    <!-- Share Google+ -->
-    
-        <a class="post_share-link" href="https://plus.google.com/share?url=http://yoursite.com/2018/01/20/kotlin-function-md/index.html" target="_blank">
-            <li class="mdl-menu__item">
-                分享到 Google+
-            </li>
-        </a>
-    
-
-    <!-- Share LinkedIn -->
-    
-
-    <!-- Share QQ -->
-    
-
-    <!-- Share Telegram -->
-    
-</ul>
-
-</div>
-
-                
-
-                <!-- Post Content -->
-                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
-    
-        <h1 id="函数式编程"><a href="#函数式编程" class="headerlink" title="函数式编程"></a>函数式编程</h1><p>从Java的日常挖坑转到Kotlin中挖坑后一个显著的感受就是Kotlin相比于Java最大的一个不同点：函数式编程。它的定义如下：</p>
-<blockquote>
-<p>函数式编程（functional programming）或称函数程序设计，又称泛函编程，是一种编程范型，它将电脑运算视为数学上的函数计算，并且避免使用程序状态以及易变对象。函数编程语言最重要的基础是λ演算（lambda calculus）。而且λ演算的函数可以接受函数当作输入（引数）和输出（传出值）。</p>
-</blockquote>
-<p>函数式编程是一种编程范式，传统指令型语言Java也可以写出“函数式代码”，它最显著的特点的无程序状态，也就是说无中间可变的变量（如果有也是不可变变量、表达式或者函数），它解决的是计算问题，也就是说给它一个输入，它必定给出依赖于这个输入的唯一输出，函数式编程关注的是做什么而不是怎么做，基于它这样的特性所以它有这样的一些优点：无副作用（不修改与依赖于外界的变量），易于测试和调试错误，易于并发编程，易于热更新。<br>作为一个现代先进的语言Kotlin为了开发者更容易写出函数式代码相对于Java在语言层面上提供了一些新特性，如高阶函数，函数一等公民身份。</p>
-<h1 id="Kotlin中的高阶函数"><a href="#Kotlin中的高阶函数" class="headerlink" title="Kotlin中的高阶函数"></a>Kotlin中的高阶函数</h1><p>高阶函数的定义</p>
-<blockquote>
-<p>在数学和计算机科学中，高阶函数是至少满足下列一个条件的函数：接受一个或多个函数作为输入，输出一个函数</p>
-</blockquote>
-<p>Kotlin中高阶函数的一个例子：集合中的map</p>
-<pre><code>fun &lt;T, R&gt; List&lt;T&gt;.map(transform: (T) -&gt; R): List&lt;R&gt; {
-    val result = arrayListOf&lt;R&gt;()
-    for (item in this)
-        result.add(transform(item))
-    return result
-}
-</code></pre><p>它接受一个函数作为输入，返回列表中每个子项基于这个输入函数处理过后的新的数据集，例如 需要对一个数字列表中的每个数字翻倍的后生成一个新的列表的调用如下：</p>
-<pre><code>val doubled = ints.map { value -&gt; value * 2 }
-</code></pre><p>Kotin集合中还提供了很多对集合操作的其他的函数，其本质都是通过高阶函数来完成的，可以看到这些函数不管在代码编写上还是维护性上都相对于Java都优秀不少，上一次我们见到这种代码还是在RxJava中。</p>
-<p>另一个例子： 我们在日常开发中经常需要使用监听者模式，在Java中我们会写这样的代码：</p>
-<pre><code>public class JavaAdapter extends RecyclerView.Adapter&lt;RecyclerView.ViewHolder&gt; {
-    private OnItemClickListener onItemClickListener;
-
-    public JavaAdapter(OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
-    }
-
-    ...
-
-    @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (onItemClickListener != null) {
-                    onItemClickListener.onClick(holder.itemView, position);
-                }
-            }
-        });
-    }
-    public interface OnItemClickListener {
-        void onClick(View view, int position);
-    }
-
-}
-</code></pre><p>我们监听Adapter内部的点击事件需要定义一个点击事件的接口来包装外部需要在点击事件后的操作回调，然后传入一个实现了该接口包装了回调操作的对象， 而如果在Kotlin中使用高阶函数则可以免去定义这个回调操作的接口的过程：</p>
-<pre><code>class KotlinAdapter(val itemClick: (view: View?, position: Int) -&gt; Unit) : RecyclerView.Adapter&lt;RecyclerView.ViewHolder&gt;() {
-    ...
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
-        holder?.itemView?.setOnClickListener({
-            itemClick(holder.itemView, position)
-        })
-    }
-}
-</code></pre><p>可以看到Kotlin中高阶函数可以让我们免去不少代码，这其中还有其它因素 Kotlin中函数作为一等公民可以被定义和使用在任何地方，而Java中函数必须包含在类中</p>
-<h3 id="高阶函数对于Gof设计模式的取代"><a href="#高阶函数对于Gof设计模式的取代" class="headerlink" title="高阶函数对于Gof设计模式的取代"></a>高阶函数对于Gof设计模式的取代</h3><p>有种说法是“设计模式的产生是由于这个语言的一些缺陷造成的”，作为现代先进语言Kotlin在语言层级设计上就去掉了传统Java中需要用设计模式解决问题的操作。那么有哪些传统Java中的设计模式能被Kotlin新的函数式特性取代呢？</p>
-<h4 id="策略模式："><a href="#策略模式：" class="headerlink" title="策略模式："></a>策略模式：</h4><blockquote>
-<p>策略模式定义了算法簇，分别封装起来，让他们之间可以互相替换，此模式让算法的变化独立于使用算法的客户</p>
-</blockquote>
-<p>Java中的一个例子：</p>
-<pre><code>/**
-    * 定义策略接口
-    */
-    public interface Strategy {
-        void doSth();
-    }
-
-    /**
-    * A策略
-    */
-    public static class AStrategy implements Strategy {
-        @Override
-        public void doSth() {
-            System.out.println(&quot;Do A Strategy&quot;);
-        }
-    }
-
-    /**
-    * B策略
-    */
-    public static class BStrategy implements Strategy {
-        @Override
-        public void doSth() {
-            System.out.println(&quot;Do B Strategy&quot;);
-        }
-    }
-
-    /**
-    * 策略实施者
-    */
-    public static class Worker {
-
-        private Strategy strategy;
-
-        public Worker(Strategy strategy) {
-            this.strategy = strategy;
-        }
-
-        public void work() {
-            System.out.println(&quot;START&quot;);
-            if (strategy != null) {
-                strategy.doSth();
-            }
-            System.out.println(&quot;END&quot;);
-        }
-    }
-</code></pre><p>如上面的例子所示，有A、B两种策略，Worker根据不同的策略做不同的工作，使用策略时：</p>
-<pre><code>Worker worker1 = new Worker(new AStrategy());
-Worker worker2 = new Worker(new BStrategy());
-worker1.work();
-worker2.work();
-</code></pre><p>在java中实现这种策略模式难免需要先定义好策略的接口，然后根据接口实现不同的策略， 在Kotlin中完全可以用用高阶函数来简化策略模式，上面的例子用Kotlin实现：</p>
-<pre><code>/**
-* 策略实施者
-* @param strategy lambda类型的策略
-*/
-class Worker(private val strategy: () -&gt; Unit) {
-    fun work() {
-        println(&quot;START&quot;)
-        strategy.invoke()
-        println(&quot;END&quot;)
-    }
-
-}
-
-/*
-* 测试
-* */
-fun testStrategy() {
-    val worker1 = Worker({
-        println(&quot;Do A Strategy&quot;)
-    })
-    val bStrategy = {
-        println(&quot;Do B Strategy&quot;)
-    }
-    val worker2 = Worker(bStrategy)
-    worker1.work()
-    worker2.work()
-}
-</code></pre><p>不需要先定义策略的接口，直接把策略以函数的形式传进来就行了。</p>
-<h4 id="模板方法模式："><a href="#模板方法模式：" class="headerlink" title="模板方法模式："></a>模板方法模式：</h4><blockquote>
-<p>在操作中定义算法（步骤）的骨架，将一些步骤委托给子类</p>
-</blockquote>
-<p>这个设计模式同时用到了类的继承。定义一些 抽象方法 并且在基类调用这些方法。抽象方法由子类负责实现。</p>
-<p>Java 中的例子</p>
-<pre><code>public abstract class Task {
-        protected abstract void work();
-        public void execute(){
-            beforeWork();
-            work();
-            afterWork();
-        }
-    }
-</code></pre><p>现在从 Task 派生出一个在 work 方法中真正做了事情的具体类。<br>而Kotlin中可以通过高阶函数的形式来免去继承这个操作：</p>
-<pre><code>fun execute(task: () -&gt; Unit) {
-    val startTime = System.currentTimeMillis() //&quot;beforeWork()&quot;
-    task()
-    println(&quot;Work took ${System.currentTimeMillis() - startTime} millis&quot;) //&quot;afterWork()&quot;
-}
-
-...
-//usage:
-execute {
-    println(&quot;I&apos;m working here!&quot;)
-}
-</code></pre><h4 id="命令模式："><a href="#命令模式：" class="headerlink" title="命令模式："></a>命令模式：</h4><blockquote>
-<p>命令模式将“请求”封装成对象，以便使用不同的请求，队列或者日志来参数化其它对象，命令模式也支持可撤销的操作</p>
-</blockquote>
-<p>Java中的例子：</p>
-<pre><code>public interface Command{
-    public void execute();
-}
-
-public class LightOnCommand implements Command{
-    Light light;
-    public LightOnCommand(Light light){
-        this.light=light;
-    }
-
-    publick void execute(){
-        light.on();
-    }
-}
-
-publick class SimpleRemoteControl{
-    Command slot;
-    public SimpleRemoteControl(){}
-
-    public void setCommand(Command command){
-        slot=command;
-    }
-
-    public void buttomWasPressed(){
-        slot.execute();
-    }
-}
-</code></pre><p>Java中实现命令模式需要屏蔽的具体命令操作需要包装成一个命令对象传入到控制器内，而Kotlin中高阶函数可以直接传入被需要操作的命令，而不需要定义接口并包装成一个对象传入</p>
-<pre><code>class SimpleRemoteControl{
-
-    public void buttomWasPressed(command:()-&gt; Unit){
-        command()
-    }
-}
-</code></pre><h4 id="迭代器模式"><a href="#迭代器模式" class="headerlink" title="迭代器模式"></a>迭代器模式</h4><blockquote>
-<p>提供一种方法顺序访问一个聚合对象中的各个元素，而又不暴露内部的表示</p>
-</blockquote>
-<p>例如我们可以用高阶函数屏蔽集合类中具体迭代的实现，如Kotlin中的forEach()高阶函数，而在Java中封装一个类中顺序访问的实现细节必须定义一个接口然后来实现这个迭代器接口，外部调用的是迭代器接口实现的方法来屏蔽这个具体的实现细节</p>
-<h4 id="装饰者模式"><a href="#装饰者模式" class="headerlink" title="装饰者模式"></a>装饰者模式</h4><blockquote>
-<p>动态地将责任附加到对象上，若要扩展功能，装饰者提供了比继承更有弹性的替换方案</p>
-</blockquote>
-<p>Kotlin中可以通过扩展函数+高阶函数的组合达到目的：</p>
-<pre><code>class Text(val text: String) {
-    fun draw() = print(text)
-}
-fun Text.underline(decorated: Text.() -&gt; Unit) {
-    print(&quot;_&quot;)
-    this.decorated()
-    print(&quot;_&quot;)
-}
-// usage
-Text(&quot;Hello&quot;).underline {
-        draw()
-}
-</code></pre><p>可以看出将函数作为一等公民可以在任意地方使用包括函数参数中，可以解决一些编码中之前需要用对象包装函数的一些局限所产生的模式，当然上述Kotlin中的高阶函数提供了替代这些设计模式的可能，但是有些情况并不适合真正地去替换掉这些设计模式，如我们在Android开发中经常使用到模板方法模式 虽然在Kotlin中可以用高阶函数替代，但是某些情况下使用模板方法模式可以使代码更职责分明，语义更加明确，便于理解和维护。</p>
-<h3 id="Kotlin中的一些好用的高阶函数："><a href="#Kotlin中的一些好用的高阶函数：" class="headerlink" title="Kotlin中的一些好用的高阶函数："></a>Kotlin中的一些好用的高阶函数：</h3><h4 id="let"><a href="#let" class="headerlink" title="let"></a>let</h4><blockquote>
-<p>inline fun <t, r=""> T.let(block: (T) -&gt; R): R = block(this)</t,></p>
-</blockquote>
-<p>在需要if not null 执行代码的时候使用：</p>
-<pre><code>val value = ……
-
-value?.let {
-    …… // 代码会执行到此处, 假如data不为null
-}
-</code></pre><h4 id="apply"><a href="#apply" class="headerlink" title="apply"></a>apply</h4><blockquote>
-<p>inline fun <t> T.apply(block: T.() -&gt; Unit): T { block(); return this }</t></p>
-</blockquote>
-<p>在函数范围内，可以任意调用该对象的任意方法，并返回该对象</p>
-<pre><code>/*
-* 用apply语句简化类的初始化，在类实例化的时候，就可以通过apply把需要初始化的步骤全部实现，非常的简洁
-* */
-fun testApply(context: Context) {
-    var imgView = ImageView(context).apply {
-        setBackgroundColor(0)
-        setImageBitmap(null)
-    }
-
-    var textView = TextView(context).apply {
-        text = &quot;content&quot;
-        textSize = 20.0f
-        setPadding(10, 0, 0, 0)
-    }
-
-    var user = User().apply { 
-        age = 15
-        name = &quot;Jack&quot;
-        val a = address
-        address = &quot;bbb&quot;
-    }
-}
-</code></pre><h4 id="with"><a href="#with" class="headerlink" title="with"></a>with</h4><blockquote>
-<p>inline fun <t, r=""> with(receiver: T, block: T.() -&gt; R): R = receiver.block()</t,></p>
-</blockquote>
-<p> 可以用with语句来省略同一个变量的多次声明</p>
-<pre><code>/*
-* 通过with语句，将result参数作为参数，在内部this也可以省略掉
-* */
-fun alphabet3(): String {
-    val result = StringBuilder()
-    return with(result) {
-        append(&quot;START\n&quot;)
-        for (letter in &apos;A&apos;..&apos;Z&apos;) {
-            append(letter)
-        }
-        append(&quot;\nEND&quot;)
-        toString()
-    }
-}
-</code></pre><h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>文中内容如有错误欢迎交流沟通，谢谢阅读！</p>
-<p><img src="/img/hxz3.jpg" alt=""></p>
-<p>Thanks:<br><a href="https://github.com/heimashi/kotlin_tips" target="_blank" rel="noopener">Kotlin tips</a><br><a href="https://dev.to/lovis/gang-of-four-patterns-in-kotlin" target="_blank" rel="noopener">Gang of Four Patterns in Kotlin</a><br><a href="https://github.com/justinyhuang/Functional-Programming-For-The-Rest-of-Us-Cn/blob/master/FunctionalProgrammingForTheRestOfUs.cn.md" target="_blank" rel="noopener">傻瓜函数式编程</a><br><a href="https://www.zhihu.com/question/28292740/answer/40336090" target="_blank" rel="noopener">什么是函数式编程思维？</a></p>
-
-    
-
-    
-</div>
-
-
-                
-
-                <!-- Post Comments -->
-                
-                    
-                
+        
+        &nbsp;&nbsp;&nbsp;
+        <span>
+            <a href="/2017/07/02/lrucache/" target="_self">阅读全文</a>
+        </span>
+    </div>
+    <!-- Post_entry Info-->
+    <div id="post_entry-info">
+        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
+            <!-- Author Avatar -->
+            <div id="author-avatar">
+                <img src="/img/avatar.jpg" width="44px" height="44px" alt="Ethan Hua's avatar">
             </div>
+            <div>
+                <strong>Ethan Hua</strong>
+                <span>7月 02, 2017</span>
+            </div>
+        </div>
+        <div id="post_entry-right-info">
+            <!-- Category -->
+            <span class="post_entry-category">
+                <a class="post_category-link" href="/categories/Arithmetic/">Arithmetic</a>
+            </span>
 
-            <!-- Post Prev & Next Nav -->
-            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
-    <!-- Prev Nav -->
-    
+            
 
-    <!-- Section Spacer -->
-    <div class="section-spacer"></div>
+            
 
-    <!-- Next Nav -->
-    
-        <a href="/2018/01/09/genericity/" id="post_nav-older" class="next-content">
-            旧篇
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_forward</i>
-            </button>
-        </a>
-    
-</nav>
-
+            <!-- Post Views -->
+            <span class="post_entry-views">
+            </span>
         </div>
     </div>
+</div>
 
+            
+            
+        
+    
+
+    
+
+    
+        <script type="text/ls-javascript" id="thumbnail-script">
+    var randomNum;
+
+    var locatePost = $('.locate-thumbnail-symbol').next();
+    for(var i = 0; i < 10; i++) {
+        randomNum = Math.floor(Math.random() * 19 + 1);
+
+        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
+        locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+
+        locatePost = locatePost.next();
+    }
+</script>
+
+    
+</div>
 
 
                     
@@ -961,14 +526,6 @@ It will not impact the appearance and can give developers a lot of support :)
 </aside>
 
                     
-
-                    
-                        <!-- Footer Top Button -->
-                        <div id="back-to-top" class="toTop-wrap">
-    <a href="#top" class="toTop">
-        <i class="material-icons footer_top-i">expand_less</i>
-    </a>
-</div>
 
                     
 
