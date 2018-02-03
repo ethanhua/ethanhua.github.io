@@ -12,7 +12,7 @@
     
     <title>
         
-            标签: 语言基础 | 
+            熟悉的陌生人ImageView | 
         
         Ethanhua&#39;s blog
     </title>
@@ -36,7 +36,7 @@
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="Ethan Hua">
     <meta name="description" itemprop="description" content="">
-    <meta name="keywords" content="blog">
+    <meta name="keywords" content="blog,UI/Android">
 
     <!-- Site Verification -->
     
@@ -65,15 +65,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://yoursite.com">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="标签: 语言基础 | Ethanhua&#39;s blog">
+    <meta property="og:title" content="熟悉的陌生人ImageView | Ethanhua&#39;s blog">
     <meta property="og:image" content="/img/avatar.jpg" />
     <meta property="og:description" content="">
-    
+    <meta property="og:article:tag" content="UI/Android"> 
 
+    
+        <meta property="article:published_time" content="7月 15, 2017" />
+        <meta property="article:modified_time" content="2月 03, 2018" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="标签: 语言基础 | Ethanhua&#39;s blog">
+    <meta name="twitter:title" content="熟悉的陌生人ImageView | Ethanhua&#39;s blog">
     <meta name="twitter:description" content="">
     <meta name="twitter:image" content="/img/avatar.jpg">
     <meta name="twitter:card" content="summary_large_image" />
@@ -81,13 +84,43 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://yoursite.com/tags/语言基础/index.html" />
+        <link rel="canonical" href="http://yoursite.com/2017/07/15/imageview/index.html" />
     
 
     <!-- Structured-data for SEO -->
     
         
 
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Ethanhua&#39;s blog",
+        "logo": "/img/avatar.jpg"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Ethan Hua",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.jpg"
+        },
+        "description": "keep calm and be happy :)"
+    },
+    "headline": "熟悉的陌生人ImageView",
+    "url": "http://yoursite.com/2017/07/15/imageview/index.html",
+    "datePublished": "7月 15, 2017",
+    "dateModified": "2月 03, 2018",
+    "description": "",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://yoursite.com"
+    }
+}
+</script>
 
 
     
@@ -267,156 +300,377 @@
                         </button>
                     
 
-                    <!-- Index Module -->
-<div class="material-index mdl-grid">
-    
-    <div class="locate-thumbnail-symbol"></div>
+                    <!-- Post TOC -->
 
-    <!-- Pin on top -->
     
-
-    <!-- Normal Post -->
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/01/20/kotlin-function-md/">Kotlin中的高阶函数</a></p>
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
     </div>
+    -->
 
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            函数式编程
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2018/01/20/kotlin-function-md/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.jpg" width="44px" height="44px" alt="Ethan Hua's avatar">
-            </div>
-            <div>
-                <strong>Ethan Hua</strong>
-                <span>1月 20, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
+    <!-- Left aligned menu below button -->
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#但是这里有一个问题"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">但是这里有一个问题</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#我们需要换一个方向再来考虑这个问题"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">我们需要换一个方向再来考虑这个问题</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#那么有没有不新建-bitmap-对原始-bitmap-进行转换并应用在-ImageView-上面的方法呢？"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">那么有没有不新建 bitmap 对原始 bitmap 进行转换并应用在 ImageView 上面的方法呢？</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#还有这种操作？"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">还有这种操作？</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#最终方案"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">最终方案</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#最后"><span class="post-toc-number">2.</span> <span class="post-toc-text">最后</span></a></li></ol>
+        <!--
+        <li class="mdl-menu__item">
+            Some Action
+        </li>
+        -->
+    </ul>
+    
+
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
                 
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
+    <!-- Paradox Post Header -->
     
         
             <!-- Random Thumbnail -->
             <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
 
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/01/09/genericity/">深入理解Java和Kotlin中的泛型</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            总结一波 Java 和 Kotlin 中的泛型知识
-
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2018/01/09/genericity/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.jpg" width="44px" height="44px" alt="Ethan Hua's avatar">
-            </div>
-            <div>
-                <strong>Ethan Hua</strong>
-                <span>1月 09, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/语言基础/">语言基础</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-
-    
-
-    
-        <script type="text/ls-javascript" id="thumbnail-script">
-    var randomNum;
-
-    var locatePost = $('.locate-thumbnail-symbol').next();
-    for(var i = 0; i < 10; i++) {
-        randomNum = Math.floor(Math.random() * 19 + 1);
-
-        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
-        locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
     $('.post_thumbnail-random').addClass('lazy');
-
-        locatePost = locatePost.next();
-    }
 </script>
 
+        
+    
+            <p class="article-headline-p">
+                熟悉的陌生人ImageView
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.jpg" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>Ethan Hua</strong>
+        <span>7月 15, 2017</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/UI-Android/">UI/Android</a>
+    </ul>
+    
+
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=熟悉的陌生人ImageView&url=http://yoursite.com/2017/07/15/imageview/index.html&pic=&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=熟悉的陌生人ImageView&url=http://yoursite.com/2017/07/15/imageview/index.html&via=Ethan Hua" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2017/07/15/imageview/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://yoursite.com/2017/07/15/imageview/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a><strong>前言</strong></h2><p>项目中产品经理提了一个对话框全屏背景旋转的效果图：</p>
+<p><img src="/img/rotateImg.png" alt=""></p>
+<p>背景是一张从中心位置向四周发射光柱的图片，并且有一个不停旋转的动画。</p>
+<p>看到这个需求的时候，马上想到的一个方案是用一个填充满全屏的ImageView来承载这个图片，然后用一个旋转的属性动画应用在这个 ImageView 上</p>
+<h3 id="但是这里有一个问题"><a href="#但是这里有一个问题" class="headerlink" title="但是这里有一个问题"></a><strong>但是这里有一个问题</strong></h3><p>如果 ImageView 的大小仅仅是屏幕的大小，旋转过后它的形状必然被屏幕裁剪，导致4个边角有留白区域，达不到我们想要的全屏背景图旋转的效果。</p>
+<p>问题点是 ImageView 旋转时被屏幕裁剪后留有空白。那么让 ImageView 的区域扩展到屏幕以外保证它的长和宽都大于屏幕的对角线，这样无论怎么旋转 ImageView 它都不会被屏幕裁剪后有边角空白区域了，思路是这样，但是好像没有什么实际可操作性，Android 中这个 ImageView 能否超出屏幕还是个问题，超出父控件倒有个属性为 clipChildren ，设置为 false 就可以不裁剪子 View 了，虽然这么说但是还是要尝试一下，各种调试属性加 Google 一番发现没什么卵用，这就尴尬了。</p>
+<h3 id="我们需要换一个方向再来考虑这个问题"><a href="#我们需要换一个方向再来考虑这个问题" class="headerlink" title="我们需要换一个方向再来考虑这个问题"></a><strong>我们需要换一个方向再来考虑这个问题</strong></h3><p>既然要达到图形旋转的效果，除了旋转这个图形容器载体 ImageView 外，我们可以通过改变 ImageView 内部的 bitmap 来达到视觉上旋转的效果，而操作 bitmap 变换是通过矩阵变换来实现的，具体代码如下：   </p>
+<pre><code>//计算需要放大的倍数
+private void caclulateScaleFactor(){
+    mScreenWidth = getDialog().getWindow().getWindowManager().getDefaultDisplay().getWidth();
+    mScreenHeight = getDialog().getWindow().getWindowManager().getDefaultDisplay().getHeight();
+    double r = Math.sqrt(mScreenWidth * mScreenWidth + mScreenHeight * mScreenHeight);
+    int min = Math.min(mBgBitmap.getWidth(), mBgBitmap.getHeight());
+    scaleFactor=(float) Math.ceil(r / min);
+}
+
+ //利用handler.sendEmptyMessageDelayed来实时刷新bitmap来达到旋转的效果
+
+private Handler mHandler = new Handler() {
+    @Override
+    public void handleMessage(Message msg) {
+        if (MSG_ROTATE_ANIMATOR == msg.what) {
+            if (mBgImageView == null) {
+                return;
+            }
+            Matrix matrix=new Matrix();
+            rotateDegree=rotateDegree+1;
+            //旋转
+            matrix.postRotate(rotateDegree);
+            //放大
+            matrix.postScale(scaleFactor,scaleFactor);
+            //创建经过处理后的bitmap
+            Bitmap nextBitmap=Bitmap.createBitmap(mBgBitmap,0,0,mBgBitmap.getWidth(),mBgBitmap.getHeight(),matrix,true);
+            //重新设回到ImageView上
+            mBgImageView.setImageBitmap(nextBitmap);
+            mHandler.sendEmptyMessageDelayed(MSG_ROTATE_ANIMATOR, 50);
+        }
+    }
+};
+</code></pre><p>这里主要是利用<code>Bitmap.createBitmap(source,px,py,width,height,matrix,filter)</code>这个函数来对bitmap应用matrix并生成新的bitmap，形状变换主要是通过matrix来操作。<strong>matrix矩阵变换</strong>通俗来说就是将bitmap所有元素点的坐标经过矩阵运算得到新的坐标点来达到变换的作用，具体可以看这边文章<br>  <a href="http://www.gcssloop.com/customview/Matrix_Basic" target="_blank" rel="noopener">安卓自定义View进阶-Matrix原理</a></p>
+<p><strong>但是</strong></p>
+<p>运行后发现虽然达到了满屏旋转的效果，但是页面比较卡顿，内存监控图上是一个频率很高的锯齿线图，表明内存抖动的厉害，频繁 gc 导致阻塞了 UI。</p>
+<p><img src="http://ethanhua.cn/img/memorymonitor.png" alt=""></p>
+<p>其实看看代码也可以知道，我们在一个50ms的间隔循环内创建新的 bitmap ，bitmap 的内存占用还是很大的。</p>
+<h3 id="那么有没有不新建-bitmap-对原始-bitmap-进行转换并应用在-ImageView-上面的方法呢？"><a href="#那么有没有不新建-bitmap-对原始-bitmap-进行转换并应用在-ImageView-上面的方法呢？" class="headerlink" title="那么有没有不新建 bitmap 对原始 bitmap 进行转换并应用在 ImageView 上面的方法呢？"></a>那么有没有不新建 bitmap 对原始 bitmap 进行转换并应用在 ImageView 上面的方法呢？</h3><p>Canvas 类中有一个方法是:</p>
+<pre><code>canvas.drawBitmap(bitmap,matrix,paint);  
+</code></pre><p>会通过 matrix 对 bitmap 进行处理后绘制在 canvas 上，不需要创建一个新的 bitmap，但是这个  canvas 是 View 内部绘制执行时的 canvas，我们通过在 View 外部直接 new 一个 Canvas 并没有什么用 倒是可以通过</p>
+<pre><code>Canvas canvas=new Canvas();
+
+canvas.setBitmap(bitmap);  
+
+canvas.drawBitmap(sourceBitmap,matrix,paint);
+</code></pre><p>将画布的绘制又转化到 bitmap 上，但是这样又会有创建一个新的 bitmap 的问题</p>
+<p><strong>所以只能通过重写继承ImageView的onDraw方法来操作</strong></p>
+<p>但是单为这去重写一个ImageView不是一个简洁的方案，同时侵入性较高。</p>
+<h3 id="还有这种操作？"><a href="#还有这种操作？" class="headerlink" title="还有这种操作？"></a>还有这种操作？</h3><p>阅读了一番 ImageView 的源码后发现了这么一个方法 </p>
+<p><strong>ImageView.setImageMatrix(matrix)</strong></p>
+<pre><code>/**
+    * Adds a transformation {@link Matrix} that is applied
+    * to the view&apos;s drawable when it is drawn.  Allows custom scaling,
+    * translation, and perspective distortion.
+    *
+    * @param matrix the transformation parameters in matrix form
+    */
+    public void setImageMatrix(Matrix matrix) {
+        // collapse null and identity to just null
+        if (matrix != null &amp;&amp; matrix.isIdentity()) {
+            matrix = null;
+        }
+
+        // don&apos;t invalidate unless we&apos;re actually changing our matrix
+        if (matrix == null &amp;&amp; !mMatrix.isIdentity() ||
+                matrix != null &amp;&amp; !mMatrix.equals(matrix)) {
+            mMatrix.set(matrix);
+            configureBounds();
+            invalidate();
+        }
+    }  
+</code></pre><p>这个方法会将一个矩阵 matrix 设置在 ImageView 内部，然后在 draw 的时候会应用上这个        matrix ，这不正是我们想要的吗？我们继续看 ImageView 的 onDraw() 方法</p>
+<pre><code>protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+
+        if (mDrawable == null) {
+            return; // couldn&apos;t resolve the URI
+        }
+
+        if (mDrawableWidth == 0 || mDrawableHeight == 0) {
+            return;     // nothing to draw (empty bounds)
+        }
+
+        if (mDrawMatrix == null &amp;&amp; mPaddingTop == 0 &amp;&amp; mPaddingLeft == 0) {
+            mDrawable.draw(canvas);
+        } else {
+            final int saveCount = canvas.getSaveCount();
+            canvas.save();
+
+            if (mCropToPadding) {
+                final int scrollX = mScrollX;
+                final int scrollY = mScrollY;
+                canvas.clipRect(scrollX + mPaddingLeft, scrollY + mPaddingTop,
+                        scrollX + mRight - mLeft - mPaddingRight,
+                        scrollY + mBottom - mTop - mPaddingBottom);
+            }
+
+            canvas.translate(mPaddingLeft, mPaddingTop);
+
+            if (mDrawMatrix != null) {
+                canvas.concat(mDrawMatrix);
+            }
+            mDrawable.draw(canvas);
+            canvas.restoreToCount(saveCount);
+        }
+    }   
+</code></pre><p>可以看到这个函数最后几行代码中会将 matrix 应用到 canvas 中去，并绘制出来<br>这个 <strong>mDrawMatrix</strong> 其实就是在刚才的<code>setImageMatrix(matrix)</code>函数中的 </p>
+<pre><code>configureBounds()
+</code></pre><p>中被赋值给 matrix 的。不过还需要一个条件就是 ImageView 的 ScaleType 为 Matrix</p>
+<h3 id="最终方案"><a href="#最终方案" class="headerlink" title="最终方案"></a><strong>最终方案</strong></h3><pre><code>private void initRotateBgImageView() {
+        mBgBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.img_building_overlay);
+        mBgImageView.setImageBitmap(mBgBitmap);
+        mBgImageView.setScaleType(ImageView.ScaleType.MATRIX);
+        mScreenWidth = getDialog().getWindow().getWindowManager().getDefaultDisplay().getWidth();
+        mScreenHeight = getDialog().getWindow().getWindowManager().getDefaultDisplay().getHeight();
+        double r = Math.sqrt(mScreenWidth * mScreenWidth + mScreenHeight * mScreenHeight);
+        int min = Math.min(mBgBitmap.getWidth(), mBgBitmap.getHeight());
+        float scale = (float) Math.ceil(r / min);
+        float px = (scale * (mBgBitmap.getWidth() / 2)) - mScreenWidth / 2;
+        float py = (scale * (mBgBitmap.getHeight() / 2)) - mScreenHeight / 2;
+        //放大bitmap已达到旋转后的bitmap仍然能够充满屏幕
+        matrix.postScale(scale, scale);
+        //移动放大后的bitmap的中心到屏幕的中心
+        matrix.postTranslate(-px, -py);
+        mBgImageView.setImageMatrix(matrix);
+        mHandler.sendEmptyMessageDelayed(MSG_ROTATE_ANIMATOR, 50);
+    }
+
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (MSG_ROTATE_ANIMATOR == msg.what) {
+                if (mBgImageView == null) {
+                    return;
+                }
+                //旋转操作
+                matrix.postRotate(ORIENTATION_DEGREE, mScreenWidth / 2, mScreenHeight / 2);
+                mBgImageView.setImageMatrix(matrix);
+                mHandler.sendEmptyMessageDelayed(MSG_ROTATE_ANIMATOR, 50);
+            }
+        }
+    };
+</code></pre><h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>谢谢阅读！<br><img src="/img/hxz0203-4.jpg" alt="">    </p>
+
+    
+
     
 </div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2018/01/09/genericity/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2017/07/02/lrucache/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
 
 
                     
@@ -585,6 +839,14 @@ It will not impact the appearance and can give developers a lot of support :)
 </aside>
 
                     
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
 
                     
 
