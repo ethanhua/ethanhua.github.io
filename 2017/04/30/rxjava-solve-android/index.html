@@ -12,7 +12,7 @@
     
     <title>
         
-            归档: 2018/1 | 
+            利用RxJava和Fragment解决Android中的割裂式编程 | 
         
         Ethanhua&#39;s blog
     </title>
@@ -36,7 +36,7 @@
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="Ethan Hua">
     <meta name="description" itemprop="description" content="">
-    <meta name="keywords" content="blog">
+    <meta name="keywords" content="blog,RxJava/Android">
 
     <!-- Site Verification -->
     
@@ -65,15 +65,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://yoursite.com">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="归档: 2018/1 | Ethanhua&#39;s blog">
+    <meta property="og:title" content="利用RxJava和Fragment解决Android中的割裂式编程 | Ethanhua&#39;s blog">
     <meta property="og:image" content="/img/avatar.jpg" />
     <meta property="og:description" content="">
-    
+    <meta property="og:article:tag" content="RxJava/Android"> 
 
+    
+        <meta property="article:published_time" content="4月 30, 2017" />
+        <meta property="article:modified_time" content="2月 03, 2018" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="归档: 2018/1 | Ethanhua&#39;s blog">
+    <meta name="twitter:title" content="利用RxJava和Fragment解决Android中的割裂式编程 | Ethanhua&#39;s blog">
     <meta name="twitter:description" content="">
     <meta name="twitter:image" content="/img/avatar.jpg">
     <meta name="twitter:card" content="summary_large_image" />
@@ -81,13 +84,43 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://yoursite.com/archives/2018/01/index.html" />
+        <link rel="canonical" href="http://yoursite.com/2017/04/30/rxjava-solve-android/index.html" />
     
 
     <!-- Structured-data for SEO -->
     
         
 
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Ethanhua&#39;s blog",
+        "logo": "/img/avatar.jpg"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Ethan Hua",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.jpg"
+        },
+        "description": "keep calm and be happy :)"
+    },
+    "headline": "利用RxJava和Fragment解决Android中的割裂式编程",
+    "url": "http://yoursite.com/2017/04/30/rxjava-solve-android/index.html",
+    "datePublished": "4月 30, 2017",
+    "dateModified": "2月 03, 2018",
+    "description": "",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://yoursite.com"
+    }
+}
+</script>
 
 
     
@@ -267,156 +300,291 @@
                         </button>
                     
 
-                    <!-- Index Module -->
-<div class="material-index mdl-grid">
-    
-    <div class="locate-thumbnail-symbol"></div>
+                    <!-- Post TOC -->
 
-    <!-- Pin on top -->
     
-
-    <!-- Normal Post -->
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/01/20/kotlin-function-md/">Kotlin中的高阶函数</a></p>
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
     </div>
+    -->
 
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            函数式编程
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2018/01/20/kotlin-function-md/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.jpg" width="44px" height="44px" alt="Ethan Hua's avatar">
-            </div>
-            <div>
-                <strong>Ethan Hua</strong>
-                <span>1月 20, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
+    <!-- Left aligned menu below button -->
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#问题的产生"><span class="post-toc-number">1.</span> <span class="post-toc-text">问题的产生</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决思路"><span class="post-toc-number">2.</span> <span class="post-toc-text">解决思路</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#最后"><span class="post-toc-number">3.</span> <span class="post-toc-text">最后</span></a></li></ol>
+        <!--
+        <li class="mdl-menu__item">
+            Some Action
+        </li>
+        -->
+    </ul>
+    
+
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
                 
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
+    <!-- Paradox Post Header -->
     
         
             <!-- Random Thumbnail -->
             <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
 
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/01/09/genericity/">深入理解Java和Kotlin中的泛型</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            总结一波 Java 和 Kotlin 中的泛型知识
-
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2018/01/09/genericity/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.jpg" width="44px" height="44px" alt="Ethan Hua's avatar">
-            </div>
-            <div>
-                <strong>Ethan Hua</strong>
-                <span>1月 09, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/语言基础/">语言基础</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-
-    
-
-    
-        <script type="text/ls-javascript" id="thumbnail-script">
-    var randomNum;
-
-    var locatePost = $('.locate-thumbnail-symbol').next();
-    for(var i = 0; i < 10; i++) {
-        randomNum = Math.floor(Math.random() * 19 + 1);
-
-        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
-        locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
     $('.post_thumbnail-random').addClass('lazy');
-
-        locatePost = locatePost.next();
-    }
 </script>
 
+        
+    
+            <p class="article-headline-p">
+                利用RxJava和Fragment解决Android中的割裂式编程
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.jpg" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>Ethan Hua</strong>
+        <span>4月 30, 2017</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/RxJava-Android/">RxJava/Android</a>
+    </ul>
+    
+
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=利用RxJava和Fragment解决Android中的割裂式编程&url=http://yoursite.com/2017/04/30/rxjava-solve-android/index.html&pic=&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=利用RxJava和Fragment解决Android中的割裂式编程&url=http://yoursite.com/2017/04/30/rxjava-solve-android/index.html&via=Ethan Hua" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2017/04/30/rxjava-solve-android/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://yoursite.com/2017/04/30/rxjava-solve-android/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h2 id="问题的产生"><a href="#问题的产生" class="headerlink" title="问题的产生"></a>问题的产生</h2><p>学会使用 Rxjava 后我们可以把之前用 <code>listener</code> 传回调的编程方式改为链式事件流编程方式，例如下面对第三方传 <code>listener</code> 的异步调用包装成一个返回 <code>Observable</code> 对象的函数：</p>
+<pre><code>public static Observable&lt;List&lt;Tip&gt;&gt; query(Context context, String querytext) {
+    return Observable.create(subscriber -&gt; {
+        final Inputtips.InputtipsListener[] listener = {null};
+        listener[0] = (list, i) -&gt; {
+            if (!subscriber.isUnsubscribed() &amp;amp;&amp;amp; i == RESULT_SUCCESS_CODE) {
+                subscriber.onNext(list);
+            }
+            if (subscriber.isUnsubscribed()) {
+                listener[0] = null;
+            }
+        };
+        Inputtips inputtips = new Inputtips(context, new InputtipsQuery(querytext, null));
+        inputtips.setInputtipsListener(listener[0]);
+        inputtips.requestInputtipsAsyn();
+    });
+}
+</code></pre><p>但是有些异步的调用是不提供让我们传<code>Callback</code>的形式的，例如我们在开发中经常会遇到这样的场景：</p>
+<blockquote>
+<p>打开手机相册，调用相机拍照，申请系统权限</p>
+</blockquote>
+<p>这类事件的回调通常由系统调用我们 <code>Activity</code> 或者 <code>Fragment</code> 的一些方法来运作的，如：</p>
+<pre><code>onActivityResult onRequestPermissionResult 
+</code></pre><p>像这类异步调用我们用不了上面的方式来包装成一个<code>Observable</code>对象，从而没法实现链式编程方式，我们在某处执行了某个动作但需要在其它的地方来处理异步的回调，这种割裂式的编程在项目业务代码复杂后在维护性和易读性上都大打折扣，那么我们应该怎么去解决这个问题呢？</p>
+<p>我们发现这类问题的关键是在拿不到回调事件的事件源，回调事件的事件源在系统这些类已经定义好的回调方法 <code>onActivityResult</code> <code>onRequestPermissionResult</code>上, 而如果在这些方法中获取事件源就必然也是一种割裂式编程，如下面这种写法</p>
+<pre><code>private PublishSubject&lt;ActivityResult&gt; publishSubject = PublishSubject.create();
+private Observable&lt;ActivityResult&gt; startActivity(){
+    startActivityForResult(new Intent(),1);
+    return publishSubject;
+}
+@Override
+protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    ActivityResult activityResult = new ActivityResult();
+    activityResult.setRequestCode(requestCode);
+    activityResult.setResultCode(resultCode);
+    activityResult.setData(data);
+    publishSubject.onNext(activityResult);
+}
+</code></pre><p>这种写法虽然在某种意义上实现了事件流链式编程的方式，但是有一个缺点就是需要去改变现有代码，需要在我们的 <code>BaseActivity</code> 中去定义对应的 <code>Subject</code> 并在对应的方法中去发送事件，而且如果我们不是在<code>Activity</code>类中调用 <code>startActivity</code>而是在  <code>Presenter</code>或者<code>ViewModel</code>中调用，那这种依赖于 <code>Activity</code> 引用的侵入性的写法就不太好了。</p>
+<h2 id="解决思路"><a href="#解决思路" class="headerlink" title="解决思路"></a>解决思路</h2><p>问题还是在于怎样获取到整个事件回调时的事件源，并将此回调事件和发起的调用事件串起来构成一条完整的事件流。<br>看了 <a href="https://github.com/tbruyelle/RxPermissions" target="_blank" rel="noopener">RxPermissions</a> 开源项目的源码后 我发现了一种思路：  </p>
+<blockquote>
+<p><strong>利用一个无页面的 Fragment 去中转其所在 Activity 的一些生命周期回调事件</strong>  </p>
+</blockquote>
+<p>其中就包括<code>onRequestPermissionResult</code>事件这里需要注意的是有哪些<code>fragment</code>中的回调方法会同步<code>Activity</code>的事件，有没有什么限制，比如 : 如果要回调 <code>fragment</code> 中<code>onActivityResult</code> 就必须是在该 <code>fragment</code> 中调用 <code>startActivity</code> 且所在 <code>Activity</code> 必须调用<code>super.onActivityResult()</code> 方法，如果项目中有人重写了 <code>Activity</code> 的 <code>onActivityResult</code> 方法，并且去掉了对 <code>super.onActivityResult</code> 的调用，那么 <code>fragment</code> 中的 <code>onActivityResult</code> 将接收不到回调事件（所以如果采用这种有限制的写法，就需要在团队中声明这种限制条件，以免出现问题）。这里有一篇关于无界面的 fragment 一些用法的文章：<br><a href="https://github.com/hehonghui/android-tech-frontier/blob/master/issue-18/%E7%94%A8%E7%BB%84%E5%90%88%E4%BB%A3%E6%9B%BF%E7%BB%A7%E6%89%BF%E8%83%BD%E4%B8%BAActivity%E5%B8%A6%E6%9D%A5%E4%BB%80%E4%B9%88.md" target="_blank" rel="noopener">用组合代替继承能为 Activity 带来什么</a></p>
+<p>这样我们就解决了这个问题，我们可以愉快的使用这种链式调用的方式了：例如这里的几个库已经实现了这种调用方式</p>
+<p><a href="https://github.com/tbruyelle/RxPermissions" target="_blank" rel="noopener">RxPermissions</a><br><a href="https://github.com/VictorAlbertos/RxActivityResult" target="_blank" rel="noopener">RxActivityResult(做了一些安全性的处理，是利用无页面的 Activity 做中转的)</a><br><a href="https://github.com/nekocode/RxActivityResult" target="_blank" rel="noopener">RxActivityResult(利用无界面 Fragment 做事件中转)</a></p>
+<p><strong>RxPermissions:</strong></p>
+<pre><code>rxPermissions
+    .request(Manifest.permission.CAMERA)
+    .subscribe(granted -&gt; {
+        if (granted) { // Always true pre-M
+        // I can control the camera now
+        } else {
+        // Oups permission denied
+        }
+    });
+</code></pre><p><strong>RxActivityResult:</strong></p>
+<pre><code>RxActivityResult.startActivityForResult(this, intent, REQUEST_CODE)
+        .subscribe(new Consumer&lt;ActivityResult&gt;() {
+            @Override
+            public void accept(@NonNull ActivityResult result) throws Exception {
+                if (result.isOk()) {
+                    final Intent data = result.getData();
+                    // DO SOME THING
+                }
+            }
+        });
+</code></pre><p>当然还有另一种通用的侵入式写法就是一开始提到的。 可以在 <code>BaseActivity</code> 和<code>BaseFragment</code> 里面创建 <code>Subject</code> 然后在对应的回调中去发射对应的事件，这种写法的优缺点也比较明显：必须在基类中做这些处理，对代码的侵入性比较大，但是兼用性较好，可以处理一切回调方法（不需要考虑 <code>fragment</code> 的事件同步问题），性能也最优（不需要创建一个中转 <code>fragment</code> 或者 <code>activity</code>）</p>
+<p>选择两种方式都是可以的 我个人倾向于选用第一种利用中间件（ <code>Fragment</code> 或者<code>Activity</code> ）的方式，主要是无侵入性，随到随用，需要使用时就调用提前包装好的方法即可，只要了解处理好生命周期的兼容性问题即可。</p>
+<p>其实当我们获取到 <code>Activity</code> 或者 <code>Fragment</code> 中这些回调事件事件源 <code>Observable</code> 后我们可以有一些其他的用途，例如可以组合<code>onDestory</code> 和<code>OnDestoryView</code> 的 <code>Observable</code> 到网络请求的事件中，这样就可以在页面销毁时及时停止掉网络请求避免一些内存泄漏和空指针异常，这个也有类似已经实现了的库也是上面的两种方式:<br><a href="https://github.com/trello/RxLifecycle" target="_blank" rel="noopener">RxLifecycle</a><br><a href="https://github.com/zhihu/RxLifecycle" target="_blank" rel="noopener">RxLifecycle（利用fragment承载事件）</a></p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>谢谢阅读！ 谢谢RxJava带给我们这些好用的功能</p>
+
+    
+
     
 </div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2018/01/09/genericity/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+</nav>
+
+        </div>
+    </div>
+
 
 
                     
