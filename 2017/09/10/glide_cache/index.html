@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head>
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.4.0 -->
+    <script>window.materialVersion = "1.4.0"</script>
+
+    <!-- Title -->
+    
+    <title>
+        
+            Glide强大的缓存功能模块 | 
+        
+        Ethanhua&#39;s blog
+    </title>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="theme-color" content="#0097A7">
+    <meta name="author" content="Ethan Hua">
+    <meta name="description" itemprop="description" content="">
+    <meta name="keywords" content="blog,Image Load/Android">
+
+    <!-- Site Verification -->
+    
+    
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/avatar.jpg">
+    <link rel="icon" sizes="192x192" href="/img/avatar.jpg">
+    <link rel="apple-touch-icon" href="/img/avatar.jpg">
+
+    <!--iOS -->
+    <meta name="apple-mobile-web-app-title" content="Title">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="480">
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Ethanhua&#39;s blog">
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="http://yoursite.com">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="Glide强大的缓存功能模块 | Ethanhua&#39;s blog">
+    <meta property="og:image" content="/img/avatar.jpg" />
+    <meta property="og:description" content="">
+    <meta property="og:article:tag" content="Image Load/Android"> 
+
+    
+        <meta property="article:published_time" content="9月 10, 2017" />
+        <meta property="article:modified_time" content="2月 04, 2018" />
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:title" content="Glide强大的缓存功能模块 | Ethanhua&#39;s blog">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:image" content="/img/avatar.jpg">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="http://yoursite.com" />
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="http://yoursite.com/2017/09/10/glide_cache/index.html" />
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Ethanhua&#39;s blog",
+        "logo": "/img/avatar.jpg"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Ethan Hua",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.jpg"
+        },
+        "description": "keep calm and be happy :)"
+    },
+    "headline": "Glide强大的缓存功能模块",
+    "url": "http://yoursite.com/2017/09/10/glide_cache/index.html",
+    "datePublished": "9月 10, 2017",
+    "dateModified": "2月 04, 2018",
+    "description": "",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://yoursite.com"
+    }
+}
+</script>
+
+
+    
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(key){try{localStorage.removeItem(key)}catch(e){}};lsloader.setLS=function(key,val){try{localStorage.setItem(key,val)}catch(e){}};lsloader.getLS=function(key){var val="";try{val=localStorage.getItem(key)}catch(e){val=""}return val};versionString="/*"+materialVersion+"*/";lsloader.clean=function(){try{var keys=[];for(var i=0;i<localStorage.length;i++){keys.push(localStorage.key(i))}keys.forEach(function(key){var data=lsloader.getLS(key);if(data&&data.indexOf(versionString)===-1){lsloader.removeLS(key)}})}catch(e){}};lsloader.clean();lsloader.load=function(jsname,jspath,cssonload){cssonload=cssonload||function(){};var code;code=this.getLS(jsname);if(code&&code.indexOf(versionString)===-1){this.removeLS(jsname);this.requestResource(jsname,jspath,cssonload);return}if(code){var versionNumber=code.split(versionString)[0];if(versionNumber!=jspath){console.log("reload:"+jspath);this.removeLS(jsname);this.requestResource(jsname,jspath,cssonload);return}code=code.split(versionString)[1];if(/\.js?.+$/.test(versionNumber)){this.jsRunSequence.push({name:jsname,code:code});this.runjs(jspath,jsname,code)}else{document.getElementById(jsname).appendChild(document.createTextNode(code));cssonload()}}else{this.requestResource(jsname,jspath,cssonload)}};lsloader.requestResource=function(name,path,cssonload){var that=this;if(/\.js?.+$/.test(path)){this.iojs(path,name,function(path,name,code){that.setLS(name,path+versionString+code);that.runjs(path,name,code)})}else if(/\.css?.+$/.test(path)){this.iocss(path,name,function(code){document.getElementById(name).appendChild(document.createTextNode(code));that.setLS(name,path+versionString+code)},cssonload)}};lsloader.iojs=function(path,jsname,callback){var that=this;that.jsRunSequence.push({name:jsname,code:""});try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(path,jsname,xhr.response);return}}that.jsfallback(path,jsname)}};xhr.send(null)}catch(e){that.jsfallback(path,jsname)}};lsloader.iocss=function(path,jsname,callback,cssonload){var that=this;try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(xhr.response);cssonload();return}}that.cssfallback(path,jsname,cssonload)}};xhr.send(null)}catch(e){that.cssfallback(path,jsname,cssonload)}};lsloader.iofonts=function(path,jsname,callback,cssonload){var that=this;try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(xhr.response);cssonload();return}}that.cssfallback(path,jsname,cssonload)}};xhr.send(null)}catch(e){that.cssfallback(path,jsname,cssonload)}};lsloader.runjs=function(path,name,code){if(!!name&&!!code){for(var k in this.jsRunSequence){if(this.jsRunSequence[k].name==name){this.jsRunSequence[k].code=code}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var script=document.createElement("script");script.appendChild(document.createTextNode(this.jsRunSequence[0].code));script.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(script);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var that=this;var script=document.createElement("script");script.src=this.jsRunSequence[0].path;script.type="text/javascript";this.jsRunSequence[0].status="loading";script.onload=function(){that.jsRunSequence.shift();if(that.jsRunSequence.length>0){that.runjs()}};document.body.appendChild(script)}};lsloader.tagLoad=function(path,name){this.jsRunSequence.push({name:name,code:"",path:path,status:"failed"});this.runjs()};lsloader.jsfallback=function(path,name){if(!!this.jsnamemap[name]){return}else{this.jsnamemap[name]=name}for(var k in this.jsRunSequence){if(this.jsRunSequence[k].name==name){this.jsRunSequence[k].code="";this.jsRunSequence[k].status="failed";this.jsRunSequence[k].path=path}}this.runjs()};lsloader.cssfallback=function(path,name,cssonload){if(!!this.cssnamemap[name]){return}else{this.cssnamemap[name]=1}var link=document.createElement("link");link.type="text/css";link.href=path;link.rel="stylesheet";link.onload=link.onerror=cssonload;var root=document.getElementsByTagName("script")[0];root.parentNode.insertBefore(link,root)};lsloader.runInlineScript=function(scriptId,codeId){var code=document.getElementById(codeId).innerText;this.jsRunSequence.push({name:scriptId,code:code});this.runjs()};lsloader.loadCombo=function(jslist){var updateList="";var requestingModules={};for(var k in jslist){var LS=this.getLS(jslist[k].name);if(!!LS){var version=LS.split(versionString)[0];var code=LS.split(versionString)[1]}else{var version=""}if(version==jslist[k].path){this.jsRunSequence.push({name:jslist[k].name,code:code,path:jslist[k].path})}else{this.jsRunSequence.push({name:jslist[k].name,code:null,path:jslist[k].path,status:"comboloading"});requestingModules[jslist[k].name]=true;updateList+=(updateList==""?"":";")+jslist[k].path}}var that=this;if(!!updateList){var xhr=new XMLHttpRequest;xhr.open("get",combo+updateList,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){that.runCombo(xhr.response,requestingModules);return}}else{for(var i in that.jsRunSequence){if(requestingModules[that.jsRunSequence[i].name]){that.jsRunSequence[i].status="failed"}}that.runjs()}}};xhr.send(null)}this.runjs()};lsloader.runCombo=function(comboCode,requestingModules){comboCode=comboCode.split("/*combojs*/");comboCode.shift();for(var k in this.jsRunSequence){if(!!requestingModules[this.jsRunSequence[k].name]&&!!comboCode[0]){this.jsRunSequence[k].status="comboJS";this.jsRunSequence[k].code=comboCode[0];this.setLS(this.jsRunSequence[k].name,this.jsRunSequence[k].path+versionString+comboCode[0]);comboCode.shift()}}this.runjs()}})();</script>
+
+    <!-- Import CSS & jQuery -->
+    
+        <style id="css/material.min.css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("css/material.min.css","/css/material.min.css?fJTiM/K1J3dWIruo3pxtAw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";})</script>
+        <style id="css/style.min.css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("css/style.min.css","/css/style.min.css?oCSEO3ST+aEypEwttTDI9g==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";})</script>
+        
+        
+            <style>
+    
+    
+    
+    
+    
+    
+    
+    .footer-sns-github {
+        background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgY2xhc3M9Imljb24iIHZpZXdCb3g9IjAgMCAxMDI0IDEwMjQiPjxwYXRoIGQ9Ik0xMzguNCA3OGMtNi40IDEuNC0yNi40IDE0LjItMzYgMjIuOC04IDcuMi0yMiAyOS44LTI0LjQgMzkuMi0xLjYgNi40LTIgMTEzLjItMS42IDM2OCAuNiAyOTkuNCAxIDM1OS44IDMuNCAzNjQgMTEgMjAuMiAyMS42IDMyLjQgMzcuMiA0MyAxNS42IDEwLjYgMTcuMiAxMS4yIDM0LjIgMTMuMiAxMC42IDEuMiA2My40IDEuNiAxMjcuNiAxLjRsMTA5LjYtLjYgNi02LjggNi4yLTYuOC0xLjItMjUuMmMtLjgtMTUuOC0uMi0zMy40IDEuNC00Ny4yIDMtMjUuNCAxLjQtMzYuMi02LTQzLjItNS00LjYtNi4yLTQuOC0zMC42LTQuMi0yNy42LjgtMjQgMS42LTY4LjgtMTYtOC42LTMuNC0yMi42LTE4LTI4LjQtMjkuOC0xMS40LTIyLjgtMjctNDUtMzkuMi01NS42LTE0LTEyLjItMTkuOC0yMC44LTE5LjgtMjguNiAwLTExLjYgMTMuNi0xMi42IDMzLjItMi40IDE2LjYgOC44IDIwLjggMTIuNCA0MC44IDM2LjIgMjQuMiAyOC42IDMxIDMzLjYgNTQgMzkuNiAxNS4yIDQgNDIuMiAzIDUxLjQtMS44IDktNC42IDE4LTE1LjIgMjQuNC0yOS4yIDExLjQtMjQuMiA3LjQtMzEuMi0yMC42LTM2LjgtOS44LTItMjkuMi04LTQzLjQtMTMuNC00MC40LTE1LjgtNjQuNi0zNy40LTg1LjQtNzYuMi0xMS42LTIxLjgtMTUuNC0zMy0xOC4yLTUzLjYtNC4yLTMyLjItNC44LTYwLjItMS40LTg0IDMuNC0yMy44IDYuOC0zMi44IDIwLjItNTQgNC02IDguOC0xNS42IDExLTIxLjQgMy44LTEwIDMuOC0xMS42IDEtMzAtNS4yLTM0LjItMy4yLTUyLjQgNy42LTcwLjIgNy4yLTEyLjIgMTUtMTcuMiAyNC4yLTE1LjggMTIuOCAyLjIgNTIgMTcuNCA2Ni44IDI2LjIgMjYgMTUgMjkgMTUuNCA4Mi40IDcuMiAyNC42LTMuOCAzMy44LTQuMiA2MC0zLjIgMTcgLjYgNDEuNCAzIDU0IDUuMiAzOC40IDYuNiA0OS42IDUuMiA3My0xMCA2LjYtNC4yIDE3LjQtOS40IDI0LTExLjYgNi42LTIuMiAxNi01LjggMjEtOC4yIDEzLTYgMjgtNS42IDM1LjYuOCAxMi40IDEwLjQgMTguNiA0MS40IDE0LjQgNzEuNi00LjQgMzAuNi0zIDM5LjQgOC40IDUzLjggMy40IDQuNCAxMS4yIDE5LjIgMTcuNCAzMy4yTDc3NSA0NDN2NzhsLTEwIDI4Yy0xNS4yIDQzLjItMzYuOCA3My4yLTY2LjIgOTIuOC0xMy40IDguOC01NyAyNS40LTc2LjggMjktMjguMiA1LjItMzMuMiAxMi42LTIyIDMyLjIgMTEuMiAxOS40IDEyLjQgMzIuOCAxMS42IDEyOS42bC0uNiA4NS44IDUuNCA0LjZjMy42IDMgOS4yIDUuMiAxNiA2IDUuOC44IDYwLjIgMSAxMjAuNi42IDEwOC40LS42IDExMC4yLS42IDExOS01IDI0LTExLjYgNDAtMjcuNCA1MS42LTUwLjZsNS40LTExIC42LTM0N2MuNC0yMjMtLjItMzUzLjQtMS40LTM2NS0yLTE3LTIuNi0xOC42LTEzLTM0LTEwLjYtMTUuNC0yMi44LTI2LjItNDMuMi0zNy4yLTQuMi0yLjQtNjQuNi0yLjgtMzY2LTMuMi0xOTguNiAwLTM2NCAuNC0zNjcuNiAxLjR6Ii8+PC9zdmc+);
+    }
+    
+    
+    
+    
+    
+</style>
+
+        
+        <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #0097A7 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #0097A7 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #0097A7 !important;
+  }
+
+  .toTop {
+    background: #757575 !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #757575;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #757575;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #757575;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-color: #F5F5F5;
+      }
+
+      /* blog_info bottom background */
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+        background-color: #fff;
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+
+
+        <script>lsloader.load("js/jquery.min.js","/js/jquery.min.js?qcusAULNeBksqffqUM2+Ig==")</script>
+    
+    
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Analytics -->
+    
+
+    <!-- Custom Head -->
+    
+</head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+    <!-- Left aligned menu below button -->
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#磁盘缓存和内存缓存"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">磁盘缓存和内存缓存</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Bitmap缓存复用"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Bitmap缓存复用</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#缓存流程分析"><span class="post-toc-number">2.</span> <span class="post-toc-text">缓存流程分析</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#读取内存缓存"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">读取内存缓存</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#读取磁盘缓存"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">读取磁盘缓存</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#往磁盘中写入原图"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">往磁盘中写入原图</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#往磁盘缓存中写入处理图"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">往磁盘缓存中写入处理图</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#写入内存缓存"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">写入内存缓存</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#总结"><span class="post-toc-number">3.</span> <span class="post-toc-text">总结</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#内存缓存"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">内存缓存</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#LruResourceCache"><span class="post-toc-number">3.1.1.</span> <span class="post-toc-text">LruResourceCache</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ActiveResources"><span class="post-toc-number">3.1.2.</span> <span class="post-toc-text">ActiveResources</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#BitmapPool"><span class="post-toc-number">3.1.3.</span> <span class="post-toc-text">BitmapPool</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#磁盘缓存"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">磁盘缓存</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#DiskLruCache"><span class="post-toc-number">3.2.1.</span> <span class="post-toc-text">DiskLruCache</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#最后"><span class="post-toc-number">4.</span> <span class="post-toc-text">最后</span></a></li></ol>
+        <!--
+        <li class="mdl-menu__item">
+            Some Action
+        </li>
+        -->
+    </ul>
+    
+
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                Glide强大的缓存功能模块
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.jpg" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>Ethan Hua</strong>
+        <span>9月 10, 2017</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/Image-Load-Android/">Image Load/Android</a>
+    </ul>
+    
+
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Glide强大的缓存功能模块&url=http://yoursite.com/2017/09/10/glide_cache/index.html&pic=&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Glide强大的缓存功能模块&url=http://yoursite.com/2017/09/10/glide_cache/index.html&via=Ethan Hua" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2017/09/10/glide_cache/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://yoursite.com/2017/09/10/glide_cache/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h3 id="磁盘缓存和内存缓存"><a href="#磁盘缓存和内存缓存" class="headerlink" title="磁盘缓存和内存缓存"></a>磁盘缓存和内存缓存</h3><p>一般图片加载框架的缓存模块设计都会有<strong>磁盘缓存</strong>和<strong>内存缓存</strong>这两级缓存。</p>
+<p><strong>磁盘缓存</strong>的目的是为了在显示一张图片资源时不需要每次去从网络上重新请求，当第一次从网络上获取到图片资源时保存在本地以便下次显示的时候直接从本地磁盘中获取。 </p>
+<p><strong>内存缓存</strong>的目的是为了在显示一张图片资源时不需要每次进行io操作从本地磁盘上获取，当第一次从磁盘上获取到图片资源时保存在内存中以便下次显示的时候直接从内存中获取加快加载速度。</p>
+<p>缓存的缺点是时效性较低，但这在图片缓存中并不存在，图片一般以一个url来标识唯一性，图片资源发生变化时通常会有一个新的url生成，所以可以说缓存模块在图片加载框架中是很有必要的。</p>
+<p><strong>但仅有磁盘缓存和内存缓存不够</strong> </p>
+<h3 id="Bitmap缓存复用"><a href="#Bitmap缓存复用" class="headerlink" title="Bitmap缓存复用"></a>Bitmap缓存复用</h3><p>移动设备中对内存的使用管理要求很高，而图片资源往往是比较占内存的，这就要求我们在加载图片时尽量合理的使用内存，虽然有了图片内存缓存程序在一般情况都都能工作得很好，不会出现大的问题，但是内存缓存的容量总是有限度的(一般为LRU策略)，不能无限制地增长，所以程序还是会周期性的申请和释放内存。特别是在一个长列表快速滑动时，会造成大量的图片申请和释放，导致 GC 频繁，进而产生卡顿</p>
+<p>所以这就要求我们对图片显示实体对象有一个复用策略，避免大量的图片申请和释放  </p>
+<p>Android 中图片的显示实体是 Bitmap 对象，每次图片显示时会将图片资源构建成一个 Bitmap 对象，创建 Bitmap 和销毁 Bitmap 是比较消耗系统资源的，所以能让 Bitmap 可复用可有效降低 Bitmap的创建和销毁和频繁的内存申请和释放操作，从而减少卡顿提高应用性能，在3.0以前 Bitmap 的数据是存在 native 区域，3.0以后存在 Dalvik 内存区域，API11 后 系统提供了 Bitmap 复用的 API<br> <a href="https://developer.android.com/topic/performance/graphics/manage-memory.html" target="_blank" rel="noopener">Managing Bitmap Memory</a></p>
+<p>Glide 中为了复用 Bitmap 构建了一个 BitmapPool，图片的 Bitmap 的申请和释放都需要通过它来处理。需要加载新的图片时，先从 BitmapPool 中查找有没有相应大小或者稍大一点的 Bitmap，有则直接使用，没有再创建新的 Bitmap。一个长列表中的图片往往是大小相同的，所以这个复用率还是相当可观的。</p>
+<p><strong>另外</strong> Glide中还有一个 activeResource 缓存，存放的是正在使用的图片资源对象，数据结构为 <code>HashMap&lt;Key, WeakReference&lt;EngineResource&lt;?&gt;&gt;&gt;</code> 不同于内存缓存用 Lru 算法策略的是，该缓存是无容量大小限制的，内部用引用计数来确定是否被外界所正在使用，当引用为0时会从该缓存中移除，加入到内存缓存或者 BitmapPool 中。该缓存的作用是保护正在使用的资源并复用，试想一下如果没有这级缓存，只有 LruMemoryCache 那么当 LruMemoryCache 缓存达到容量上限时有可能移除掉正在使用的图片资源，当应用中另外一个地方需要同时显示同样的图片资源时Glide将在内存中找不到这个资源对象则又会重建一个新的资源对象。</p>
+<p>Glide中这几种缓存除了 activeResource 缓存外都使用了LruCache策略，关于LruCache策略可以回看我之前发的文章<br><a href="http://ethanhua.cn/archives/181" target="_blank" rel="noopener">http://ethanhua.cn/archives/181</a>  </p>
+<p>功能需求分析完了，剩下的就是具体的代码实现了，我将会从图片的加载流程中摘取出有关于缓存模块的流程分析</p>
+<p>为了避免直接扎入源码分析中迷失自我，先简单明了来一张流程总结图，通过这张流程图就能窥伺Glide的缓存模块的主体实现策略了。</p>
+<p><img src="/img/glide_cacheflow2.png" alt=""></p>
+<p>四种缓存数据结构之间的数据流动图</p>
+<p><img src="/img/glide_cacheflow1.png" alt=""></p>
+<h2 id="缓存流程分析"><a href="#缓存流程分析" class="headerlink" title="缓存流程分析"></a>缓存流程分析</h2><h3 id="读取内存缓存"><a href="#读取内存缓存" class="headerlink" title="读取内存缓存"></a>读取内存缓存</h3><p>在<code>Glide.with().load().into()</code>的<code>into</code>方法里构建了request 并执行了它的 begin方法，begin 方法中会在确定了 target 的宽和高后执行 onSizeReady 回调转到 Engine 的 load 方法中，此方法中我们与缓存模块有了第一次会面</p>
+<pre><code>public class Engine implements EngineJobListener,
+        MemoryCache.ResourceRemovedListener,
+        EngineResource.ResourceListener {
+
+        public &lt;T, Z, R&gt; LoadStatus load(Key signature, int width, int height, DataFetcher&lt;T&gt; fetcher,
+            DataLoadProvider&lt;T, Z&gt; loadProvider, Transformation&lt;Z&gt; transformation, ResourceTranscoder&lt;Z, R&gt; transcoder,
+            Priority priority, boolean isMemoryCacheable, DiskCacheStrategy diskCacheStrategy, ResourceCallback cb) {
+        ......
+
+        final String id = fetcher.getId();
+        EngineKey key = keyFactory.buildKey(id, signature, width, height, loadProvider.getCacheDecoder(),
+                loadProvider.getSourceDecoder(), transformation, loadProvider.getEncoder(),
+                transcoder, loadProvider.getSourceEncoder());
+
+        /// 从LruResourceCache中获取
+        EngineResource&lt;?&gt; cached = loadFromCache(key, isMemoryCacheable);
+        if (cached != null) {
+            ///GenericRequest
+            cb.onResourceReady(cached);
+            if (Log.isLoggable(TAG, Log.VERBOSE)) {
+                logWithTimeAndKey(&quot;Loaded resource from cache&quot;, startTime, key);
+            }
+            return null;
+        }
+
+        /// 从activeResources中获取
+        EngineResource&lt;?&gt; active = loadFromActiveResources(key, isMemoryCacheable);
+        if (active != null) {
+            ///GenericRequest
+            cb.onResourceReady(active);
+            if (Log.isLoggable(TAG, Log.VERBOSE)) {
+                logWithTimeAndKey(&quot;Loaded resource from active resources&quot;, startTime, key);
+            }
+            return null;
+        }
+        //从磁盘和网络中获取
+        ......
+    }
+
+    private EngineResource&lt;?&gt; loadFromActiveResources(Key key, boolean isMemoryCacheable) {
+        if (!isMemoryCacheable) {
+            return null;
+        }
+
+        EngineResource&lt;?&gt; active = null;
+        WeakReference&lt;EngineResource&lt;?&gt;&gt; activeRef = activeResources.get(key);
+        if (activeRef != null) {
+            active = activeRef.get();
+            if (active != null) {
+                active.acquire();
+            } else {
+                activeResources.remove(key);
+            }
+        }
+
+        return active;
+    }
+
+    ///从LruResourceCache中获取,若有则移除并放入activesource
+    private EngineResource&lt;?&gt; loadFromCache(Key key, boolean isMemoryCacheable) {
+        if (!isMemoryCacheable) {
+            return null;
+        }
+
+        EngineResource&lt;?&gt; cached = getEngineResourceFromCache(key);
+        if (cached != null) {
+            cached.acquire();
+            activeResources.put(key, new ResourceWeakReference(key, cached, getReferenceQueue()));
+        }
+        return cached;
+    }
+
+    @SuppressWarnings(&quot;unchecked&quot;)
+    private EngineResource&lt;?&gt; getEngineResourceFromCache(Key key) {
+        Resource&lt;?&gt; cached = cache.remove(key);
+
+        final EngineResource result;
+        if (cached == null) {
+            result = null;
+        } else if (cached instanceof EngineResource) {
+            // Save an object allocation if we&apos;ve cached an EngineResource (the typical case).
+            result = (EngineResource) cached;
+        } else {
+            result = new EngineResource(cached, true /*isCacheable*/);
+        }
+        return result;
+    }
+}
+</code></pre><p>先调用 loadFromCache() 从 MemoryCache 中获取，如果命中则将缓存从 MemoryCache 中移除并放入 activeResources，然后返回。如果缓存失效则尝试从 activeResources 中获取，如果都失效再构建 EngineRunnable 从磁盘或者网络获取。</p>
+<p>是否决定从 MemoryCache 和 activeResources 中获取的前提条件是 isMemoryCacheable 为 true。这个值从 GenericRequestBuilder 传过来，默认为true，也就是说 Glide 默认开启内存缓存。除非你主动调用了 skipMemoryCache() 使该加载请求跳过内存缓存。该方法就是通过将 isMemoryCacheable 置为 false 实现的。</p>
+<p>这里出现了 MemoryCache 和 activeResources，它们一起构成的 Glide 中的内存缓存。它们的 Key，都是由 url、图片大小、decoder、encoder等变量组成。MemoryCache 用于保存最近使用过而当前不在使用的 EngineResource，在 GlideBuilder 中被初始化。activeResources 用于保存当前正在被使用的 EngineResource，是一个使用 Key 作为键， EngineResource 的弱引用为值的 HashMap</p>
+<h3 id="读取磁盘缓存"><a href="#读取磁盘缓存" class="headerlink" title="读取磁盘缓存"></a>读取磁盘缓存</h3><p>当 MemoryCache 和 activeResources 都失效时，程序才构建一个 EngineRunnable 并交给线程池执行。在 EngineRunnable 的 run() 方法中就调用了 decode() 尝试从磁盘或网络获取图片，在decode() 方法里面会先调用 decodeFromCache() 从磁盘中获取图片，如果没有则调用 decodeFromSource() 从源端获取。 从磁盘中获取图片流程中 先会调用 decodeResultFromCache() 获取处理图  如果没有则调用decodeSourceFromCache() 去获取原图</p>
+<pre><code>class DecodeJob&lt;A, T, Z&gt; {
+
+    ///从磁盘decode转化过的resource,然后transcode
+    public Resource&lt;Z&gt; decodeResultFromCache() throws Exception {
+        if (!diskCacheStrategy.cacheResult()) {
+            return null;
+        }
+
+        long startTime = LogTime.getLogTime();
+        ///Resource&lt;GifBitmapWrapper&gt;
+        Resource&lt;T&gt; transformed = loadFromCache(resultKey);
+        if (Log.isLoggable(TAG, Log.VERBOSE)) {
+            logWithTimeAndKey(&quot;Decoded transformed from cache&quot;, startTime);
+        }
+        startTime = LogTime.getLogTime();
+        ///Resource&lt;GlideDrawable&gt;
+        Resource&lt;Z&gt; result = transcode(transformed);
+        if (Log.isLoggable(TAG, Log.VERBOSE)) {
+            logWithTimeAndKey(&quot;Transcoded transformed from cache&quot;, startTime);
+        }
+        return result;
+    }
+
+    public Resource&lt;Z&gt; decodeSourceFromCache() throws Exception {
+        if (!diskCacheStrategy.cacheSource()) {
+            return null;
+        }
+
+        long startTime = LogTime.getLogTime();
+        ///Resource&lt;GifBitmapWrapper&gt; 使用的是OriginalKey
+        Resource&lt;T&gt; decoded = loadFromCache(resultKey.getOriginalKey());
+        if (Log.isLoggable(TAG, Log.VERBOSE)) {
+            logWithTimeAndKey(&quot;Decoded source from cache&quot;, startTime);
+        }
+        return transformEncodeAndTranscode(decoded);
+    }
+
+    private Resource&lt;T&gt; loadFromCache(Key key) throws IOException {
+        File cacheFile = diskCacheProvider.getDiskCache().get(key);
+        if (cacheFile == null) {
+            return null;
+        }
+
+        Resource&lt;T&gt; result = null;
+        try {
+            ///FileToStreamDecoder,将file解码成Resource&lt;GifBitmapWrapper&gt;实例是GifBitmapWrapperResource
+            result = loadProvider.getCacheDecoder().decode(cacheFile, width, height);
+        } finally {
+            if (result == null) {
+                diskCacheProvider.getDiskCache().delete(key);
+            }
+        }
+        return result;
+    }
+}
+</code></pre><p>decodeResultFromCache() 方法和 decodeSourceFromCache() 方法内部都调用了 loadFromCache() 方法来获取磁盘缓存，只不过前者使用的参数是 resultKey 而后者使用的是 OriginalKey。<br>它们得到的都是一个缓存文件，只不过前者写入的内容是变换后的图片，后者后者写入的内容是原始的图片。所以前者获取文件之后只需要进行解码和转码即可，而后者需要进行变换加上解码和转码。</p>
+<p>decodeSourceFromCache() 方法中从磁盘缓存中获取原图之后调用了 transformEncodeAndTranscode() 方法进行变换和转码，这里也涉及到缓存的操作，这个会在后面讲到。</p>
+<p>是否决定从磁盘缓存中获取取决于 DiskCacheStrategy，它是一个枚举类，用来表示一组缓存策略，cacheSource 属性表示是否缓存原图，cacheResult 属性表示是否缓存处理图。Glide 的默认的磁盘缓存是 RESULT，即只缓存处理图，也可以通过 diskCacheStrategy() 方法来指定。</p>
+<pre><code>public enum DiskCacheStrategy {
+    /** Caches with both {@link #SOURCE} and {@link #RESULT}. */
+    ALL(true, true),
+    /** Saves no data to cache. */
+    NONE(false, false),
+    /** Saves just the original data to cache. */
+    SOURCE(true, false),
+    /** Saves the media item after all transformations to cache. */
+    RESULT(false, true);
+
+    private final boolean cacheSource;
+    private final boolean cacheResult;
+
+    DiskCacheStrategy(boolean cacheSource, boolean cacheResult) {
+        this.cacheSource = cacheSource;
+        this.cacheResult = cacheResult;
+    }
+}
+</code></pre><h3 id="往磁盘中写入原图"><a href="#往磁盘中写入原图" class="headerlink" title="往磁盘中写入原图"></a>往磁盘中写入原图</h3><p>当从磁盘缓存中既取不到原图也取不到处理图时，才会发起网络请求去获取。相应的逻辑在 DecodeJob 的 decodeFromSource() 方法中。</p>
+<p>在 decodeFromSource() 方法中，程序首先调用了 decodeSource() 方法来从网络中获取 InputStream 以及解码成 Bitmap，然后调用 transformEncodeAndTranscode() 来进行图片的变换和转码。这两个步骤中都涉及到对缓存的操作。先来看看 decodeSource() 方法</p>
+<pre><code>private Resource&lt;T&gt; decodeSource() throws Exception {
+        Resource&lt;T&gt; decoded = null;
+        try {
+            long startTime = LogTime.getLogTime();
+            ///ImageVideoFetcher,内部使用... 返回一个ImageVideoWrapper
+            final A data = fetcher.loadData(priority);
+            if (Log.isLoggable(TAG, Log.VERBOSE)) {
+                logWithTimeAndKey(&quot;Fetched data&quot;, startTime);
+            }
+            if (isCancelled) {
+                return null;
+            }
+            ///返回 Resource&lt;GifBitmapWrapper&gt;
+            decoded = decodeFromSourceData(data);
+        } finally {
+            fetcher.cleanup();
+        }
+        return decoded;
+    }
+
+    private Resource&lt;T&gt; decodeFromSourceData(A data) throws IOException {
+        final Resource&lt;T&gt; decoded;
+        ///判断磁盘缓存策略中是否缓存source,缓存ImageVideoWrapper并decode(原始InputStream)
+        if (diskCacheStrategy.cacheSource()) {
+            decoded = cacheAndDecodeSourceData(data);
+        } else {
+            ......
+        }
+        return decoded;
+    }
+
+    private Resource&lt;T&gt; cacheAndDecodeSourceData(A data) throws IOException {
+        long startTime = LogTime.getLogTime();
+        ///loadProvider是FixedLoadProvider,里面封装了ImageVideoGifDrawableLoadProvider
+        // 这里实际返回的ImageVideoWrapperEncoder
+        SourceWriter&lt;A&gt; writer = new SourceWriter&lt;A&gt;(loadProvider.getSourceEncoder(), data);
+        ///diskCacheProvider是一个LazyDiskCacheProvider,返回DiskLruCacheWrapper实例
+        ///resultKey由Engine构造decodejob的时候传进来,由EngineKeyFactory.builidKey返回.
+        diskCacheProvider.getDiskCache().put(resultKey.getOriginalKey(), writer);
+        if (Log.isLoggable(TAG, Log.VERBOSE)) {
+            logWithTimeAndKey(&quot;Wrote source to cache&quot;, startTime);
+        }
+
+        startTime = LogTime.getLogTime();
+        Resource&lt;T&gt; result = loadFromCache(resultKey.getOriginalKey());
+        if (Log.isLoggable(TAG, Log.VERBOSE) &amp;&amp; result != null) {
+            logWithTimeAndKey(&quot;Decoded source from cache&quot;, startTime);
+        }
+        return result;
+    }    
+</code></pre><p>  decodeSource() 方法中 DateFetcher 的 loadData() 方法从网络中获取数据之后，调用了 decodeFromSourceData() 方法开始进行解码。在 decodeFromSourceData() 方法中，解码前首先判断当前磁盘缓存策略，如果 cacheSource 为 true，那么解码前还有写入磁盘缓存的操作，也就是 cacheAndDecodeSourceData() 方法。方法中获取了 DiskLruCacheWrapper 对象然后调用了它的 put() 方法来写入缓存，最终会将从服务器获取的 InputSteream 写入一个缓存文件中，缓存对应的 Key 是由 Url 生成的 OriginalKey。</p>
+<h3 id="往磁盘缓存中写入处理图"><a href="#往磁盘缓存中写入处理图" class="headerlink" title="往磁盘缓存中写入处理图"></a>往磁盘缓存中写入处理图</h3><p>  回到 decodeSource() 方法，将图片解码之后，接着就是调用 transformEncodeAndTranscode() 进行变换和转码，这里也涉及到缓存的操作</p>
+<pre><code>private Resource&lt;Z&gt; transformEncodeAndTranscode(Resource&lt;T&gt; decoded) {
+        long startTime = LogTime.getLogTime();
+        ///因为decodeSourceFromCache去取出的resource还没有经过transform,要先transform再缓存起来
+        Resource&lt;T&gt; transformed = transform(decoded);
+        if (Log.isLoggable(TAG, Log.VERBOSE)) {
+            logWithTimeAndKey(&quot;Transformed resource from source&quot;, startTime);
+        }
+
+        ///将transform后的resource写入缓存 bitmap或GifDrawable
+        writeTransformedToCache(transformed);
+
+        startTime = LogTime.getLogTime();
+        ///与decodeResultFromCache的第二步一样
+        Resource&lt;Z&gt; result = transcode(transformed);
+        if (Log.isLoggable(TAG, Log.VERBOSE)) {
+            logWithTimeAndKey(&quot;Transcoded transformed from source&quot;, startTime);
+        }
+        return result;
+    }
+
+    private void writeTransformedToCache(Resource&lt;T&gt; transformed) {
+        if (transformed == null || !diskCacheStrategy.cacheResult()) {
+            return;
+        }
+        long startTime = LogTime.getLogTime();
+        ///GifBitmapWrapperResourceEncoder
+        SourceWriter&lt;Resource&lt;T&gt;&gt; writer = new SourceWriter&lt;Resource&lt;T&gt;&gt;(loadProvider.getEncoder(), transformed);
+        ///resultKey是一个EngineKey
+        diskCacheProvider.getDiskCache().put(resultKey, writer);
+        if (Log.isLoggable(TAG, Log.VERBOSE)) {
+            logWithTimeAndKey(&quot;Wrote transformed from source to cache&quot;, startTime);
+        }
+    }
+</code></pre><p> transformEncodeAndTranscode() 方法中调用了 transform() 方法进行图片变换之后调用了 writeTransformedToCache() 方法来尝试将 Resource 写入磁盘缓存。</p>
+<h3 id="写入内存缓存"><a href="#写入内存缓存" class="headerlink" title="写入内存缓存"></a>写入内存缓存</h3><p> 按着图片的加载流程，经过变换和转码之后，会回到 EngineRunnable 的 run() 方法，然后回调 EngineJob 的 onResourceReady() 方法，通知图片获取已经完成。我们直接来到 handleResultOnMainThread() 方法，这时 EngineJob 正准备将 onResourceReady() 回调分发给 GenericRequest。</p>
+<pre><code>private void handleResultOnMainThread() {
+    if (isCancelled) {
+        resource.recycle();
+        return;
+    } else if (cbs.isEmpty()) {
+        throw new IllegalStateException(&quot;Received a resource without any callbacks to notify&quot;);
+    }
+    ///封装成一个EngineResource
+    engineResource = engineResourceFactory.build(resource, isCacheable);
+    hasResource = true;
+
+    // Hold on to resource for duration of request so we don&apos;t recycle it in the middle of notifying if it
+    // synchronously released by one of the callbacks.
+    engineResource.acquire();
+    ///key是一个EngineKey。如果resource.isCacheable()为true,resource将添加到activeResources中,并在移除时加入memorycache
+    listener.onEngineJobComplete(key, engineResource);
+
+    ///这里的ResourceCallback就是GenericRequest,由GenericRequest调用EngineJob的load方法时传入
+    for (ResourceCallback cb : cbs) {
+        if (!isInIgnoredCallbacks(cb)) {
+            engineResource.acquire();
+            ///回调GenericRequest
+            cb.onResourceReady(engineResource);
+        }
+    }
+    // Our request is complete, so we can release the resource.
+    engineResource.release();
+}
+
+public void onEngineJobComplete(Key key, EngineResource&lt;?&gt; resource) {
+    Util.assertMainThread();
+    // A null resource indicates that the load failed, usually due to an exception.
+    if (resource != null) {
+        ///监听engineresource的释放,从activeResources中移除,移除时放入MemoryCache中
+        resource.setResourceListener(key, this);
+
+        if (resource.isCacheable()) {
+            ///将resource放到activeResources中
+            activeResources.put(key, new ResourceWeakReference(key, resource, getReferenceQueue()));
+        }
+    }
+    // TODO: should this check that the engine job is still current?
+    jobs.remove(key);
+}
+
+@Override
+public void onResourceReleased(Key cacheKey, EngineResource resource) {
+    Util.assertMainThread();
+    activeResources.remove(cacheKey);
+    if (resource.isCacheable()) {
+        ///将resource转移到cache中
+        cache.put(cacheKey, resource);
+    } else {
+        resourceRecycler.recycle(resource);
+    }
+}       
+</code></pre><p>注意 listener.onEngineJobComplete(key, engineResource) ，这里的 listener 正是 EngineJob 自身。在 EngineJob 的 onEngineJobComplete() 方法中给 EngineResource 设置了一个 ResourceListener，并且如果没有设置跳过内存缓存，将 EngineResource 放入 activeResources 中。那么 ResourceListener 做了什么呢？</p>
+<p>ResourceListener 接口中只有 onResourceReleased() 一个方法，当 EngineResource 需要被释放时会回调该方法来通知监听者。这里的监听者正是 EngineJob，在 EngineJob 的 onResourceReleased() 方法中，将 EngineResource 从 activeResources 中删除，并且如果没有设置跳过内存缓存，则放入 MemoryCache 中，否则回收 EngineResource。这讲导致 EngineResource 中持有的 Bitmap 回收到 BitmapPool 中，等待复用。</p>
+<p>接着图片将显示到 Target 上，加载流程结束，其中涉及的缓存操作也分析完毕。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><h3 id="内存缓存"><a href="#内存缓存" class="headerlink" title="内存缓存"></a>内存缓存</h3><p>内存缓存包括 LruResourceCache 和 ActiveResources 存储的对象都是 EngineResource 对象。它是 Resource 对象的封装，并且内部维护对 Resource 的引用计数。调用 acquire() 引用计数+1，调用 release() 引用计数-1.当调用 release() 后引用计数为0时，由 ResourceListener（目前只有 Engine）来将其从 ActiveResources 移除并决定放入 LruResourceCache 还是调用 Resouece 的 recycler() 方法来回收相关资源，例如将 Bitmap 放入 BitmapPool。</p>
+<h4 id="LruResourceCache"><a href="#LruResourceCache" class="headerlink" title="LruResourceCache"></a>LruResourceCache</h4><p>LruResourceCache 用于保存最近被使用但是当前不在使用的资源。它的最大容量与屏幕分辨率和 Bitmap 质量参数有关，默认是 宽度 Pixels<em>高度 Piexls</em>ARGB_8888图片的质量参数*2,这样至少足够缓存两个屏幕大小的图片了。当容量过大时，使用 LRU 算法来移除最近最少使用的缓存项。（ LruResourceCache 和 BitmapPool 默认容量大小是由一个MemorySizeCalculator的类来计算）</p>
+<p>LruResourceCache 用于保存最近被使用但是当前不在使用的资源。其中缓存的来源只有一个：ActiveResources。当 ActiveResources 中的缓存不再被使用时，会被移除，放入 LruResourceCache 中。缓存的去向有两个：一个是缓存通过 remove() 被读取时，转移到 ActiveResources 中，第二个是最近使用较少被 LRU 算法移除，然后相关的 Bitmap 资源回收到 BitmapPool。</p>
+<h4 id="ActiveResources"><a href="#ActiveResources" class="headerlink" title="ActiveResources"></a>ActiveResources</h4><p>虽说 ActiveResources 中的资源是当前正在使用的资源，Glide 也提供了负责清理 ActiveResources 弱可达资源的实现(弱引用中保存的对象可能在系统资源紧张时被清除了，但是弱引用本身还存在，所以需要在恰当的时机清除)。实现方法是构造 EngineResource 的弱引用 WeakReference 时传进 ReferenceQueue 来监听弱引用的回收。当系统检测到该 EngineResource 是弱可达，即不在被使用时，就将该弱引用放入 ReferenceQueue 中。如果 ReferenceQueue 不为空，就说明 EngineResource 该被回收了，可是在什么时候回收呢？</p>
+<p>Glide 在当前线程对应 Looper 所对应的 MessageQueue 中通过 addIdleHandler() 方法添加了一个 IdleHandler 实例 RefQueueIdleHandler，当 MessageQueue 空闲的时候就会回调 IdleHandler 的 queueIdle() 方法，在 queueIdle() 方法中清理保存的引用对象为空的 WeakReference对象 </p>
+<pre><code>private EngineResource&lt;?&gt; loadFromCache(Key key, boolean isMemoryCacheable) {
+    if (!isMemoryCacheable) {
+        return null;
+    }
+
+    EngineResource&lt;?&gt; cached = getEngineResourceFromCache(key);
+    if (cached != null) {
+        cached.acquire();
+        activeResources.put(key, new ResourceWeakReference(key, cached, getReferenceQueue()));
+    }
+    return cached;
+}
+
+private static class ResourceWeakReference extends WeakReference&lt;EngineResource&lt;?&gt;&gt; {
+    private final Key key;
+
+    public ResourceWeakReference(Key key, EngineResource&lt;?&gt; r, ReferenceQueue&lt;? super EngineResource&lt;?&gt;&gt; q) {
+        super(r, q);
+        this.key = key;
+    }
+}
+
+private ReferenceQueue&lt;EngineResource&lt;?&gt;&gt; getReferenceQueue() {
+    if (resourceReferenceQueue == null) {
+        resourceReferenceQueue = new ReferenceQueue&lt;EngineResource&lt;?&gt;&gt;();
+        MessageQueue queue = Looper.myQueue();
+        queue.addIdleHandler(new RefQueueIdleHandler(activeResources, resourceReferenceQueue));
+    }
+    return resourceReferenceQueue;
+}
+
+// Responsible for cleaning up the active resource map by remove weak references that have been cleared.
+private static class RefQueueIdleHandler implements MessageQueue.IdleHandler {
+    private final Map&lt;Key, WeakReference&lt;EngineResource&lt;?&gt;&gt;&gt; activeResources;
+    private final ReferenceQueue&lt;EngineResource&lt;?&gt;&gt; queue;
+
+    public RefQueueIdleHandler(Map&lt;Key, WeakReference&lt;EngineResource&lt;?&gt;&gt;&gt; activeResources,
+            ReferenceQueue&lt;EngineResource&lt;?&gt;&gt; queue) {
+        this.activeResources = activeResources;
+        this.queue = queue;
+    }
+
+    @Override
+    public boolean queueIdle() {
+        ResourceWeakReference ref = (ResourceWeakReference) queue.poll();
+        if (ref != null) {
+            activeResources.remove(ref.key);
+        }
+
+        return true;
+    }
+}
+</code></pre><h4 id="BitmapPool"><a href="#BitmapPool" class="headerlink" title="BitmapPool"></a>BitmapPool</h4><p>BitmapPool 的最大容量与屏幕分辨率有关，默认是 宽度 Pixels<em>高度 Piexls</em>ARGB_8888图片的质量参数*4,这样至少足够缓存四个屏幕大小的图片。容量到达阈值时，使用 LRU 算法从最近最少使用的图片尺寸中移除图片。</p>
+<p>复用策略</p>
+<p>BitmapPool 使用策略模式来封装不同的复用策略，策略接口是 LruPoolStrategy，定义了 put()、get()、getSize() 等方法。Glide 中有两种复用策略</p>
+<p>AttributeStrategy 复用的图片需要图片的尺寸和 Bitmap.Config 完全一致<br>SizeConfigStrategy 复用要求相对宽松，复用的图片需要 Bitmap.Config 一致，但复用图片的所需内存比原图小即可。确保 Bitmap.Config 一致后，如果有内存大小一致的图片则直接复用，没有则选取内存稍大一点的图片。需要 KITKAT 以上版本<br>Glide 在 KITKAT 以上系统中采用 SizeConfigStrategy，否则采用 AttributeStrategy。显然采取 SizeConfigStrategy 的复用率更高。之所以有这两者的区分，跟 Bitmap 的 reconfigure() 方法有关，BitmapPool 能够复用旧图片的内存得益于这个方法</p>
+<p>简单来说，reconfigure() 方法能够在不重新初始化 Bitmap 和不影响底层内存分配的前提下修改 Bitmap 的尺寸和类型。使用该方法能够复用旧 Bitmap 的内存从而避免给新 Bitmap 分配内存。通过复用生成的 Bitmap，新的内存大小可以通过 getByteCount() 方法获得。</p>
+<p>由于 Bitmap 是复用的，所以它所映射的底层内存中还是原始图片的数据，所以 BitmapPool 将 Bitmap 返回给使用者前，还需要使用 Bitmap 的 eraseColor(Color.TRANSPARENT) 来擦除旧的数据。</p>
+<h3 id="磁盘缓存"><a href="#磁盘缓存" class="headerlink" title="磁盘缓存"></a>磁盘缓存</h3><p>磁盘缓存的默认路径在 /data/data/\/cache/image_manager_disk_cache,默认的大小为 250MB，默认的实现类是 DiskLruCacheWrapper。</p>
+<p>Glide 的磁盘缓存默认只缓存处理图，不过可以根据需要通过设置 DiskCacheStrategy 来定制缓存策略。Glide 中不管是原图还是处理图，每张图片都与一个缓存文件对应，存取原图时使用 OriginalKey,内部封装了图片的 Url 和 Signature 信息。而存取处理图时使用 EngineKey 内部封装了图片的 Url 和 Signature 之外，还包括图片尺寸和图片处理流程中相关的 Decoder、Encoder、Transformation 所返回的 id，，通过这些信息就能唯一确定一张图片了。</p>
+<p>DiskLruCacheWrapper</p>
+<p>DiskLruCacheWrapper 实现了 DiskCache 接口，提供的方法非常简洁，提供了 get()、put()、delete()、clear() 四个方法。DiskLruCacheWrapper 内部封装了 DiskLruCache 对象，缓存文件的管理由它来完成。</p>
+<p>该包装类主要的作用的是将 Key 中封装的信息(原图就是图片的 Url，处理图就是 Url、尺寸、Decoder等)通过 SHA-256 算法进行编码生成一个safekey 然后再用这个key去调用实际的DiskLruCache的get/remove/clear 和DiskLruCache.editor写入缓存文件。</p>
+<h4 id="DiskLruCache"><a href="#DiskLruCache" class="headerlink" title="DiskLruCache"></a>DiskLruCache</h4><p>DiskLruCache内部也是一个LinkedHashMap<string, entry="">，采用Lru缓存策略来维护缓存<br>Entry 用来表示一个缓存实体，封装了一些相关信息。我们看看它的构造函数</string,></p>
+<pre><code>private Entry(String key) {
+    this.key = key;
+    this.lengths = new long[valueCount];
+    cleanFiles = new File[valueCount];
+    dirtyFiles = new File[valueCount];
+
+    // The names are repetitive so re-use the same builder to avoid allocations.
+    StringBuilder fileBuilder = new StringBuilder(key).append(&apos;.&apos;);
+    int truncateTo = fileBuilder.length();
+    for (int i = 0; i &lt; valueCount; i++) {
+        fileBuilder.append(i);
+        cleanFiles[i] = new File(directory, fileBuilder.toString());
+        fileBuilder.append(&quot;.tmp&quot;);
+        dirtyFiles[i] = new File(directory, fileBuilder.toString());
+        fileBuilder.setLength(truncateTo);
+    }
+    }
+</code></pre><p>可见 Entry 封装了 Key，对应的缓存文件和文件大小等信息。一个缓存实体对应两个缓存文件，cleanFile 文件中的数据时刻是干净可读的，dirtyFile 的作用是作为临时文件，当需要写入缓存时，返回的是 dirtyFile，等调用 commit() 方法时再更新数据。这样缓存的写入时也不会影响缓存的读取了。dirtyFile 用 key.1命名，dirtyFiles 用 key.1.tmp 命名，知道缓存 Key 就知道对应的缓存文件了。</p>
+<p>磁盘缓存与内存缓存不同，内存缓存在程序每次重新启动时都是空白的全新的状态，需要一个预热的过程，等缓存写入一定量的时候才能开始发挥作用，而磁盘缓存则不能受程序重新启动的影响，程序重新启动时，要能够自动恢复到上次运行的状态，每个 Key 对应哪个缓存文件、每个缓存的大小、哪些缓存文件的数据是干净的、哪些缓存文件的数据是不正常的写入需要删除、当前磁盘缓存的大小等等，都需要实时管理好。这就需要有一个文件实时记录下磁盘缓存的相关信息，以便能够随时恢复。DiskLruCache 就用到了这样一个文件，文件名为 journal。该文件记录当前DiskLruCache所管理的缓存文件的操作记录，以便于在程序初始化时构建DiskLruCache对象，包括所有缓存文件的key值（通过这个可以找到对应的缓存文件）缓存文件的数据状态（脏数据还是干净数据）<br>DiskLruCache已经是一个标准类了（已获Google官方认证）这里就不再分析了，感兴趣的话可以直接看源码或者看郭霖大神的这篇文章<br><a href="http://blog.csdn.net/guolin_blog/article/details/28863651" target="_blank" rel="noopener">Android DiskLruCache完全解析，硬盘缓存的最佳方案</a></p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>谢谢阅读！<br><img src="/img/hxz0204-1.jpg" alt=""></p>
+
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2018/01/09/genericity/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2017/07/15/imageview/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.jpg" alt="Ethan Hua's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        65351871@qq.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="#" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2018/01/">一月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">chrome_reader_mode</i>
+                
+                分类
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                <a class="sidebar_archives-link" href="/categories/Android/">Android<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/Arithmetic/">Arithmetic<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/RxJava-Android/">RxJava/Android<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/UI-Android/">UI/Android<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/语言基础/">语言基础<span class="sidebar_archives-count">1</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Pages  -->
+    
+
+    <!-- Article Number  -->
+    
+        <li>
+            <a href="/archives">
+                文章总数
+                <span class="sidebar-badge">7</span>
+            </a>
+        </li>
+        
+    
+</ul>
+
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+    <div class="sidebar-divider"></div>
+
+
+<!-- Theme Material -->
+
+    <a href="https://github.com/viosey/hexo-theme-material"  class="sidebar-footer-text-a" target="_blank">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+            主题 - Material
+            <span class="sidebar-badge badge-circle">i</span>
+        </div>
+    </a>
+
+
+<!-- Help & Support -->
+<!--
+
+-->
+
+<!-- Feedback -->
+<!--
+
+-->
+
+<!-- About Theme -->
+<!--
+
+-->
+
+    </div>
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+        <a href="https://github.com/ethanhua" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-github">
+                <span class="visuallyhidden">Github</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>Ethanhua's blog
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import File -->
+
+
+    <script>lsloader.load("js/lazyload.min.js","/js/lazyload.min.js?1BcfzuNXqV+ntF6gq+5X3Q==")</script>
+    <script>lsloader.load("js/js.min.js","/js/js.min.js?oAl/+lvaqTFV31JXTmbrNA==")</script>
+
+
+
+    <script>lsloader.load("js/nprogress.js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==")</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#29d'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#29d',
+        'border-left-color': '#29d'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Window Load-->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+</script>
+
+<!-- MathJax Load-->
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Bing Background -->
+
+
+<script>
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.4.0 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        </body>
+    
+</html>
