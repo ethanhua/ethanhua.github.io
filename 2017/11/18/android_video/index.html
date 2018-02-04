@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head>
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.4.0 -->
+    <script>window.materialVersion = "1.4.0"</script>
+
+    <!-- Title -->
+    
+    <title>
+        
+            Android音视频开发入坑指南 | 
+        
+        Ethanhua&#39;s blog
+    </title>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="theme-color" content="#0097A7">
+    <meta name="author" content="Ethan Hua">
+    <meta name="description" itemprop="description" content="">
+    <meta name="keywords" content="blog,Android">
+
+    <!-- Site Verification -->
+    
+    
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/avatar.jpg">
+    <link rel="icon" sizes="192x192" href="/img/avatar.jpg">
+    <link rel="apple-touch-icon" href="/img/avatar.jpg">
+
+    <!--iOS -->
+    <meta name="apple-mobile-web-app-title" content="Title">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="480">
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Ethanhua&#39;s blog">
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="http://yoursite.com">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="Android音视频开发入坑指南 | Ethanhua&#39;s blog">
+    <meta property="og:image" content="/img/avatar.jpg" />
+    <meta property="og:description" content="">
+    <meta property="og:article:tag" content="Android"> 
+
+    
+        <meta property="article:published_time" content="11月 18, 2017" />
+        <meta property="article:modified_time" content="2月 04, 2018" />
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:title" content="Android音视频开发入坑指南 | Ethanhua&#39;s blog">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:image" content="/img/avatar.jpg">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="http://yoursite.com" />
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="http://yoursite.com/2017/11/18/android_video/index.html" />
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Ethanhua&#39;s blog",
+        "logo": "/img/avatar.jpg"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Ethan Hua",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.jpg"
+        },
+        "description": "keep calm and be happy :)"
+    },
+    "headline": "Android音视频开发入坑指南",
+    "url": "http://yoursite.com/2017/11/18/android_video/index.html",
+    "datePublished": "11月 18, 2017",
+    "dateModified": "2月 04, 2018",
+    "description": "",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://yoursite.com"
+    }
+}
+</script>
+
+
+    
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(key){try{localStorage.removeItem(key)}catch(e){}};lsloader.setLS=function(key,val){try{localStorage.setItem(key,val)}catch(e){}};lsloader.getLS=function(key){var val="";try{val=localStorage.getItem(key)}catch(e){val=""}return val};versionString="/*"+materialVersion+"*/";lsloader.clean=function(){try{var keys=[];for(var i=0;i<localStorage.length;i++){keys.push(localStorage.key(i))}keys.forEach(function(key){var data=lsloader.getLS(key);if(data&&data.indexOf(versionString)===-1){lsloader.removeLS(key)}})}catch(e){}};lsloader.clean();lsloader.load=function(jsname,jspath,cssonload){cssonload=cssonload||function(){};var code;code=this.getLS(jsname);if(code&&code.indexOf(versionString)===-1){this.removeLS(jsname);this.requestResource(jsname,jspath,cssonload);return}if(code){var versionNumber=code.split(versionString)[0];if(versionNumber!=jspath){console.log("reload:"+jspath);this.removeLS(jsname);this.requestResource(jsname,jspath,cssonload);return}code=code.split(versionString)[1];if(/\.js?.+$/.test(versionNumber)){this.jsRunSequence.push({name:jsname,code:code});this.runjs(jspath,jsname,code)}else{document.getElementById(jsname).appendChild(document.createTextNode(code));cssonload()}}else{this.requestResource(jsname,jspath,cssonload)}};lsloader.requestResource=function(name,path,cssonload){var that=this;if(/\.js?.+$/.test(path)){this.iojs(path,name,function(path,name,code){that.setLS(name,path+versionString+code);that.runjs(path,name,code)})}else if(/\.css?.+$/.test(path)){this.iocss(path,name,function(code){document.getElementById(name).appendChild(document.createTextNode(code));that.setLS(name,path+versionString+code)},cssonload)}};lsloader.iojs=function(path,jsname,callback){var that=this;that.jsRunSequence.push({name:jsname,code:""});try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(path,jsname,xhr.response);return}}that.jsfallback(path,jsname)}};xhr.send(null)}catch(e){that.jsfallback(path,jsname)}};lsloader.iocss=function(path,jsname,callback,cssonload){var that=this;try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(xhr.response);cssonload();return}}that.cssfallback(path,jsname,cssonload)}};xhr.send(null)}catch(e){that.cssfallback(path,jsname,cssonload)}};lsloader.iofonts=function(path,jsname,callback,cssonload){var that=this;try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(xhr.response);cssonload();return}}that.cssfallback(path,jsname,cssonload)}};xhr.send(null)}catch(e){that.cssfallback(path,jsname,cssonload)}};lsloader.runjs=function(path,name,code){if(!!name&&!!code){for(var k in this.jsRunSequence){if(this.jsRunSequence[k].name==name){this.jsRunSequence[k].code=code}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var script=document.createElement("script");script.appendChild(document.createTextNode(this.jsRunSequence[0].code));script.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(script);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var that=this;var script=document.createElement("script");script.src=this.jsRunSequence[0].path;script.type="text/javascript";this.jsRunSequence[0].status="loading";script.onload=function(){that.jsRunSequence.shift();if(that.jsRunSequence.length>0){that.runjs()}};document.body.appendChild(script)}};lsloader.tagLoad=function(path,name){this.jsRunSequence.push({name:name,code:"",path:path,status:"failed"});this.runjs()};lsloader.jsfallback=function(path,name){if(!!this.jsnamemap[name]){return}else{this.jsnamemap[name]=name}for(var k in this.jsRunSequence){if(this.jsRunSequence[k].name==name){this.jsRunSequence[k].code="";this.jsRunSequence[k].status="failed";this.jsRunSequence[k].path=path}}this.runjs()};lsloader.cssfallback=function(path,name,cssonload){if(!!this.cssnamemap[name]){return}else{this.cssnamemap[name]=1}var link=document.createElement("link");link.type="text/css";link.href=path;link.rel="stylesheet";link.onload=link.onerror=cssonload;var root=document.getElementsByTagName("script")[0];root.parentNode.insertBefore(link,root)};lsloader.runInlineScript=function(scriptId,codeId){var code=document.getElementById(codeId).innerText;this.jsRunSequence.push({name:scriptId,code:code});this.runjs()};lsloader.loadCombo=function(jslist){var updateList="";var requestingModules={};for(var k in jslist){var LS=this.getLS(jslist[k].name);if(!!LS){var version=LS.split(versionString)[0];var code=LS.split(versionString)[1]}else{var version=""}if(version==jslist[k].path){this.jsRunSequence.push({name:jslist[k].name,code:code,path:jslist[k].path})}else{this.jsRunSequence.push({name:jslist[k].name,code:null,path:jslist[k].path,status:"comboloading"});requestingModules[jslist[k].name]=true;updateList+=(updateList==""?"":";")+jslist[k].path}}var that=this;if(!!updateList){var xhr=new XMLHttpRequest;xhr.open("get",combo+updateList,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){that.runCombo(xhr.response,requestingModules);return}}else{for(var i in that.jsRunSequence){if(requestingModules[that.jsRunSequence[i].name]){that.jsRunSequence[i].status="failed"}}that.runjs()}}};xhr.send(null)}this.runjs()};lsloader.runCombo=function(comboCode,requestingModules){comboCode=comboCode.split("/*combojs*/");comboCode.shift();for(var k in this.jsRunSequence){if(!!requestingModules[this.jsRunSequence[k].name]&&!!comboCode[0]){this.jsRunSequence[k].status="comboJS";this.jsRunSequence[k].code=comboCode[0];this.setLS(this.jsRunSequence[k].name,this.jsRunSequence[k].path+versionString+comboCode[0]);comboCode.shift()}}this.runjs()}})();</script>
+
+    <!-- Import CSS & jQuery -->
+    
+        <style id="css/material.min.css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("css/material.min.css","/css/material.min.css?fJTiM/K1J3dWIruo3pxtAw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";})</script>
+        <style id="css/style.min.css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("css/style.min.css","/css/style.min.css?oCSEO3ST+aEypEwttTDI9g==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";})</script>
+        
+        
+            <style>
+    
+    
+    
+    
+    
+    
+    
+    .footer-sns-github {
+        background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgY2xhc3M9Imljb24iIHZpZXdCb3g9IjAgMCAxMDI0IDEwMjQiPjxwYXRoIGQ9Ik0xMzguNCA3OGMtNi40IDEuNC0yNi40IDE0LjItMzYgMjIuOC04IDcuMi0yMiAyOS44LTI0LjQgMzkuMi0xLjYgNi40LTIgMTEzLjItMS42IDM2OCAuNiAyOTkuNCAxIDM1OS44IDMuNCAzNjQgMTEgMjAuMiAyMS42IDMyLjQgMzcuMiA0MyAxNS42IDEwLjYgMTcuMiAxMS4yIDM0LjIgMTMuMiAxMC42IDEuMiA2My40IDEuNiAxMjcuNiAxLjRsMTA5LjYtLjYgNi02LjggNi4yLTYuOC0xLjItMjUuMmMtLjgtMTUuOC0uMi0zMy40IDEuNC00Ny4yIDMtMjUuNCAxLjQtMzYuMi02LTQzLjItNS00LjYtNi4yLTQuOC0zMC42LTQuMi0yNy42LjgtMjQgMS42LTY4LjgtMTYtOC42LTMuNC0yMi42LTE4LTI4LjQtMjkuOC0xMS40LTIyLjgtMjctNDUtMzkuMi01NS42LTE0LTEyLjItMTkuOC0yMC44LTE5LjgtMjguNiAwLTExLjYgMTMuNi0xMi42IDMzLjItMi40IDE2LjYgOC44IDIwLjggMTIuNCA0MC44IDM2LjIgMjQuMiAyOC42IDMxIDMzLjYgNTQgMzkuNiAxNS4yIDQgNDIuMiAzIDUxLjQtMS44IDktNC42IDE4LTE1LjIgMjQuNC0yOS4yIDExLjQtMjQuMiA3LjQtMzEuMi0yMC42LTM2LjgtOS44LTItMjkuMi04LTQzLjQtMTMuNC00MC40LTE1LjgtNjQuNi0zNy40LTg1LjQtNzYuMi0xMS42LTIxLjgtMTUuNC0zMy0xOC4yLTUzLjYtNC4yLTMyLjItNC44LTYwLjItMS40LTg0IDMuNC0yMy44IDYuOC0zMi44IDIwLjItNTQgNC02IDguOC0xNS42IDExLTIxLjQgMy44LTEwIDMuOC0xMS42IDEtMzAtNS4yLTM0LjItMy4yLTUyLjQgNy42LTcwLjIgNy4yLTEyLjIgMTUtMTcuMiAyNC4yLTE1LjggMTIuOCAyLjIgNTIgMTcuNCA2Ni44IDI2LjIgMjYgMTUgMjkgMTUuNCA4Mi40IDcuMiAyNC42LTMuOCAzMy44LTQuMiA2MC0zLjIgMTcgLjYgNDEuNCAzIDU0IDUuMiAzOC40IDYuNiA0OS42IDUuMiA3My0xMCA2LjYtNC4yIDE3LjQtOS40IDI0LTExLjYgNi42LTIuMiAxNi01LjggMjEtOC4yIDEzLTYgMjgtNS42IDM1LjYuOCAxMi40IDEwLjQgMTguNiA0MS40IDE0LjQgNzEuNi00LjQgMzAuNi0zIDM5LjQgOC40IDUzLjggMy40IDQuNCAxMS4yIDE5LjIgMTcuNCAzMy4yTDc3NSA0NDN2NzhsLTEwIDI4Yy0xNS4yIDQzLjItMzYuOCA3My4yLTY2LjIgOTIuOC0xMy40IDguOC01NyAyNS40LTc2LjggMjktMjguMiA1LjItMzMuMiAxMi42LTIyIDMyLjIgMTEuMiAxOS40IDEyLjQgMzIuOCAxMS42IDEyOS42bC0uNiA4NS44IDUuNCA0LjZjMy42IDMgOS4yIDUuMiAxNiA2IDUuOC44IDYwLjIgMSAxMjAuNi42IDEwOC40LS42IDExMC4yLS42IDExOS01IDI0LTExLjYgNDAtMjcuNCA1MS42LTUwLjZsNS40LTExIC42LTM0N2MuNC0yMjMtLjItMzUzLjQtMS40LTM2NS0yLTE3LTIuNi0xOC42LTEzLTM0LTEwLjYtMTUuNC0yMi44LTI2LjItNDMuMi0zNy4yLTQuMi0yLjQtNjQuNi0yLjgtMzY2LTMuMi0xOTguNiAwLTM2NCAuNC0zNjcuNiAxLjR6Ii8+PC9zdmc+);
+    }
+    
+    
+    
+    
+    
+</style>
+
+        
+        <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #0097A7 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #0097A7 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #0097A7 !important;
+  }
+
+  .toTop {
+    background: #757575 !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #757575;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #757575;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #757575;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-color: #F5F5F5;
+      }
+
+      /* blog_info bottom background */
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+        background-color: #fff;
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+
+
+        <script>lsloader.load("js/jquery.min.js","/js/jquery.min.js?qcusAULNeBksqffqUM2+Ig==")</script>
+    
+    
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Analytics -->
+    
+
+    <!-- Custom Head -->
+    
+</head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+    <!-- Left aligned menu below button -->
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#视频点播技术整体流程"><span class="post-toc-number">1.</span> <span class="post-toc-text">视频点播技术整体流程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#从一个输入（视频源的url地址）到最终Android设备上视频画面的显示都经历了什么？"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">从一个输入（视频源的url地址）到最终Android设备上视频画面的显示都经历了什么？</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#应用层音视频开发套路"><span class="post-toc-number">2.</span> <span class="post-toc-text">应用层音视频开发套路</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#播放器的选择"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">播放器的选择</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-硬解和软解"><span class="post-toc-number">2.1.1.</span> <span class="post-toc-text">1.硬解和软解</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-格式支持"><span class="post-toc-number">2.1.2.</span> <span class="post-toc-text">2.格式支持</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#结果"><span class="post-toc-number">2.1.3.</span> <span class="post-toc-text">结果</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#播放器UI的开发"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">播放器UI的开发</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#视频画面渲染"><span class="post-toc-number">2.2.1.</span> <span class="post-toc-text">视频画面渲染</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#控制UI的开发"><span class="post-toc-number">2.2.2.</span> <span class="post-toc-text">控制UI的开发</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#需求整理"><span class="post-toc-number">2.2.3.</span> <span class="post-toc-text">需求整理</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#实现："><span class="post-toc-number">2.2.4.</span> <span class="post-toc-text">实现：</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#最后"><span class="post-toc-number">3.</span> <span class="post-toc-text">最后</span></a></li></ol>
+        <!--
+        <li class="mdl-menu__item">
+            Some Action
+        </li>
+        -->
+    </ul>
+    
+
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                Android音视频开发入坑指南
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.jpg" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>Ethan Hua</strong>
+        <span>11月 18, 2017</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/Android/">Android</a>
+    </ul>
+    
+
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Android音视频开发入坑指南&url=http://yoursite.com/2017/11/18/android_video/index.html&pic=&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Android音视频开发入坑指南&url=http://yoursite.com/2017/11/18/android_video/index.html&via=Ethan Hua" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2017/11/18/android_video/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://yoursite.com/2017/11/18/android_video/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <blockquote>
+<p>总结一波 Android 音视频点播开发相关的知识（本文内容不包含直播技术，直播技术涉及到音视频录制，编码，由于不在近期需求中故没有去研究）</p>
+</blockquote>
+<h2 id="视频点播技术整体流程"><a href="#视频点播技术整体流程" class="headerlink" title="视频点播技术整体流程"></a>视频点播技术整体流程</h2><h3 id="从一个输入（视频源的url地址）到最终Android设备上视频画面的显示都经历了什么？"><a href="#从一个输入（视频源的url地址）到最终Android设备上视频画面的显示都经历了什么？" class="headerlink" title="从一个输入（视频源的url地址）到最终Android设备上视频画面的显示都经历了什么？"></a>从一个输入（视频源的url地址）到最终Android设备上视频画面的显示都经历了什么？</h3><p><img src="/img/video_flow.jpg" alt=""></p>
+<ul>
+<li>获取数据<br>当我们将视频源的地址作为输入传给播放器后，后者通过网络请求下载服务器端的视频数据或者通过读取文件从本地获取视频数据，<strong>此过程将输入Url转换成了视频流媒体数据。</strong></li>
+<li>解流媒体协议<br>视频在网络上传输按照对应的协议编码成对应的数据格式，我们将视频数据从网络上获取下来后（不需要全部下载下来，动态传输，实时播放）需要按照协议进行对应的解码过程，即是解流媒体协议（如果是读取本地文件则没有此过程），<strong>此过程将视频流媒体格式数据转换成了封装格式数据。</strong></li>
+<li>解封装<br>我们经常所说的avi/mp4/mpeg都是一种视频封装格式，<strong>封装格式</strong>就是将音频流压缩编码数据和视频流压缩编码数据进行包装时遵循的协议格式，<strong>此过程将视频封装格式数据转换成了对应的音频压缩编码数据和视频压缩编码数据。</strong></li>
+<li>音视频解码<br>通过解码，将压缩编码的视频数据输出成为非压缩的颜色数据，例如YUV420P，RGB等，将压缩编码的音频数据输出成为非压缩的音频抽样数据，例如PCM数据，常见的视频编码标准如 H.264，MPEG2，VC-1 等等,音频编码标准如 MP3 , AC-3 等等 <strong>此过程将压缩的音视频数据解压缩成对应的原始数据</strong></li>
+<li>音视频同步<br>简单来说就是将视频轨的实时画面与音轨的实时声音同步一致 </li>
+<li>视频数据的显示和音频数据的播放<br>将同步后的视频数据显示在手机屏幕上，将音频数据从听筒播放出来  </li>
+</ul>
+<p>上面的过程会涉及到一些音视频基本概念，如果你不懂可以点击下面我列出的链接去了解他们，或者通过搜索引擎去了解他们，当然你也可以选择先略过这部分，这部分对于我们实际开发的部分影响不大。</p>
+<p>  <a href="https://baike.baidu.com/item/%E6%B5%81%E5%AA%92%E4%BD%93%E6%8A%80%E6%9C%AF" target="_blank" rel="noopener">百度百科：流媒体协议</a><br>  <a href="https://baike.baidu.com/item/%E8%A7%86%E9%A2%91%E7%BC%96%E7%A0%81" target="_blank" rel="noopener">百度百科：视频压缩技术</a><br>  <a href="http://www.samirchen.com/video-concept/" target="_blank" rel="noopener">音视频开发技术基础</a></p>
+<h2 id="应用层音视频开发套路"><a href="#应用层音视频开发套路" class="headerlink" title="应用层音视频开发套路"></a>应用层音视频开发套路</h2><p>  说到套路是因为我们实际 app音视频点播开发其实是整个流程的最后一步，即是视频播放器UI的开发，而这一步大概做的事是相同的，也是相对简单的，而这一步之前所做的事一般我们借助开源项目或者系统本身的接口去做, 站在巨人的肩膀上操作往往是最轻松以及最无脑的，当然你能力强的话也可以自己徒手撸一个性能更好，兼容性更强的底层库。</p>
+<p>  基于精力有限和自我水平认知，所以现在我所要做的就是两点     </p>
+<ul>
+<li>播放器的选择</li>
+<li>播放器上的一些操作UI和对应的逻辑的开发</li>
+</ul>
+<h3 id="播放器的选择"><a href="#播放器的选择" class="headerlink" title="播放器的选择"></a>播放器的选择</h3><p>  在选择播放器之前我们需要了解一些知识点 </p>
+<h4 id="1-硬解和软解"><a href="#1-硬解和软解" class="headerlink" title="1.硬解和软解"></a><strong>1.硬解和软解</strong></h4><p>  音视频的解码可以使用硬解码和软解码两种，硬解码就是直接调用 GPU 进行解码处理，而软解码是使用   CPU 进行运算。两种解码方式都有各自的优缺点，硬解码的效率更高，对 CPU 的消耗较少，但是兼容性较差，硬解码就会涉及到硬件，所以当机器不同，可能会有的机器能解码，有的会失败。而软解码的兼容性更好，但是效率较低，会加重 CPU 的负载。在 Android 的视频处理中，这两种解码方式分别对应于不同的两种实现。 </p>
+<ul>
+<li><strong><a href="https://developer.android.com/reference/android/media/MediaCodec.html" target="_blank" rel="noopener">MediaCodec</a></strong><br>  从API 16开始，Android 提供了 Mediacodec 类以便开发者更加灵活的处理音视频的编解码。   MediaCodec 就属于硬编解码。 MediaCodec 类可用于访问 Android 底层的媒体编解码器。它是 Android 底层多媒体支持基本架构的一部分（通常与 MediaExtractor, MediaSync, MediaMuxer , MediaCrypto, MediaDrm, Image, Surface, 以及 AudioTrack 一起使用）。<br>  从广义上讲，一个编解码器通过处理输入数据来产生输出数据。MediaCodec 采用异步方式处理数据，并且使用了一组输入输出缓存（buffer）。在简单的层面，你请求或接收到一个空的输入缓存（buffer），向其中填充满数据并将它传递给编解码器处理。编解码器处理完这些数据并将处理结果输出至一个空的输出缓存（buffer）中。最终，你请求或接收到一个填充了数据的输出缓存（buffer）,使用完其中的数据，并将其释放回编解码器。<br>  优点：功耗低，硬件编解码速度快<br>  缺点：扩展性不强，不同芯片厂商提供的支持方案不同，导致程序移植性差，实测发现很多手机的YUV码流不一致，还会出现硬编码后偏色的问题<br>  适用场景：有固定的硬件方案，无需移植（如智能家具产品）；需要长时间摄像的场景，如手机摄像头实时取景，这种场景软解码的处理速度跟不上。</li>
+<li><strong>FFmpeg</strong><br>  FFmpeg是一套用来记录、转换数字音频、视频，并能将其转化为流的开源程序。FFmpeg 有非常强大的功能，包括视频采集功能、视频格式转换、视频抓图、视频加水印等。FFmpeg在Linux平台下开发，但它也可以在其它操作系统中编译运行，包括 Windows、OS X等。<br>  FFmpeg 堪称自由软件中最完备的一套多媒体支持库，它几乎实现了所有当下常见的数据封装格式、多媒体传输协议以及音视频编解码器。可以直接通过命令行使用 FFmpeg，它提供了三个命令行工具，ffmpeg 用于转码，ffplay 用于播放，ffprobe 用于查看文件格式。<br>  实际上，除去部分具备系统软件开发能力的大型公司（Microsoft、Apple等）以及某些著名的音视频技术提供商（Divx、Real等）提供的自有播放器之外，绝大部分第三方开发的播放器都离不开FFmpeg 的支持，像Linux桌面环境中的开源播放器 VLC、MPlayer，Windows下的 KMPlayer、暴风影音以及 Android 下几乎全部第三方播放器都是基于 FFMpeg 的。可以这么说，只要做视频音频开发都离不开 FFmpeg。<br>  优点：（1）封装了很多的格式，使用起来比较灵活，兼容性好；（2）命令行的方式使用非常方便，比如视频裁剪的步骤：ffmpeg -ss 10 -t 20 -i INPUT -acodec copy -vcodec copy OUTPUT，相对来说比写函数的方式要简单很多；（3）功能十分强大。<br>  缺点：（1）学习成本有点高（2）软编解码功耗大，占用CPU较多，效率偏低<br>  适用场景：跨平台使用（如不同芯片厂商的手机）；短时间拍摄。<br>  因此，从整个行业来看，由于 Android 平台的碎片化，以及各个厂商硬件的差异化，直接使用     MediaCodec 进行视频硬编解码的实现会遇到各种兼容性问题，因此大部分都是直接使用 ffmpeg  进行视频处理，或多或少进行一些性能和功能上的优化。</li>
+</ul>
+<h4 id="2-格式支持"><a href="#2-格式支持" class="headerlink" title="2.格式支持"></a><strong>2.格式支持</strong></h4><p>流媒体协议、音视频封装格式、视频编码格式和音频编码格式的支持：</p>
+<ul>
+<li>原生 MediaPlayer<br>在 Android 系统中对于视频播放器有原生的实现 MediaPlayer , 以及将 MediaPlayer ，        SurfaceView 封装在一起的 VideoView, 两者都只是使用硬解播放，基本上只支持本地和 HTTP 协议的视频播放，扩展性都很差，只适合最简单的视频播放需求。<br><a href="https://developer.android.com/guide/topics/media/media-formats.html?hl=zh-cn" target="_blank" rel="noopener">Google官方文档: 格式支持类型传送门</a></li>
+<li><a href="https://github.com/google/ExoPlayer" target="_blank" rel="noopener">ExoPlayer</a><br>谷歌后来有开源了一个播放器项目, 提供了更好的扩展性和定制能力，并加入了对 DASH 和 HLS 等直播协议的支持，但也只支持硬码，如果项目中只需要支持对H264格式的视频播放，以及流媒体协议比较常规（比如 HTTP，HLS），基于 ExoPlayer 定制也是不错的选择。</li>
+<li><a href="https://github.com/Bilibili/ijkplayer" target="_blank" rel="noopener">IjkPlayer</a><br>ijkplayer 是 Bilibili 公司开源的播放器实现，整合了 FFMpeg , ExoPlayer , MediaPlayer 等多种实现(也就是说可以无缝切换上面两种播放器实现)，提供了类似于 MediaPlayer的 API，可以实现软硬解码自由切换，自定义 TextureView 实现，同时得益于 FFMpeg 的能力，也能支持多种流媒体协议（ RTSP ，RTMP ，HLS 等），多种视频编码格式（ h264 , mpeg4 , mjpeg )，具有很高的灵活性，可以定制实现自己特色的播放器（比如支持视频缩放，视频翻转等），相比于前两种格式支持最广，不过官方文档有些简单，吐槽一下。</li>
+</ul>
+<h4 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h4><p>综合以上两点选用 IjkPlayer 作为我们的底层播放器无疑最好（额外福利可以无缝切换另外两种播放器实现），事实上我反编译了一些app如斗鱼、即刻、开眼都是使用的 Ijkplayer。</p>
+<h3 id="播放器UI的开发"><a href="#播放器UI的开发" class="headerlink" title="播放器UI的开发"></a>播放器UI的开发</h3><h4 id="视频画面渲染"><a href="#视频画面渲染" class="headerlink" title="视频画面渲染"></a>视频画面渲染</h4><p>在 Android 上面显示视频画面需要用到的几个常见类：</p>
+<p><strong>SurfaceView/TextureView</strong></p>
+<p><a href="http://blog.csdn.net/jinzhuojun/article/details/44062175" target="_blank" rel="noopener">SurfaceView, GLSurfaceView, SurfaceTexture以及TextureView的定义和区别传送门</a></p>
+<p>简单来说 SurfaceView 运行在独立的线程中，不在当前视图树中，不能执行一些动画操作。TextureView 在当前视图树中，可以执行动画操作，但需要运行在硬件加速的窗口中，例如：如果需要实现列表播放那么只好使用 TextureView ，如果使用 SurfaceView ，页面会有滑动卡顿的问题，需要视页面需求来选择，一般来说使用 TextureView.</p>
+<h4 id="控制UI的开发"><a href="#控制UI的开发" class="headerlink" title="控制UI的开发"></a>控制UI的开发</h4><p>事实上 github 上面有一些开发的基于 Ijkplayer 的开源项目，看了一圈后我不打算使用它们，这些项目都不是封装的最佳姿势，它们有一个相同的缺点就是耦合太重，职责不单一，如果需要自定义控制UI 需要阅读大量相关的源码去做出修改，这点我显然是抗拒的，还不如我动手写一个，虽然它们的star有上千，可见平时大家开发都比较忙，伸手党居多。</p>
+<h4 id="需求整理"><a href="#需求整理" class="headerlink" title="需求整理"></a>需求整理</h4><ul>
+<li>控制操作相关的UI和播放器UI分离，可灵活自定义控制操作UI</li>
+<li>暂停/播放</li>
+<li>标题/loading图/封面图显示</li>
+<li>全屏切换</li>
+<li>音量调节</li>
+<li>亮度调节</li>
+<li>锁屏</li>
+<li>播放速率显示</li>
+<li>关键帧图像缩略图显示（拖动或滑动进度时）</li>
+<li>滑动快进快退及拖动进度条快进或快退</li>
+<li>视频源清晰度切换</li>
+<li>视频画面显示比例切换</li>
+<li>播放器切换</li>
+<li>错误重试，整体鲁棒性</li>
+</ul>
+<h4 id="实现："><a href="#实现：" class="headerlink" title="实现："></a>实现：</h4><p>关于第一点和系统自带的 VideoView 实现相似：控制操作UI和播放器UI分离 分别用两个接口定义行为，然后去做相应的实现</p>
+<pre><code>public interface IMediaController {
+
+    void setEnabled(boolean enabled);
+
+    void setMediaPlayerView(IMediaPlayerView playerView);
+
+    void show(int timeout);
+
+    void show();
+
+    void hide();
+
+    boolean isShowing();
+
+}
+
+public interface IMediaPlayerView {
+
+    // all possible internal states
+    int STATE_ERROR = -1;
+    int STATE_IDLE = 300;
+    int STATE_PREPARING = 301;
+    int STATE_PREPARED = 302;
+    int STATE_PLAYING = 303;
+    int STATE_PAUSED = 304;
+    int STATE_PLAYBACK_COMPLETED = 305;
+    @IntDef({STATE_ERROR,
+            STATE_IDLE,
+            STATE_PREPARING,
+            STATE_PREPARED,
+            STATE_PLAYING,
+            STATE_PAUSED,
+            STATE_PLAYBACK_COMPLETED})
+    @interface State {}
+
+    int RENDER_SURFACE_VIEW = 1;
+    int RENDER_TEXTURE_VIEW = 2;
+    @IntDef({RENDER_SURFACE_VIEW,
+            RENDER_TEXTURE_VIEW})
+    @interface RenderViewType {}
+
+    int PLAYER_IJKEXO_MEDIA_PLAYER = 0;
+    int PLAYER_ANDROID_MEDIA_PLAYER = 1;
+    int PLAYER_IJK_MEDIA_PLAYER = 2;
+    @IntDef({PLAYER_IJKEXO_MEDIA_PLAYER,
+            PLAYER_ANDROID_MEDIA_PLAYER,
+            PLAYER_IJK_MEDIA_PLAYER})
+    @interface PlayerType {}
+
+    void setVideoURI(Uri uri);
+
+    int getDuration();
+
+    int getCurrentPosition();
+
+    int getCurrentState();
+
+    boolean isPlaying();
+
+    int getBufferPercentage();
+
+    boolean canPause();
+
+    boolean canSeekBackward();
+
+    boolean canSeekForward();
+
+    /**
+     * Get the audio session id for the player used by this VideoView. This can be used to
+     * apply audio effects to the audio track of a video.
+     *
+     * @return The audio session, or 0 if there was an error.
+     */
+    int getAudioSessionId();
+
+    View getCoverView();
+
+    void start();
+
+    void pause();
+
+    void seekTo(int pos);
+
+    void switchClipStyle(@IRenderView.ClipStyle int clipStyle);
+
+    void switchRenderView(@RenderViewType int renderViewType);
+
+    void switchPlayer(@PlayerType int mediaPlayerType);
+
+    void setOnPreparedListener(IMediaPlayer.OnPreparedListener l);
+
+    void setOnCompletionListener(IMediaPlayer.OnCompletionListener l);
+
+    void setOnErrorListener(IMediaPlayer.OnErrorListener l);
+
+    void setOnInfoListener(IMediaPlayer.OnInfoListener l);
+
+}  
+</code></pre><p>将一些基本控制操作行为定义在播放器UI接口 IMediaPlayerView 中，因为大多数开发中变化的是控制操作相关的UI，而对应的播放控制逻辑是不会变的，控制器类中只做控制器UI的显示不涉及到具体的控制动作，控制动作交由播放器类实现，需要自定义控制UI时只需要实现控制器接口监听UI操作行为并调用播放器对应的控制行为结果即可。</p>
+<p>在实现上 除了封面图和 loading 图我放在播放器类中外 其它的所有控制UI都放在了控制器类中。Ijkplayer 中的接口使用的是类 MediaPlayer 接口，所以使用起来还是比较熟悉的。</p>
+<p>各个需求的具体实现就不列出了，主要是一些所涉及到的知识点的细节问题。<a href="https://github.com/ethanhua/Eyepetizer/blob/master/common/src/main/java/com/ethanhua/commonlib/media/MediaControllerView.java" target="_blank" rel="noopener">详细代码传送门</a></p>
+<p>需要注意的是最后一点 <strong>错误重试，整体鲁棒性</strong><br>一些常见的问题（坑）和容错处理，这点我们可以借鉴开源播放器项目，别人躺过的坑，我们就没必要再趟一次了。</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>本人姿势水平有限，如有错误欢迎指出，谢谢阅读！</p>
+<p><img src="/img/hxz0204-2.jpeg" alt=""></p>
+
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2017/12/10/jvm_gc/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2017/09/10/glide_cache/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.jpg" alt="Ethan Hua's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        65351871@qq.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="#" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2018/01/">一月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">chrome_reader_mode</i>
+                
+                分类
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                <a class="sidebar_archives-link" href="/categories/Android/">Android<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/Arithmetic/">Arithmetic<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/Jvm/">Jvm<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/RxJava-Android/">RxJava/Android<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/UI-Android/">UI/Android<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/架构组件-Android/">架构组件/Android<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/语言基础/">语言基础<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/音视频-Android/">音视频/Android<span class="sidebar_archives-count">1</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Pages  -->
+    
+
+    <!-- Article Number  -->
+    
+        <li>
+            <a href="/archives">
+                文章总数
+                <span class="sidebar-badge">11</span>
+            </a>
+        </li>
+        
+    
+</ul>
+
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+    <div class="sidebar-divider"></div>
+
+
+<!-- Theme Material -->
+
+    <a href="https://github.com/viosey/hexo-theme-material"  class="sidebar-footer-text-a" target="_blank">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+            主题 - Material
+            <span class="sidebar-badge badge-circle">i</span>
+        </div>
+    </a>
+
+
+<!-- Help & Support -->
+<!--
+
+-->
+
+<!-- Feedback -->
+<!--
+
+-->
+
+<!-- About Theme -->
+<!--
+
+-->
+
+    </div>
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+        <a href="https://github.com/ethanhua" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-github">
+                <span class="visuallyhidden">Github</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>Ethanhua's blog
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import File -->
+
+
+    <script>lsloader.load("js/lazyload.min.js","/js/lazyload.min.js?1BcfzuNXqV+ntF6gq+5X3Q==")</script>
+    <script>lsloader.load("js/js.min.js","/js/js.min.js?oAl/+lvaqTFV31JXTmbrNA==")</script>
+
+
+
+    <script>lsloader.load("js/nprogress.js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==")</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#29d'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#29d',
+        'border-left-color': '#29d'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Window Load-->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+</script>
+
+<!-- MathJax Load-->
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Bing Background -->
+
+
+<script>
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.4.0 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        </body>
+    
+</html>
