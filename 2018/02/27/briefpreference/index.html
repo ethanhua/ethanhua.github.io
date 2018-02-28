@@ -12,7 +12,7 @@
     
     <title>
         
-            利用RxJava和Fragment解决Android中的割裂式编程 | 
+            开发一个简单好用的SharePreferences封装库 | 
         
         Ethanhua&#39;s blog
     </title>
@@ -36,7 +36,7 @@
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="Ethan Hua">
     <meta name="description" itemprop="description" content="">
-    <meta name="keywords" content="blog,RxJava/Android">
+    <meta name="keywords" content="blog,Android">
 
     <!-- Site Verification -->
     
@@ -65,18 +65,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://yoursite.com">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="利用RxJava和Fragment解决Android中的割裂式编程 | Ethanhua&#39;s blog">
+    <meta property="og:title" content="开发一个简单好用的SharePreferences封装库 | Ethanhua&#39;s blog">
     <meta property="og:image" content="/img/avatar.jpg" />
     <meta property="og:description" content="">
-    <meta property="og:article:tag" content="RxJava/Android"> 
+    <meta property="og:article:tag" content="Android"> 
 
     
-        <meta property="article:published_time" content="4月 30, 2017" />
-        <meta property="article:modified_time" content="2月 03, 2018" />
+        <meta property="article:published_time" content="2月 27, 2018" />
+        <meta property="article:modified_time" content="2月 28, 2018" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="利用RxJava和Fragment解决Android中的割裂式编程 | Ethanhua&#39;s blog">
+    <meta name="twitter:title" content="开发一个简单好用的SharePreferences封装库 | Ethanhua&#39;s blog">
     <meta name="twitter:description" content="">
     <meta name="twitter:image" content="/img/avatar.jpg">
     <meta name="twitter:card" content="summary_large_image" />
@@ -84,7 +84,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://yoursite.com/2017/04/30/rxjava-solve-android/index.html" />
+        <link rel="canonical" href="http://yoursite.com/2018/02/27/briefpreference/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -110,10 +110,10 @@
         },
         "description": "keep calm and be happy :)"
     },
-    "headline": "利用RxJava和Fragment解决Android中的割裂式编程",
-    "url": "http://yoursite.com/2017/04/30/rxjava-solve-android/index.html",
-    "datePublished": "4月 30, 2017",
-    "dateModified": "2月 03, 2018",
+    "headline": "开发一个简单好用的SharePreferences封装库",
+    "url": "http://yoursite.com/2018/02/27/briefpreference/index.html",
+    "datePublished": "2月 27, 2018",
+    "dateModified": "2月 28, 2018",
     "description": "",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -327,7 +327,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#问题的产生"><span class="post-toc-number">1.</span> <span class="post-toc-text">问题的产生</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决思路"><span class="post-toc-number">2.</span> <span class="post-toc-text">解决思路</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#最后"><span class="post-toc-number">3.</span> <span class="post-toc-text">最后</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#想法的由来"><span class="post-toc-number">1.</span> <span class="post-toc-text">想法的由来</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#初步的需求"><span class="post-toc-number">2.</span> <span class="post-toc-text">初步的需求</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#开发实现"><span class="post-toc-number">3.</span> <span class="post-toc-text">开发实现</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#输入参数：操作类型"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">输入参数：操作类型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#输入参数：-操作值"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">输入参数： 操作值</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#其它"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">其它</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#键值、返回默认值、SharePreferences文件名通过注解-Key、-Default、-SpName-来定义"><span class="post-toc-number">3.3.1.</span> <span class="post-toc-text">键值、返回默认值、SharePreferences文件名通过注解 @Key、@Default、@SpName 来定义</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#序列-反序列化"><span class="post-toc-number">3.3.2.</span> <span class="post-toc-text">序列/反序列化</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#reactive-响应式支持"><span class="post-toc-number">3.3.3.</span> <span class="post-toc-text">reactive 响应式支持</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#最终代码"><span class="post-toc-number">3.3.4.</span> <span class="post-toc-text">最终代码:</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#最后"><span class="post-toc-number">4.</span> <span class="post-toc-text">最后</span></a></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -365,7 +365,7 @@
         
     
             <p class="article-headline-p">
-                利用RxJava和Fragment解决Android中的割裂式编程
+                开发一个简单好用的SharePreferences封装库
             </p>
         </div>
 
@@ -384,7 +384,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>Ethan Hua</strong>
-        <span>4月 30, 2017</span>
+        <span>2月 27, 2018</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -408,7 +408,7 @@
     </button>
     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
         <li class="mdl-menu__item">
-        <a class="post_tag-link" href="/tags/RxJava-Android/">RxJava/Android</a>
+        <a class="post_tag-link" href="/tags/Android/">Android</a>
     </ul>
     
 
@@ -424,7 +424,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=利用RxJava和Fragment解决Android中的割裂式编程&url=http://yoursite.com/2017/04/30/rxjava-solve-android/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=开发一个简单好用的SharePreferences封装库&url=http://yoursite.com/2018/02/27/briefpreference/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -433,7 +433,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=利用RxJava和Fragment解决Android中的割裂式编程&url=http://yoursite.com/2017/04/30/rxjava-solve-android/index.html&via=Ethan Hua" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=开发一个简单好用的SharePreferences封装库&url=http://yoursite.com/2018/02/27/briefpreference/index.html&via=Ethan Hua" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -442,7 +442,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2017/04/30/rxjava-solve-android/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/02/27/briefpreference/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -451,7 +451,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=http://yoursite.com/2017/04/30/rxjava-solve-android/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://yoursite.com/2018/02/27/briefpreference/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -475,78 +475,35 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h2 id="问题的产生"><a href="#问题的产生" class="headerlink" title="问题的产生"></a>问题的产生</h2><p>学会使用 Rxjava 后我们可以把之前用 <code>listener</code> 传回调的编程方式改为链式事件流编程方式，例如下面对第三方传 <code>listener</code> 的异步调用包装成一个返回 <code>Observable</code> 对象的函数：</p>
-<pre><code>public static Observable&lt;List&lt;Tip&gt;&gt; query(Context context, String querytext) {
-    return Observable.create(subscriber -&gt; {
-        final Inputtips.InputtipsListener[] listener = {null};
-        listener[0] = (list, i) -&gt; {
-            if (!subscriber.isUnsubscribed() &amp;amp;&amp;amp; i == RESULT_SUCCESS_CODE) {
-                subscriber.onNext(list);
-            }
-            if (subscriber.isUnsubscribed()) {
-                listener[0] = null;
-            }
-        };
-        Inputtips inputtips = new Inputtips(context, new InputtipsQuery(querytext, null));
-        inputtips.setInputtipsListener(listener[0]);
-        inputtips.requestInputtipsAsyn();
-    });
-}
-</code></pre><p>但是有些异步的调用是不提供让我们传<code>Callback</code>的形式的，例如我们在开发中经常会遇到这样的场景：</p>
-<blockquote>
-<p>打开手机相册，调用相机拍照，申请系统权限</p>
-</blockquote>
-<p>这类事件的回调通常由系统调用我们 <code>Activity</code> 或者 <code>Fragment</code> 的一些方法来运作的，如：</p>
-<pre><code>onActivityResult onRequestPermissionResult 
-</code></pre><p>像这类异步调用我们用不了上面的方式来包装成一个<code>Observable</code>对象，从而没法实现链式编程方式，我们在某处执行了某个动作但需要在其它的地方来处理异步的回调，这种割裂式的编程在项目业务代码复杂后在维护性和易读性上都大打折扣，那么我们应该怎么去解决这个问题呢？</p>
-<p>我们发现这类问题的关键是在拿不到回调事件的事件源，回调事件的事件源在系统这些类已经定义好的回调方法 <code>onActivityResult</code> <code>onRequestPermissionResult</code>上, 而如果在这些方法中获取事件源就必然也是一种割裂式编程，如下面这种写法</p>
-<pre><code>private PublishSubject&lt;ActivityResult&gt; publishSubject = PublishSubject.create();
-private Observable&lt;ActivityResult&gt; startActivity(){
-    startActivityForResult(new Intent(),1);
-    return publishSubject;
-}
-@Override
-protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    super.onActivityResult(requestCode, resultCode, data);
-    ActivityResult activityResult = new ActivityResult();
-    activityResult.setRequestCode(requestCode);
-    activityResult.setResultCode(resultCode);
-    activityResult.setData(data);
-    publishSubject.onNext(activityResult);
-}
-</code></pre><p>这种写法虽然在某种意义上实现了事件流链式编程的方式，但是有一个缺点就是需要去改变现有代码，需要在我们的 <code>BaseActivity</code> 中去定义对应的 <code>Subject</code> 并在对应的方法中去发送事件，而且如果我们不是在<code>Activity</code>类中调用 <code>startActivity</code>而是在  <code>Presenter</code>或者<code>ViewModel</code>中调用，那这种依赖于 <code>Activity</code> 引用的侵入性的写法就不太好了。</p>
-<h2 id="解决思路"><a href="#解决思路" class="headerlink" title="解决思路"></a>解决思路</h2><p>问题还是在于怎样获取到整个事件回调时的事件源，并将此回调事件和发起的调用事件串起来构成一条完整的事件流。<br>看了 <a href="https://github.com/tbruyelle/RxPermissions" target="_blank" rel="noopener">RxPermissions</a> 开源项目的源码后 我发现了一种思路：  </p>
-<blockquote>
-<p><strong>利用一个无页面的 Fragment 去中转其所在 Activity 的一些生命周期回调事件</strong>  </p>
-</blockquote>
-<p>其中就包括<code>onRequestPermissionResult</code>事件这里需要注意的是有哪些<code>fragment</code>中的回调方法会同步<code>Activity</code>的事件，有没有什么限制，比如 : 如果要回调 <code>fragment</code> 中<code>onActivityResult</code> 就必须是在该 <code>fragment</code> 中调用 <code>startActivity</code> 且所在 <code>Activity</code> 必须调用<code>super.onActivityResult()</code> 方法，如果项目中有人重写了 <code>Activity</code> 的 <code>onActivityResult</code> 方法，并且去掉了对 <code>super.onActivityResult</code> 的调用，那么 <code>fragment</code> 中的 <code>onActivityResult</code> 将接收不到回调事件（所以如果采用这种有限制的写法，就需要在团队中声明这种限制条件，以免出现问题）。这里有一篇关于无界面的 fragment 一些用法的文章：<br><a href="https://github.com/hehonghui/android-tech-frontier/blob/master/issue-18/%E7%94%A8%E7%BB%84%E5%90%88%E4%BB%A3%E6%9B%BF%E7%BB%A7%E6%89%BF%E8%83%BD%E4%B8%BAActivity%E5%B8%A6%E6%9D%A5%E4%BB%80%E4%B9%88.md" target="_blank" rel="noopener">用组合代替继承能为 Activity 带来什么</a></p>
-<p>这样我们就解决了这个问题，我们可以愉快的使用这种链式调用的方式了：例如这里的几个库已经实现了这种调用方式</p>
-<p><a href="https://github.com/tbruyelle/RxPermissions" target="_blank" rel="noopener">RxPermissions</a><br><a href="https://github.com/VictorAlbertos/RxActivityResult" target="_blank" rel="noopener">RxActivityResult(做了一些安全性的处理，是利用无页面的 Activity 做中转的)</a><br><a href="https://github.com/nekocode/RxActivityResult" target="_blank" rel="noopener">RxActivityResult(利用无界面 Fragment 做事件中转)</a></p>
-<p><strong>RxPermissions:</strong></p>
-<pre><code>rxPermissions
-    .request(Manifest.permission.CAMERA)
-    .subscribe(granted -&gt; {
-        if (granted) { // Always true pre-M
-        // I can control the camera now
-        } else {
-        // Oups permission denied
-        }
-    });
-</code></pre><p><strong>RxActivityResult:</strong></p>
-<pre><code>RxActivityResult.startActivityForResult(this, intent, REQUEST_CODE)
-        .subscribe(new Consumer&lt;ActivityResult&gt;() {
-            @Override
-            public void accept(@NonNull ActivityResult result) throws Exception {
-                if (result.isOk()) {
-                    final Intent data = result.getData();
-                    // DO SOME THING
-                }
-            }
-        });
-</code></pre><p>当然还有另一种通用的侵入式写法就是一开始提到的。 可以在 <code>BaseActivity</code> 和<code>BaseFragment</code> 里面创建 <code>Subject</code> 然后在对应的回调中去发射对应的事件，这种写法的优缺点也比较明显：必须在基类中做这些处理，对代码的侵入性比较大，但是兼用性较好，可以处理一切回调方法（不需要考虑 <code>fragment</code> 的事件同步问题），性能也最优（不需要创建一个中转 <code>fragment</code> 或者 <code>activity</code>）</p>
-<p>选择两种方式都是可以的 我个人倾向于选用第一种利用中间件（ <code>Fragment</code> 或者<code>Activity</code> ）的方式，主要是无侵入性，随到随用，需要使用时就调用提前包装好的方法即可，只要了解处理好生命周期的兼容性问题即可。</p>
-<p>其实当我们获取到 <code>Activity</code> 或者 <code>Fragment</code> 中这些回调事件事件源 <code>Observable</code> 后我们可以有一些其他的用途，例如可以组合<code>onDestory</code> 和<code>OnDestoryView</code> 的 <code>Observable</code> 到网络请求的事件中，这样就可以在页面销毁时及时停止掉网络请求避免一些内存泄漏和空指针异常，这个也有类似已经实现了的库也是上面的两种方式:<br><a href="https://github.com/trello/RxLifecycle" target="_blank" rel="noopener">RxLifecycle</a><br><a href="https://github.com/zhihu/RxLifecycle" target="_blank" rel="noopener">RxLifecycle（利用fragment承载事件）</a></p>
-<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>谢谢阅读！ 谢谢RxJava带给我们这些好用的功能<br><img src="/img/hxz0203-1.jpg" alt=""></p>
+        <h2 id="想法的由来"><a href="#想法的由来" class="headerlink" title="想法的由来"></a>想法的由来</h2><p>最近在重构项目中的代码，采用仓储模式屏蔽了外界对数据层的直接操作，仓储类中包含了调用访问服务器、本地数据源的代码，部分数据采用本地 SharePreferences 存储，于是出现了下面的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">object StatusRepository &#123;</span><br><span class="line"></span><br><span class="line">    private val SP_NAME = &quot;sp_status&quot;</span><br><span class="line">    private val KEY_CHOICENESS_CATEGORIES = &quot;key_choiceness_categories&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    private val apiService by lazy &#123;</span><br><span class="line">        BooheeApiServiceProvider.getApiService(StatusApiService::class.java)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private val sharePreference by lazy &#123;</span><br><span class="line">        MyApplication.getContext().getSharedPreferences(SP_NAME, Context.MODE_PRIVATE)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fun listLocalChoicenessCategories():List&lt;PostCategory&gt; &#123;</span><br><span class="line">        val strList = sharePreference.getString(KEY_CHOICENESS_CATEGORIES,&quot;&quot;)</span><br><span class="line">        return FastJsonUtils.parseList(strList, PostCategory::class.java)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fun updateLocalChoicenessCategories(list: List&lt;PostCategory&gt;) &#123;</span><br><span class="line">       sharePreference.edit().putString(KEY_CHOICENESS_CATEGORIES, FastJsonUtils.toJson(list)).apply()</span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">    fun listByChoicenessCategory(slug: String, page: Int): Single&lt;StatusApiResult&gt; =</span><br><span class="line">            apiService.listByChoicenessCategory(slug, page)</span><br><span class="line">                    .compose(IOtoUITransformer())                   </span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当使用 SharePeferences 的方法变多时，这个类就充满了 Key 值的定义，序列/反序列化，<code>edit()</code>、<code>apply()</code> 的代码，且没有屏蔽具体访问数据源的方式, 直接操作了 SharePeferences 访问的代码，而类中对服务器数据源访问的代码，不仅屏蔽了具体细节，代码又简洁，所以就萌发了开发一个类似于 Retrofit 风格调用的 SharePeferences 封装库的想法.<br>(后来完成一个简易版后在 github 上发现了类似的库 <a href="https://github.com/soarcn/Favor" target="_blank" rel="noopener">Favor</a>，出于对部分知识的实践还是继续完成后续的开发，相比于此库添加了一些功能，并且更简洁，完成了 BriefPeference 初版)</p>
+<h2 id="初步的需求"><a href="#初步的需求" class="headerlink" title="初步的需求"></a>初步的需求</h2><ul>
+<li>Retrofit Style</li>
+<li>Support multiple SharePeferences</li>
+<li>Support reactive</li>
+<li>Support default Object value</li>
+<li>Support custom Serializable</li>
+</ul>
+<h2 id="开发实现"><a href="#开发实现" class="headerlink" title="开发实现"></a>开发实现</h2><p>涉及到的技术点：</p>
+<ul>
+<li>动态代理</li>
+<li>Kotlin 注解及反射</li>
+<li>RxJava</li>
+</ul>
+<p>首先我们简化对 SharePeferences 操作的代码， 之前我们读写一个值的逻辑为：根据值的类型调用SharePreference 暴露的对应类型操作（put、get、remove、clear）方法, 基于代码复用的原则 这个过程其实可以抽取为一个泛型的方法，根据具体值的类型分支调用不同的操作方法，但是操作方法有好几种 如put、get、remove、clear，我们可以进一步复用这块逻辑，根据具体方法的操作类型去执行对应的操作逻辑，于是此过程初步可以统一成一个函数，输入为 值、操作类型、 输出为返回值，函数体的逻辑是完成实际上对 SharePreferences 操作。<br>而现在的目的是完成一个类似于 Retrofit 调用风格方式的 SharePreferences 封装库，Retrofit 是基于动态代理实现的一个网络库，通过动态代理我们可以拦截对方法的调用，在其中实现自己的逻辑，比如我们需要在一个类中所有方法执行前记录一个日志，如果我们在每一个方法里面去添加这个逻辑，当方法数较多时工作量大且代码冗杂，这个时候我们就可以使用动态代理去拦截每一个方法在拦截的逻辑里面加上日志记录代码，</p>
+<p>在这里我们利用动态代理拦截对方法的调用，在其中实现前面我们抽象的那个函数中对 SharePeference 操作的逻辑过程:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">class BriefPreference(private var converterFactory: Converter.Factory = DefaultConverterFactory()) &#123;</span><br><span class="line"></span><br><span class="line">    private lateinit var preferences: SharedPreferences</span><br><span class="line">    private lateinit var preferenceChangeObservable: Observable&lt;String&gt;</span><br><span class="line">    private val methodInfoCache = LinkedHashMap&lt;String, MethodInfo&gt;()</span><br><span class="line"></span><br><span class="line">    fun &lt;T&gt; create(context: Context, service: Class&lt;T&gt;): T &#123;</span><br><span class="line">        createSharePreference(context, service)</span><br><span class="line">        createPreferenceChangeObservable()</span><br><span class="line">        return createServiceProxy(service)</span><br><span class="line">    &#125;</span><br><span class="line">    //创建代理类</span><br><span class="line">    private fun &lt;T&gt; createServiceProxy(service: Class&lt;T&gt;): T = Proxy.newProxyInstance(service.classLoader, arrayOf&lt;Class&lt;*&gt;&gt;(service), object : InvocationHandler &#123;</span><br><span class="line">            @Throws(Throwable::class)</span><br><span class="line">            override fun invoke(proxy: Any, method: Method, args: Array&lt;Any&gt;?): Any? &#123;</span><br><span class="line">                return if (method.declaringClass == Any::class.java) &#123;</span><br><span class="line">                    method.invoke(this, args)</span><br><span class="line">                &#125; else adapterMethod(getMethodInfo(method, args), args)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;) as T</span><br><span class="line">    // 调用接口方法时拦截执行的真正逻辑（获取接口上方法的信息完成具体对SharePeferences的操作）</span><br><span class="line">    private fun adapterMethod(methodInfo: MethodInfo, args: Array&lt;Any&gt;?): Any?&#123;</span><br><span class="line">            return when (methodInfo.actionType) &#123;</span><br><span class="line">                GET -&gt; getValue(methodInfo.key, methodInfo.returnType, args?.get(0))</span><br><span class="line">                PUT -&gt; putValue(methodInfo.key, args?.get(0))</span><br><span class="line">                REMOVE -&gt; preferences.edit().remove(methodInfo.key).apply()</span><br><span class="line">                CLEAR -&gt; preferences.edit().clear().apply()</span><br><span class="line">                else -&gt; null</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">&#125; </span><br><span class="line">    // 使用</span><br><span class="line">interface UserService &#123;</span><br><span class="line"></span><br><span class="line">        @Key(&quot;testName&quot;)</span><br><span class="line">        fun putName(value: String)</span><br><span class="line"></span><br><span class="line">        @Key(&quot;testName&quot;)</span><br><span class="line">        fun getName(@Default value: String = &quot;ethanhua&quot;): String</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">private val localService: UserService by lazy &#123;</span><br><span class="line">            BriefPreference().create(AppContext.instance, UserService::class.java)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        fun putUserName(name: String) = localService.putName(name) </span><br><span class="line"></span><br><span class="line">        fun getUserName() = localService.getName()</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="输入参数：操作类型"><a href="#输入参数：操作类型" class="headerlink" title="输入参数：操作类型"></a>输入参数：操作类型</h3><p>比如 <code>remove</code> 、<code>clear</code> 我们通过定义的接口方法的注解来定义，然后在  <code>InvocationHandler invoke</code> 方法中第二个参数 <code>method: Method</code> 中来得到<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">@Target(AnnotationTarget.FUNCTION)</span><br><span class="line">@Retention(AnnotationRetention.RUNTIME)</span><br><span class="line">annotation class Remove</span><br><span class="line"></span><br><span class="line">@Target(AnnotationTarget.FUNCTION)</span><br><span class="line">@Retention(AnnotationRetention.RUNTIME)</span><br><span class="line">annotation class Clear</span><br><span class="line"></span><br><span class="line">interface UserService &#123;</span><br><span class="line"></span><br><span class="line">    @Remove</span><br><span class="line">    fun removeUser()</span><br><span class="line"></span><br><span class="line">    @Clear</span><br><span class="line">    fun clear()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="输入参数：-操作值"><a href="#输入参数：-操作值" class="headerlink" title="输入参数： 操作值"></a>输入参数： 操作值</h3><p>我们可以通过 Proxy 中的 <code>InvocationHandler invoke</code> 方法中第三个参数 <code>args: Array&lt;Any&gt;?</code> 来得到</p>
+<h3 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h3><h4 id="键值、返回默认值、SharePreferences文件名通过注解-Key、-Default、-SpName-来定义"><a href="#键值、返回默认值、SharePreferences文件名通过注解-Key、-Default、-SpName-来定义" class="headerlink" title="键值、返回默认值、SharePreferences文件名通过注解 @Key、@Default、@SpName 来定义"></a>键值、返回默认值、SharePreferences文件名通过注解 @Key、@Default、@SpName 来定义</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@SpName(&quot;user_preferences&quot;)</span><br><span class="line">interface UserService &#123;</span><br><span class="line">    @Key(&quot;testName&quot;) </span><br><span class="line">    fun putName(value: String)</span><br><span class="line">    </span><br><span class="line">    @Key(&quot;testName&quot;) </span><br><span class="line">    fun getName(@Default defaultName: String = &quot;ethanhua&quot;): String</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="序列-反序列化"><a href="#序列-反序列化" class="headerlink" title="序列/反序列化"></a>序列/反序列化</h4><p>序列化采用同 Retrofit 中处理的方式，定义接口，用户可以实现接口处理自己的序列/反序列化逻辑，然后作为 BriefPreference 的构造参数传入进去，默认实现了 Serializable 、 Parcelable 的处理</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">interface Converter&lt;F, T&gt; &#123;</span><br><span class="line"></span><br><span class="line">    @Throws(IOException::class)</span><br><span class="line">    fun convert(value: F?): T?</span><br><span class="line"></span><br><span class="line">    interface Factory &#123;</span><br><span class="line"></span><br><span class="line">        fun &lt;F&gt; fromType(fromType: Type): Converter&lt;F, String&gt;</span><br><span class="line"></span><br><span class="line">        fun &lt;T&gt; toType(toType: Type): Converter&lt;String, T&gt;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class GsonConverterFactory : Converter.Factory &#123;</span><br><span class="line"></span><br><span class="line">    private val gson = Gson()</span><br><span class="line"></span><br><span class="line">    override fun &lt;F&gt; fromType(fromType: Type): Converter&lt;F, String&gt; &#123;</span><br><span class="line">        return object : Converter&lt;F, String&gt; &#123;</span><br><span class="line">            override fun convert(value: F?): String? &#123;</span><br><span class="line">                return gson.toJson(value)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override fun &lt;T&gt; toType(toType: Type): Converter&lt;String, T&gt; &#123;</span><br><span class="line">        return object : Converter&lt;String, T&gt; &#123;</span><br><span class="line">            override fun convert(value: String?): T? &#123;</span><br><span class="line">                return gson.fromJson(value, toType)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">object UserRepository &#123;</span><br><span class="line"></span><br><span class="line">    private val localService: UserService by lazy &#123;</span><br><span class="line">        BriefPreference(GsonConverterFactory()).create(AppContext.instance, UserService::class.java)</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="reactive-响应式支持"><a href="#reactive-响应式支持" class="headerlink" title="reactive 响应式支持"></a>reactive 响应式支持</h4><p>SharePreferences 作为本地数据源的载体，为了在值发生改变时，那些依赖的地方能够及时更新，所以提供了支持响应式编程的功能，这里我们没有实现自己的数据源(因为可能项目中有其它地方通过直接操作 SharePrefences 来改变了数据，这时我们就监听不到数据的改变)，而是采用               SharePrefences 提供给我们的 <code>registerOnSharedPreferenceChangeListener</code> 来作为数据源，然后依托于 Rxjava 中的 <code>Observable</code> 来分发数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">preferenceChangeObservable = Observable.create&lt;String&gt;(&#123; emitter -&gt;</span><br><span class="line">            val listener = SharedPreferences.OnSharedPreferenceChangeListener &#123; preferences, key -&gt;</span><br><span class="line">                if (preferences == this.preferences) &#123;</span><br><span class="line">                    emitter.onNext(key)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            emitter.setCancellable &#123;</span><br><span class="line">                preferences.unregisterOnSharedPreferenceChangeListener(listener)</span><br><span class="line">            &#125;</span><br><span class="line">            preferences.registerOnSharedPreferenceChangeListener(listener)</span><br><span class="line">        &#125;).share() // share() 来实现一个数据源对多个监听者</span><br><span class="line"></span><br><span class="line">private fun getValue(key: String, type: Type, default: Any?): Any? &#123;</span><br><span class="line">        val returnType = Types.getRawType(type)</span><br><span class="line">        return with(preferences) &#123;</span><br><span class="line">            val res: Any = when (returnType) &#123;</span><br><span class="line">                ...</span><br><span class="line">                // 响应式</span><br><span class="line">                Observable::class.java -&gt; getObservable(key, type, default)</span><br><span class="line">                Flowable::class.java -&gt; getFlowable(key, type, default)</span><br><span class="line">                else -&gt; &#123;</span><br><span class="line">                    val str = getString(key, &quot;&quot;)</span><br><span class="line">                    if (str.isNullOrEmpty() &amp;&amp; default != null) &#123;</span><br><span class="line">                        return default</span><br><span class="line">                    &#125;</span><br><span class="line">                    val converter: Converter&lt;String, Any&gt;? = converterFactory.toType(getConverterType(type))</span><br><span class="line">                    return converter?.convert(str)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            res</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">private fun getObservable(key: String, type: Type, default: Any?): Observable&lt;Any&gt; &#123;</span><br><span class="line">        if (default == null) &#123;</span><br><span class="line">            throw IllegalArgumentException(&quot;default value can not be null&quot;)</span><br><span class="line">        &#125;</span><br><span class="line">        return preferenceChangeObservable.filter(&#123;</span><br><span class="line">            key == it</span><br><span class="line">        &#125;).startWith(key).map &#123;</span><br><span class="line">            getValue(it, Types.getGenericActualType(type, Observable::class.java), default)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">`</span><br></pre></td></tr></table></figure>
+<p>这样我们就实现了对响应式的支持，Google 最近推出的一个对数据库访问的库 Room 也是使用动态代理实现的，对远程数据、本地数据库、本地 SharePreferences 的访问现在都统一成了定义好接口方法，直接在仓储类中封装调用逻辑了。</p>
+<h4 id="最终代码"><a href="#最终代码" class="headerlink" title="最终代码:"></a>最终代码:</h4><p>其中，动态代理、序列化/反序列化及返回值处理 中所涉及到的反射性能影响没有研究和评估<br><a href="https://github.com/ethanhua/BriefPreference" target="_blank" rel="noopener">BriefPreference</a></p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>谢谢阅读！<br>Thanks:  <a href="https://github.com/soarcn/Favor" target="_blank" rel="noopener">Favor</a><br><img src="/img/hxz0228.jpeg" alt=""></p>
 
     
 
@@ -566,19 +523,19 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2017/05/29/constraintlayout1/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            新篇
-        </a>
-    
 
     <!-- Section Spacer -->
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
+    
+        <a href="/2018/01/20/kotlin-function-md/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
     
 </nav>
 
