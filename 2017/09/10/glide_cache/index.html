@@ -279,7 +279,7 @@
 
     <!-- Custom Head -->
     
-</head>
+<link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
 
 
     
@@ -572,7 +572,7 @@
         if (cached == null) {
             result = null;
         } else if (cached instanceof EngineResource) {
-            // Save an object allocation if we&apos;ve cached an EngineResource (the typical case).
+            // Save an object allocation if we&#39;ve cached an EngineResource (the typical case).
             result = (EngineResource) cached;
         } else {
             result = new EngineResource(cached, true /*isCacheable*/);
@@ -760,7 +760,7 @@
     engineResource = engineResourceFactory.build(resource, isCacheable);
     hasResource = true;
 
-    // Hold on to resource for duration of request so we don&apos;t recycle it in the middle of notifying if it
+    // Hold on to resource for duration of request so we don&#39;t recycle it in the middle of notifying if it
     // synchronously released by one of the callbacks.
     engineResource.acquire();
     ///key是一个EngineKey。如果resource.isCacheable()为true,resource将添加到activeResources中,并在移除时加入memorycache
@@ -884,7 +884,7 @@ private static class RefQueueIdleHandler implements MessageQueue.IdleHandler {
     dirtyFiles = new File[valueCount];
 
     // The names are repetitive so re-use the same builder to avoid allocations.
-    StringBuilder fileBuilder = new StringBuilder(key).append(&apos;.&apos;);
+    StringBuilder fileBuilder = new StringBuilder(key).append(&#39;.&#39;);
     int truncateTo = fileBuilder.length();
     for (int i = 0; i &lt; valueCount; i++) {
         fileBuilder.append(i);

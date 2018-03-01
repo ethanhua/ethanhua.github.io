@@ -279,7 +279,7 @@
 
     <!-- Custom Head -->
     
-</head>
+<link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
 
 
     
@@ -497,7 +497,7 @@
 <p>打开手机相册，调用相机拍照，申请系统权限</p>
 </blockquote>
 <p>这类事件的回调通常由系统调用我们 <code>Activity</code> 或者 <code>Fragment</code> 的一些方法来运作的，如：</p>
-<pre><code>onActivityResult onRequestPermissionResult 
+<pre><code>  onActivityResult onRequestPermissionResult 
 </code></pre><p>像这类异步调用我们用不了上面的方式来包装成一个<code>Observable</code>对象，从而没法实现链式编程方式，我们在某处执行了某个动作但需要在其它的地方来处理异步的回调，这种割裂式的编程在项目业务代码复杂后在维护性和易读性上都大打折扣，那么我们应该怎么去解决这个问题呢？</p>
 <p>我们发现这类问题的关键是在拿不到回调事件的事件源，回调事件的事件源在系统这些类已经定义好的回调方法 <code>onActivityResult</code> <code>onRequestPermissionResult</code>上, 而如果在这些方法中获取事件源就必然也是一种割裂式编程，如下面这种写法</p>
 <pre><code>private PublishSubject&lt;ActivityResult&gt; publishSubject = PublishSubject.create();

@@ -279,7 +279,7 @@
 
     <!-- Custom Head -->
     
-</head>
+<link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
 
 
     
@@ -507,41 +507,41 @@
 <li>Code sharing 对每个泛型类只生成唯一的一份目标代码；该泛型类的所有实例都映射到这份目标代码上，在需要的时候执行类型检查和类型转换。</li>
 </ul>
 <h2 id="Java的伪泛型，泛型擦除"><a href="#Java的伪泛型，泛型擦除" class="headerlink" title="Java的伪泛型，泛型擦除"></a>Java的伪泛型，泛型擦除</h2><p>由于向上兼容历史代码的原因 Java 采用了 Code sharing 的策略，使得泛型只存在于源码阶段，编译过后的 Class 文件并不存在泛型，虚拟机并不知道泛型的存在，所以说 Java 中的泛型是一种伪泛型，这种参数类型只存在于源码阶段在编译后并不存在的机制我们叫做泛型擦除，举个例子：</p>
-<pre><code>public static void main(String[] args) {
-    Class c1 = new ArrayList&lt;String&gt;().getClass();
-    Class c2 = new ArrayList&lt;Integer&gt;().getClass();
-    System.out.println(c1 == c2);
-}
+<pre><code>    public static void main(String[] args) {
+        Class c1 = new ArrayList&lt;String&gt;().getClass();
+        Class c2 = new ArrayList&lt;Integer&gt;().getClass();
+        System.out.println(c1 == c2);
+    }
 </code></pre><p>上面的代码有两个不同的 ArrayList : <code>ArrayList&lt;Integer&gt;</code> 和 <code>ArrayList&lt;String&gt;</code>。在我们看来它们的参数化类型不同，一个保存整性，一个保存字符串。但是通过比较它们的 Class 对象，上面的代码输出是 true。这说明在 JVM 看来它们是同一个类。而在 C++、C# 这些支持真泛型的语言中，它们就是不同的类。</p>
 <h2 id="Java编译器的类型转换和类型检查"><a href="#Java编译器的类型转换和类型检查" class="headerlink" title="Java编译器的类型转换和类型检查"></a>Java编译器的类型转换和类型检查</h2><h3 id="类型自动转换"><a href="#类型自动转换" class="headerlink" title="类型自动转换"></a>类型自动转换</h3><p>既然上面所说Java会在编译时对泛型进行擦除，那么它要实现同一份泛型代码不同类型通用必然需要类型转换，事实上编译器也是这么干的，比如下面的这一段代码：</p>
-<pre><code>public class Wrapper&lt;T&gt; {
-    private T field;
+<pre><code>    public class Wrapper&lt;T&gt; {
+        private T field;
 
-    public void setField(T field) {
-        this.field = field;
-    }
+        public void setField(T field) {
+            this.field = field;
+        }
 
-    public T getField() {
-        return field;
+        public T getField() {
+            return field;
+        }
+    }     
+    public void test() throws Exception {
+        Wrapper&lt;Integer&gt; wrapper1 = new Wrapper&lt;&gt;();
+        Wrapper&lt;String&gt; wrapper2 = new Wrapper&lt;&gt;();
+        wrapper1.setField(1);
+        int field1 = wrapper1.getField();
+        wrapper2.setField(&quot;hello generics&quot;);
+        String field2 = wrapper2.getField();
     }
-}     
-public void test() throws Exception {
-    Wrapper&lt;Integer&gt; wrapper1 = new Wrapper&lt;&gt;();
-    Wrapper&lt;String&gt; wrapper2 = new Wrapper&lt;&gt;();
-    wrapper1.setField(1);
-    int field1 = wrapper1.getField();
-    wrapper2.setField(&quot;hello generics&quot;);
-    String field2 = wrapper2.getField();
-}
 </code></pre><p>编译后：</p>
-<pre><code>public void test() throws Exception {
-    Wrapper wrapper1 = new Wrapper();
-    Wrapper wrapper2 = new Wrapper();
-    wrapper1.setField(Integer.valueOf(1));
-    int field1 = ((Integer)wrapper1.getField()).intValue();
-    wrapper2.setField(&quot;hello generics&quot;);
-    String field2 = (String)wrapper2.getField();
-}
+<pre><code>    public void test() throws Exception {
+        Wrapper wrapper1 = new Wrapper();
+        Wrapper wrapper2 = new Wrapper();
+        wrapper1.setField(Integer.valueOf(1));
+        int field1 = ((Integer)wrapper1.getField()).intValue();
+        wrapper2.setField(&quot;hello generics&quot;);
+        String field2 = (String)wrapper2.getField();
+    }
 </code></pre><p>可以看到编译后的代码增加了类型转换，编译器会帮我们自动添加类型转换的代码</p>
 <h3 id="类型检查"><a href="#类型检查" class="headerlink" title="类型检查"></a>类型检查</h3><p>由于类型擦除可能导致的一些异常问题，编译器需要做类型检查来尽量确保程序在运行时不会抛出异常，我们在写泛型相关代码时，将泛型擦除考虑进去后再想这段代码在运行时会不会有异常，然后再看编译器报的错误也就理解了，比如：</p>
 <p><strong>泛型的方法签名</strong></p>
@@ -584,23 +584,23 @@ try{
     }
 }
 </code></pre><p>在上面的 create 中的几行代码都是编译器会报错误的，我们写这段代码本意上是为了实现泛型对象的创建比如：</p>
-<pre><code>Wrapper&lt;String&gt; wrapper = new Wrapper();
-wrapper.create();
-对应： field = new String();
-      if(filed instanceof String){}
-      String[] array=new String[SIZE];
-      String[] array= String new Object[SIZE];
+<pre><code> Wrapper&lt;String&gt; wrapper = new Wrapper();
+ wrapper.create();
+ 对应： field = new String();
+       if(filed instanceof String){}
+       String[] array=new String[SIZE];
+       String[] array= String new Object[SIZE];
 </code></pre><p>而由于泛型擦除 上面的参数 T 在编译后都会由它的第一个上界即 Object 代替，而编译器想通过去修改 Wrapper 类中的 create 方法达到输出我们的本意代码是不可能的，因为泛型只有在运行时才知道具体的类型。</p>
 <p>这里需要提一点的是编译器进行类型检查时是以我们声明的类型为基础依赖去检查的而不是具体创建的类型，什么意思呢？ 看下面这段我们比较常见的代码：</p>
-<pre><code>ArrayList&lt;String&gt; arrayList1=new ArrayList();  
-arrayList1.add(&quot;1&quot;);//编译通过  
-arrayList1.add(1);//编译错误  
-String str1=arrayList1.get(0);//返回类型就是String  
+<pre><code>    ArrayList&lt;String&gt; arrayList1=new ArrayList();  
+    arrayList1.add(&quot;1&quot;);//编译通过  
+    arrayList1.add(1);//编译错误  
+    String str1=arrayList1.get(0);//返回类型就是String  
 
-ArrayList arrayList2=new ArrayList&lt;String&gt;();  
-arrayList2.add(&quot;1&quot;);//编译通过  
-arrayList2.add(1);//编译通过  
-Object object=arrayList2.get(0);//返回类型就是Object 
+    ArrayList arrayList2=new ArrayList&lt;String&gt;();  
+    arrayList2.add(&quot;1&quot;);//编译通过  
+    arrayList2.add(1);//编译通过  
+    Object object=arrayList2.get(0);//返回类型就是Object 
 </code></pre><p>通过上面的例子，我们可以明白，类型检查就是针对声明的，变量声明是什么类型就用这个类型去调用泛型方法，就会对这个调用的方法进行类型检测，而无关它真正引用的对象。     </p>
 <h3 id="Java数组的“泛型化”"><a href="#Java数组的“泛型化”" class="headerlink" title="Java数组的“泛型化”"></a>Java数组的“泛型化”</h3><p>Java中数组相比于Java 类库中的容器类是比较特殊的，主要体现在三个方面：</p>
 <ul>
@@ -612,82 +612,82 @@ Object object=arrayList2.get(0);//返回类型就是Object
 <pre><code>Wrapper&lt;String&gt;[] wrapperArr1 = new Wrapper&lt;String&gt;[2]; //error
 Wrapper&lt;String&gt;[] wrapperArr2 = new Wrapper[2];//Unchecked warning
 </code></pre><p>而且Java 语言规范明确规定：数组内的元素必须是“物化”的。</p>
-<pre><code>It is a compile-time error if the component type of the arra being initialized is not reifiable.
+<pre><code>   It is a compile-time error if the component type of the arra being initialized is not reifiable.
 </code></pre><p>对“物化”的第一条定义就是不能是泛型：</p>
-<pre><code>A type is reifiable if and only if one of the following holds:
+<pre><code> A type is reifiable if and only if one of the following holds:
 
- - It refers to a non-generic class or interface type declaration.
- - ... ..
+  - It refers to a non-generic class or interface type declaration.
+  - ... ..
 </code></pre><p>所以对于上面的代码第一行不可以，第二行可以，因为原生类 Wrapper 不是泛型</p>
 <h2 id="通配符"><a href="#通配符" class="headerlink" title="通配符"></a>通配符</h2><h3 id="通配符的产生"><a href="#通配符的产生" class="headerlink" title="通配符的产生"></a>通配符的产生</h3><p><strong>里式替换原则与协变</strong><br>任何使用父类的地方可以被它的子类替换，我们在使用类和对象时经常会接触到里式替换原则，其实在数组中一样也符合这种原则，如：</p>
-<pre><code>class Fruit {}
-class Apple extends Fruit {}
-class Jonathan extends Apple {}
-class Orange extends Fruit {}
+<pre><code>    class Fruit {}
+    class Apple extends Fruit {}
+    class Jonathan extends Apple {}
+    class Orange extends Fruit {}
 
-public class CovariantArrays {
-    public  void main(String[] args) {
-        Fruit[] fruit = new Apple[10];
-        List&lt;Fruit&gt; fruits=new ArrayList&lt;Apple&gt;();//error
-        fruit[0] = new Apple(); // OK
-        fruit[1] = new Jonathan(); // OK
-        // Runtime type is Apple[], not Fruit[] or Orange[]:
-        try {
-            // Compiler allows you to add Fruit:
-            fruit[0] = new Fruit(); // ArrayStoreException
-        } catch(Exception e) { System.out.println(e); }
-        try {
-            // Compiler allows you to add Oranges:
-            fruit[0] = new Orange(); // ArrayStoreException
-        } catch(Exception e) { System.out.println(e); }
+    public class CovariantArrays {
+        public  void main(String[] args) {
+            Fruit[] fruit = new Apple[10];
+            List&lt;Fruit&gt; fruits=new ArrayList&lt;Apple&gt;();//error
+            fruit[0] = new Apple(); // OK
+            fruit[1] = new Jonathan(); // OK
+            // Runtime type is Apple[], not Fruit[] or Orange[]:
+            try {
+                // Compiler allows you to add Fruit:
+                fruit[0] = new Fruit(); // ArrayStoreException
+            } catch(Exception e) { System.out.println(e); }
+            try {
+                // Compiler allows you to add Oranges:
+                fruit[0] = new Orange(); // ArrayStoreException
+            } catch(Exception e) { System.out.println(e); }
+        }
     }
-}
 </code></pre><p>数组中的这种向上转变称为<strong>数组的协变</strong>，而泛型中是不支持协变的，如上面的</p>
 <pre><code>List&lt;Fruit&gt; fruits=new ArrayList&lt;Apple&gt;();//error
 </code></pre><p>会产生编译时错误，之所以这么设计是因为数组支持运行时检查而集合类不支持运行时检查。<br>Java的泛型的这种特性对于有需要向上转型的需求时就无能为力，所以 Java 为了满足这种需求设计出了通配符.</p>
 <h3 id="上边界限定通配符"><a href="#上边界限定通配符" class="headerlink" title="上边界限定通配符"></a>上边界限定通配符</h3><p>利用 <code>&lt;? extends Fruit&gt;</code> 形式的通配符可以实现泛型的向上转型：</p>
-<pre><code>List&lt;？extends Fruit&gt; fruits = new ArrayList&lt;Apple&gt;();
+<pre><code>        List&lt;？extends Fruit&gt; fruits = new ArrayList&lt;Apple&gt;();
 </code></pre><p>使用上通配符后编译器为了保证运行时的安全，会限定对其写的操作，开放读的操作，因为编译器只能保证 fruits 集合中存在的是 Fruits 及它的子类，并不知道具体的类型，所以对于下面的代码第二行会报错：</p>
-<pre><code>ArrayList&lt;? extends Fruit&gt; fruits = new ArrayList&lt;Apple&gt;();
-fruits.add(new Fruit());// Error 
-Fruit apple = fruits.get(0);
+<pre><code>        ArrayList&lt;? extends Fruit&gt; fruits = new ArrayList&lt;Apple&gt;();
+        fruits.add(new Fruit());// Error 
+        Fruit apple = fruits.get(0);
 </code></pre><h3 id="下边界限定通配符"><a href="#下边界限定通配符" class="headerlink" title="下边界限定通配符"></a>下边界限定通配符</h3><p>利用<code>&lt;? super T&gt;</code>形式的通配符可以实现泛型的向下转型</p>
-<pre><code>void writeTo(List&lt;? super Apple&gt; apples) {
-    apples.add(new Apple());
-    apples.add(new Jonathan());
+<pre><code>    void writeTo(List&lt;? super Apple&gt; apples) {
+        apples.add(new Apple());
+        apples.add(new Jonathan());
 
-    // apples.add(new Fruit()); // Error
-    // Apple apple=apples.get(0);// Error
-}
+        // apples.add(new Fruit()); // Error
+        // Apple apple=apples.get(0);// Error
+    }
 </code></pre><p>与上通配符相反，下边界通配符通常限定读的操作，开放写的操作，对于上面的代码writeTo 方法的参数 apples 的类型是 <code>List&lt;? super Apple&gt;</code> ，它表示某种类型的 List，这个类型是 Apple 的基类型。也就是说，我们不知道实际类型是什么，但是这个类型肯定是 Apple 的父类型。因此，我们可以知道向这个 List 添加一个 Apple 或者其子类型的对象是安全的，这些对象都可以向上转型为 Apple。但是我们不知道加入 Fruit 对象是否安全，因为那样会使得这个 List 添加跟 Apple 无关的类型.</p>
 <h3 id="无边界通配符"><a href="#无边界通配符" class="headerlink" title="无边界通配符"></a>无边界通配符</h3><p>还有一种通配符是无边界通配符，它的使用形式是一个单独的问号：<code>List&lt;?&gt;</code>，也就是没有任何限定。不做任何限制，跟不用类型参数的 List 有什么区别呢？</p>
 <p><code>List&lt;?&gt; list</code> 表示 list 是持有某种特定类型的 List，但是不知道具体是哪种类型。那么我们可以向其中添加对象吗？当然不可以，因为并不知道实际是哪种类型，所以不能添加任何类型，这是不安全的。而单独的 <code>List list</code> ，也就是没有传入泛型参数，表示这个 list 持有的元素的类型是 Object，因此可以添加任何类型的对象，只不过编译器会有警告信息。</p>
 <h1 id="Kotlin的泛型"><a href="#Kotlin的泛型" class="headerlink" title="Kotlin的泛型"></a>Kotlin的泛型</h1><p>Kotlin中的泛型也是伪泛型，存在泛型擦除，因为它们都是JVM语言？ Kotlin 相比于Java 类型使用更为安全，泛型数组不支持协变（Java中支持）避免了数组运行时可能导致的类型转换异常，Kotlin中集合类和数组的泛型是有特定关键字来达到“协变”和“逆变”的<strong>效果</strong>的，Kotlin 中相对于 Java 的通配符提出了一种新的定义：<strong>声明处型变（declaration-site variance）与类型投影（type projections）</strong> </p>
 <p>这两种都是型变，不过一个是在声明处，一个是在使用处，通过 <strong>out</strong> 、<strong>in</strong> 关键字来支持型变，类比于 Java 中的 <code>&lt;? extends T&gt;</code>   <code>&lt;? super T&gt;</code>,   <code>&lt;*&gt;</code>  类比于Java 中的  <code>&lt;?&gt;</code> , 例如：</p>
 <p><strong>Java</strong> </p>
-<pre><code>ArrayList&lt;? extends Fruit&gt; fruits = new ArrayList&lt;Apple&gt;();
-Fruit apple = fruits.get(0);   
-fruits.add(new Fruit());// Error 
+<pre><code>    ArrayList&lt;? extends Fruit&gt; fruits = new ArrayList&lt;Apple&gt;();
+    Fruit apple = fruits.get(0);   
+    fruits.add(new Fruit());// Error 
 
-void writeTo(List&lt;? super Apple&gt; apples) {
-    apples.add(new Apple());
-    apples.add(new Jonathan());
+    void writeTo(List&lt;? super Apple&gt; apples) {
+        apples.add(new Apple());
+        apples.add(new Jonathan());
 
-    // apples.add(new Fruit()); // Error
-    // Apple apple=apples.get(0);// Error
-}   
+        // apples.add(new Fruit()); // Error
+        // Apple apple=apples.get(0);// Error
+    }   
 </code></pre><p><strong>Kotlin</strong> </p>
-<pre><code>val fruits:ArrayList&lt;out Fruit&gt; = ArrayList()   
-val apple:Fruit = fruits.get(0) 
-fruits.add(Fruit()) // Error
+<pre><code>   val fruits:ArrayList&lt;out Fruit&gt; = ArrayList()   
+   val apple:Fruit = fruits.get(0) 
+   fruits.add(Fruit()) // Error
 
-void writeTo(apples : ArrayList&lt;in Apple&gt;) {
-     apples.add(Apple());
-     apples.add(Jonathan());
+   void writeTo(apples : ArrayList&lt;in Apple&gt;) {
+        apples.add(Apple());
+        apples.add(Jonathan());
 
-     // apples.add(Fruit()); // Error
-     // val apple:Apple = apples.get(0);// Error
-} 
+        // apples.add(Fruit()); // Error
+        // val apple:Apple = apples.get(0);// Error
+   } 
 </code></pre><p>另外 Kotlin 除了 out , in  关键字来支持型变外，它还有上边界泛型约束对应于Java中 extends </p>
 <pre><code>fun &lt;T : Comparable&lt;T&gt;&gt; sort(list: List&lt;T&gt;) {
     // ……

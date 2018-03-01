@@ -279,7 +279,7 @@
 
     <!-- Custom Head -->
     
-</head>
+<link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
 
 
     
@@ -522,11 +522,11 @@ private Handler mHandler = new Handler() {
 <h3 id="那么有没有不新建-bitmap-对原始-bitmap-进行转换并应用在-ImageView-上面的方法呢？"><a href="#那么有没有不新建-bitmap-对原始-bitmap-进行转换并应用在-ImageView-上面的方法呢？" class="headerlink" title="那么有没有不新建 bitmap 对原始 bitmap 进行转换并应用在 ImageView 上面的方法呢？"></a>那么有没有不新建 bitmap 对原始 bitmap 进行转换并应用在 ImageView 上面的方法呢？</h3><p>Canvas 类中有一个方法是:</p>
 <pre><code>canvas.drawBitmap(bitmap,matrix,paint);  
 </code></pre><p>会通过 matrix 对 bitmap 进行处理后绘制在 canvas 上，不需要创建一个新的 bitmap，但是这个  canvas 是 View 内部绘制执行时的 canvas，我们通过在 View 外部直接 new 一个 Canvas 并没有什么用 倒是可以通过</p>
-<pre><code>Canvas canvas=new Canvas();
+<pre><code> Canvas canvas=new Canvas();
 
-canvas.setBitmap(bitmap);  
+ canvas.setBitmap(bitmap);  
 
-canvas.drawBitmap(sourceBitmap,matrix,paint);
+ canvas.drawBitmap(sourceBitmap,matrix,paint);
 </code></pre><p>将画布的绘制又转化到 bitmap 上，但是这样又会有创建一个新的 bitmap 的问题</p>
 <p><strong>所以只能通过重写继承ImageView的onDraw方法来操作</strong></p>
 <p>但是单为这去重写一个ImageView不是一个简洁的方案，同时侵入性较高。</p>
@@ -534,7 +534,7 @@ canvas.drawBitmap(sourceBitmap,matrix,paint);
 <p><strong>ImageView.setImageMatrix(matrix)</strong></p>
 <pre><code>/**
     * Adds a transformation {@link Matrix} that is applied
-    * to the view&apos;s drawable when it is drawn.  Allows custom scaling,
+    * to the view&#39;s drawable when it is drawn.  Allows custom scaling,
     * translation, and perspective distortion.
     *
     * @param matrix the transformation parameters in matrix form
@@ -545,7 +545,7 @@ canvas.drawBitmap(sourceBitmap,matrix,paint);
             matrix = null;
         }
 
-        // don&apos;t invalidate unless we&apos;re actually changing our matrix
+        // don&#39;t invalidate unless we&#39;re actually changing our matrix
         if (matrix == null &amp;&amp; !mMatrix.isIdentity() ||
                 matrix != null &amp;&amp; !mMatrix.equals(matrix)) {
             mMatrix.set(matrix);
@@ -558,7 +558,7 @@ canvas.drawBitmap(sourceBitmap,matrix,paint);
         super.onDraw(canvas);
 
         if (mDrawable == null) {
-            return; // couldn&apos;t resolve the URI
+            return; // couldn&#39;t resolve the URI
         }
 
         if (mDrawableWidth == 0 || mDrawableHeight == 0) {
@@ -589,7 +589,7 @@ canvas.drawBitmap(sourceBitmap,matrix,paint);
         }
     }   
 </code></pre><p>可以看到这个函数最后几行代码中会将 matrix 应用到 canvas 中去，并绘制出来<br>这个 <strong>mDrawMatrix</strong> 其实就是在刚才的<code>setImageMatrix(matrix)</code>函数中的 </p>
-<pre><code>configureBounds()
+<pre><code>  configureBounds()
 </code></pre><p>中被赋值给 matrix 的。不过还需要一个条件就是 ImageView 的 ScaleType 为 Matrix</p>
 <h3 id="最终方案"><a href="#最终方案" class="headerlink" title="最终方案"></a><strong>最终方案</strong></h3><pre><code>private void initRotateBgImageView() {
         mBgBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.img_building_overlay);

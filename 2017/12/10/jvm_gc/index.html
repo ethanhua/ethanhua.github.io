@@ -279,7 +279,7 @@
 
     <!-- Custom Head -->
     
-</head>
+<link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
 
 
     
@@ -506,14 +506,14 @@
 <p>整体概括图</p>
 <p><img src="/img/stack_heap_info.png" alt=""></p>
 <p>例子：</p>
-<pre><code>public class HelloWorld {
-    private static Logger LOGGER = Logger.getLogger(HelloWorld.class.getName());
-    public void sayHello(String message) {
-        SimpleDateFormat formatter = new SimpleDateFormat(&quot;dd.MM.YYYY&quot;);
-        String today = formatter.format(new Date());
-        LOGGER.info(today + &quot;: &quot; + message);
+<pre><code>    public class HelloWorld {
+        private static Logger LOGGER = Logger.getLogger(HelloWorld.class.getName());
+        public void sayHello(String message) {
+            SimpleDateFormat formatter = new SimpleDateFormat(&quot;dd.MM.YYYY&quot;);
+            String today = formatter.format(new Date());
+            LOGGER.info(today + &quot;: &quot; + message);
+        }
     }
-}
 </code></pre><p>这段程序的数据在内存中的存放如下:<br><img src="/img/java_MemoryModel-5.png" alt=""></p>
 <h2 id="Java-垃圾回收机制"><a href="#Java-垃圾回收机制" class="headerlink" title="Java 垃圾回收机制"></a>Java 垃圾回收机制</h2><p>说起垃圾回收，我们先思考这三个问题  </p>
 <ul>
