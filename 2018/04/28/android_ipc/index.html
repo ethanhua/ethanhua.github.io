@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="4月 28, 2018" />
-        <meta property="article:modified_time" content="4月 29, 2018" />
+        <meta property="article:modified_time" content="5月 03, 2018" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "理解Android中的进程通信",
     "url": "http://yoursite.com/2018/04/28/android_ipc/index.html",
     "datePublished": "4月 28, 2018",
-    "dateModified": "4月 29, 2018",
+    "dateModified": "5月 03, 2018",
     "description": "",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -479,7 +479,9 @@
 </blockquote>
 <h2 id="为什么是-Binder"><a href="#为什么是-Binder" class="headerlink" title="为什么是 Binder ?"></a>为什么是 Binder ?</h2><p>Android系统是基于 Linux 系统的，在 Linux 系统上进程通信已经有了一些解决方案 如管道，消息队列, 共享内存, Socket等， 管道，消息队列，Socket都是内核作为中转的通信实现方式，共享内存则是以消除内存隔离直接访问的形式来进行通信。<br>那么既有方案这么多，为什么要重新造出一个 binder 来进行进程通信呢？主要是基于两点考虑，<strong>效率</strong>和<strong>安全性</strong></p>
 <ul>
-<li><strong>效率</strong><br>管道，消息队列，Socket 用内核作为中转的方式会经历2次内存拷贝，即数据先从发送方缓存区拷贝到内核开辟的缓存区中，然后再从内核缓存区拷贝到接收方缓存区。共享内存虽然无需拷贝，但控制复杂，难以使用。而 Binder 采用内存映射的方式只需要一次拷贝，所以在效率上大大提升。  </li>
+<li><strong>效率</strong><br>管道，消息队列，Socket 用内核作为中转的方式会经历2次内存拷贝，即数据先从发送方缓存区拷贝到内核开辟的缓存区中，然后再从内核缓存区拷贝到接收方缓存区。共享内存虽然无需拷贝，但控制复杂，难以使用。而 Binder 采用内存映射的方式只需要一次拷贝，所以在效率上大大提升。<br><center><br><img src="/img/ipc1.jpg" alt=""><br><strong>传统通信</strong><br><img src="/img/ipc2.jpg" alt=""><br><strong>Binder通信</strong><br></center></li>
+</ul>
+<ul>
 <li><strong>安全性</strong><br>Android 作为一个开放式的平台，应用程序的来源广泛，确保智能终端的安全是非常重要的。终端用户不希望从网上下载的程序在不知情的情况下偷窥隐私数据，连接无线网络，长期操作底层设备导致电池很快耗尽等等。传统 IPC 没有任何安全措施，完全依赖上层协议来确保，容易被伪造。而Binder机制从协议上支持通信双方的身份验证，不易被篡改，所以在安全性上大大提升。</li>
 </ul>
 <h1 id="Binder"><a href="#Binder" class="headerlink" title="Binder"></a>Binder</h1><p>Binder 采用C/S架构的通信方式，类似于传统的 web 通信，请求发起方为 Client 端，请求接收处理方为 Server 端，具有同传统 C/S 架构相同的模块，如通信入口、通信协议、Server 端接收线程管理等等，同时又具有面向对象的特性，这里引用一段<a href="https://blog.csdn.net/universus/article/details/6211589" target="_blank" rel="noopener">Android Bander设计与实现 - 设计篇</a>的描述再合适不过：</p>
@@ -584,7 +586,7 @@ Log<span class="token punctuation">.</span><span class="token function">e</span>
 </code></pre>
 <p>整个流程是： 首先通过 ServiceManager 注册 ICalculateManager.Stub 的远程代理对象，因为 ServiceManager 也是运行在一个独立进程中，所以这个过程也是一个跨进程通信，那怎样才能拿到 ServiceManager 呢？Binder 中通过提前预置 ServiceManager 来解决这个问题，每个客户端通过写死的0号引用来获取 ServiceManager，类似于域名服务器地址，你得提前预置好。然后客户端通过 ServiceManager 来获取已经注册好的远程代理对象，调用这个对象的本地代理对象对应的方法传输该方法的参数、标识符到远程进程，远程进程通过创建好的线程来接收此次调用，并执行对应的 onTransact 方法解析数据完成实际的方法调用，并将结果返回。</p>
 <h1 id="Android中几种特定的-Binder"><a href="#Android中几种特定的-Binder" class="headerlink" title="Android中几种特定的 Binder"></a>Android中几种特定的 Binder</h1><p>虽然 Binder 为进程通信提供了支持，但是一些通用的场景还是需要进行一些封装来简化调用，下面我们来看一下 Android 上基于 Binder 的一些上层封装。</p>
-<h2 id="ActivityManagerService"><a href="#ActivityManagerService" class="headerlink" title="ActivityManagerService"></a>ActivityManagerService</h2><p>Android 中四大组件之间的通信都是依赖于 <code>ActivityManagerService</code> 来进行，<code>ActivityManagerService</code> 继承自 <code>ActivityManagerNative</code>，而 <code>ActivityManagerNative</code> 是一个实现了 <code>IActivityManager</code> 功能的 Binder，<code>ActivityManagerService</code> 这里类似于上面的 <code>ICalculateManager.Stub()</code> 是服务端的 Binder 功能实现类。它的客户端代理类是 <code>ActivityManagerProxy</code>，它的注册是在系统启动过程中被注册的，具体是在 <code>SystemServer</code> 中的 <code>startBootstrapServices()</code> 方法中调用 <code>ActivityManagerService.setSystemProcess()</code> 方法中向 <code>ServiceManager</code> 中注册的，它的代理对象保存在 <code>ActivityManagerNative</code> 的单例 <code>gDefault</code> 字段中。</p>
+<h2 id="ActivityManagerService"><a href="#ActivityManagerService" class="headerlink" title="ActivityManagerService"></a>ActivityManagerService</h2><p><code>ActivityManagerService</code> 虽名为 Activity 管理服务但它不仅仅管理 Activity， Android 中四大组件之间的通信都是依赖于它来进行，<code>ActivityManagerService</code> 继承自 <code>ActivityManagerNative</code>，而 <code>ActivityManagerNative</code> 是一个实现了 <code>IActivityManager</code> 功能的 Binder，<code>ActivityManagerService</code> 这里类似于上面的 <code>ICalculateManager.Stub()</code> 是服务端的 Binder 功能实现类。它的客户端代理类是 <code>ActivityManagerProxy</code>，它的注册是在系统启动过程中被注册的，具体是在 <code>SystemServer</code> 中的 <code>startBootstrapServices()</code> 方法中调用 <code>ActivityManagerService.setSystemProcess()</code> 方法中向 <code>ServiceManager</code> 中注册的，它的代理对象保存在 <code>ActivityManagerNative</code> 的单例 <code>gDefault</code> 字段中。</p>
 <pre class=" language-java"><code class="language-java"><span class="token operator">*</span><span class="token operator">*</span><span class="token punctuation">[</span>ActivityManagerService<span class="token punctuation">.</span>java<span class="token punctuation">]</span><span class="token operator">*</span><span class="token operator">*</span>
 <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setSystemProcess</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">try</span> <span class="token punctuation">{</span>
