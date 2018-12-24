@@ -470,35 +470,37 @@
 <p>简单来说 <strong>Kotlin协程</strong> 一种异步编程的同步顺序写法，它跟线程是两个不同的概念，所以不要被 <strong>协程</strong> 两字弄混淆</p>
 </blockquote>
 <p>来看一下一个具体的场景：我们进行网络请求得到数据后处理数据，代码如下</p>
-<pre><code>    fun setUpUI(){
-        val data = requestData()
-        doSomethingElse()
-        processData(data)
-    }
+<pre class=" language-kotlin"><code class="language-kotlin">    <span class="token keyword">fun</span> <span class="token function">setUpUI</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">val</span> <span class="token keyword">data</span> <span class="token operator">=</span> <span class="token function">requestData</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token function">doSomethingElse</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token function">processData</span><span class="token punctuation">(</span><span class="token keyword">data</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
 
-    fun requestData(): String {
-        Thread.sleep(2000)
-        return &quot;Ui Data&quot;
-    }
+    <span class="token keyword">fun</span> <span class="token function">requestData</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> String <span class="token punctuation">{</span>
+        Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">2000</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> <span class="token string">"Ui Data"</span>
+    <span class="token punctuation">}</span>
 
-    fun doSomethingElse(){
-        println(&quot;doSomethingElse&quot;)
-    }
+    <span class="token keyword">fun</span> <span class="token function">doSomethingElse</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"doSomethingElse"</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
 
-    fun processData(data: String) {
-        println(&quot;updateUI$data&quot;)
-    }
-</code></pre><p>这是一段同步式代码，通常情况 <code>requestData()</code> 是一段耗时操作并不能在主线程执行，不然就会造成主线程阻塞，所以我们把它改写成异步的方式。</p>
+    <span class="token keyword">fun</span> <span class="token function">processData</span><span class="token punctuation">(</span><span class="token keyword">data</span><span class="token operator">:</span> String<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"updateUI<span class="token interpolation variable">$data</span>"</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>这是一段同步式代码，通常情况 <code>requestData()</code> 是一段耗时操作并不能在主线程执行，不然就会造成主线程阻塞，所以我们把它改写成异步的方式。</p>
 <h3 id="Callback回调"><a href="#Callback回调" class="headerlink" title="Callback回调"></a>Callback回调</h3><p>第一种就是我们普遍使用的方式： <strong>异步回调</strong>，把耗时操作之后的逻辑封装成一个回调，耗时操作放在另外一个线程执行</p>
-<pre><code>    fun setUpUI(){
-        requestDataAsync{it -&gt; processData(it)}
-        doSomethingElse()
-    }
-    // 异步请求数据
-    fun requestDataAsync(callback: (resultData: String) -&gt; Unit) {
-        Thread { callback(requestData()) }.start()
-    }
-</code></pre><p>函数代码块执行图如下：  </p>
+<pre class=" language-kotlin"><code class="language-kotlin">    <span class="token keyword">fun</span> <span class="token function">setUpUI</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        requestDataAsync<span class="token punctuation">{</span>it <span class="token operator">-></span> <span class="token function">processData</span><span class="token punctuation">(</span>it<span class="token punctuation">)</span><span class="token punctuation">}</span>
+        <span class="token function">doSomethingElse</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment" spellcheck="true">// 异步请求数据</span>
+    <span class="token keyword">fun</span> <span class="token function">requestDataAsync</span><span class="token punctuation">(</span>callback<span class="token operator">:</span> <span class="token punctuation">(</span>resultData<span class="token operator">:</span> String<span class="token punctuation">)</span> <span class="token operator">-></span> Unit<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Thread <span class="token punctuation">{</span> <span class="token function">callback</span><span class="token punctuation">(</span><span class="token function">requestData</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">}</span><span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>函数代码块执行图如下：  </p>
 <p><img src="/img/callback_flow.jpg" alt=""></p>
 <p>虽然异步回调能很好的处理异步问题，但是有两点坏处：</p>
 <ul>
@@ -506,18 +508,19 @@
 <li>如果嵌套层级过多，会造成<strong>回调地狱</strong>，同时控制流数量也可能呈指数上升</li>
 </ul>
 <h3 id="Future"><a href="#Future" class="headerlink" title="Future"></a>Future</h3><p><code>Java 5</code>后并发包里面引入了<code>Future</code>，一个<code>Future</code>代表一个异步运算未来的值，于是上面的逻辑可以这样写：</p>
-<pre><code>    fun setUpUI(){
-        val future = requestDataAsync()
-        doSomethingElse()
-        processData(future.get())
-    }
+<pre class=" language-kotlin"><code class="language-kotlin">    <span class="token keyword">fun</span> <span class="token function">setUpUI</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">val</span> future <span class="token operator">=</span> <span class="token function">requestDataAsync</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token function">doSomethingElse</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token function">processData</span><span class="token punctuation">(</span>future<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
 
-    fun requestDataAsync():Future&lt;String&gt;{
-        val futureTask = FutureTask(Callable&lt;String&gt; { requestData() })
-        Thread(futureTask).start()
-        return futureTask
-    }
-</code></pre><p>函数代码块执行逻辑如下：</p>
+    <span class="token keyword">fun</span> <span class="token function">requestDataAsync</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span>Future<span class="token operator">&lt;</span>String<span class="token operator">></span><span class="token punctuation">{</span>
+        <span class="token keyword">val</span> futureTask <span class="token operator">=</span> <span class="token function">FutureTask</span><span class="token punctuation">(</span>Callable<span class="token operator">&lt;</span>String<span class="token operator">></span> <span class="token punctuation">{</span> <span class="token function">requestData</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token function">Thread</span><span class="token punctuation">(</span>futureTask<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> futureTask
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>函数代码块执行逻辑如下：</p>
 <p><img src="/img/future_flow.jpg" alt=""></p>
 <p>虽然这样可以解决控制流分叉（把 <code>requestDataAsync</code> 看做一个整体，内部隐藏了异步的细节，从外部来看，执行流就只有主线程的执行流了）和嵌套地狱的问题，但是主线程还是会阻塞。</p>
 <blockquote>
@@ -525,36 +528,38 @@
 </blockquote>
 <p>由此可见 <code>Future</code> 虽然解决了<code>callback</code>的问题，但是引入了新的问题，主线程在调用<code>future.get()</code>的时候会阻塞，显然这样我们是不能接受的。</p>
 <h3 id="Reactive"><a href="#Reactive" class="headerlink" title="Reactive"></a>Reactive</h3><p>我们来看另外一种异步编程方式：Java 8 中的 <code>CompleteableFuture</code> 和 <code>RxKotlin</code>，这两者都是同一种风格，我们用<code>RxKotlin</code>举例说明：</p>
-<pre><code>fun setUpUI(){
-        Single.fromCallable&lt;String&gt; { requestData() }
-              .subscribe { t -&gt; processData(t!!) }
-        doSomethingElse()
-}
-</code></pre><p>这种方式的函数代码块执行逻辑流同第一种<code>callback</code>方式。</p>
+<pre class=" language-kotlin"><code class="language-kotlin"><span class="token keyword">fun</span> <span class="token function">setUpUI</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        Single<span class="token punctuation">.</span>fromCallable<span class="token operator">&lt;</span>String<span class="token operator">></span> <span class="token punctuation">{</span> <span class="token function">requestData</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">}</span>
+              <span class="token punctuation">.</span><span class="token function">subscribe</span> <span class="token punctuation">{</span> t <span class="token operator">-></span> <span class="token function">processData</span><span class="token punctuation">(</span>t<span class="token operator">!!</span><span class="token punctuation">)</span> <span class="token punctuation">}</span>
+        <span class="token function">doSomethingElse</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>这种方式的函数代码块执行逻辑流同第一种<code>callback</code>方式。</p>
 <p>Rx风格可以有效解决嵌套回调的问题，但是没有解决控制流分叉的问题，<code>RxJava</code>是一个优秀的库，除了解决嵌套回调外，另外拥有丰富的操作符，在处理复杂的事件流方面有着强大的能力，但是有没有更简洁更符合人类思维的写法呢？就如同写同步逻辑样，<strong>koltin协程</strong>为我们提供了可能。</p>
 <h3 id="kotlin协程"><a href="#kotlin协程" class="headerlink" title="kotlin协程"></a>kotlin协程</h3><p><strong>kotlin协程</strong> 是一种异步编程的顺序写法，将上诉例子中的代码可以改写成下面这样（为了表达出主线程不会阻塞，加了两行代码）：</p>
-<pre><code>    fun setUpUI(){
-        GlobalScope.launch(Main) { 
-            val dataDeferred  = requestDataAsync()
-            doSomethingElse()
-            val data = dataDeferred.await()
-            processData(data)
-        }
-        Thread.sleep(1000)
-        doSomethingElse2()
-    }
+<pre class=" language-kotlin"><code class="language-kotlin">    <span class="token keyword">fun</span> <span class="token function">setUpUI</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        GlobalScope<span class="token punctuation">.</span><span class="token function">launch</span><span class="token punctuation">(</span>Main<span class="token punctuation">)</span> <span class="token punctuation">{</span> 
+            <span class="token keyword">val</span> dataDeferred  <span class="token operator">=</span> <span class="token function">requestDataAsync</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token function">doSomethingElse</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token keyword">val</span> <span class="token keyword">data</span> <span class="token operator">=</span> dataDeferred<span class="token punctuation">.</span><span class="token function">await</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token function">processData</span><span class="token punctuation">(</span><span class="token keyword">data</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+        Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span>
+        <span class="token function">doSomethingElse2</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
 
-    fun requestDataAsync():Deferred&lt;String&gt;{
-        // 启动一个异步协程去执行耗时任务
-        return GlobalScope.async { 
-            requestData()
-        }
-    }  
+    <span class="token keyword">fun</span> <span class="token function">requestDataAsync</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span>Deferred<span class="token operator">&lt;</span>String<span class="token operator">></span><span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 启动一个异步协程去执行耗时任务</span>
+        <span class="token keyword">return</span> GlobalScope<span class="token punctuation">.</span><span class="token function">async</span> <span class="token punctuation">{</span> 
+            <span class="token function">requestData</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>  
 
-    fun doSomethingElse2(){
-        println(&quot;doSomethingElse2&quot;)
-    }
-</code></pre><p>这种写法有点类似于 <strong>Future</strong>，<code>Deferred.await()</code>方法如同<code>Future.get()</code>方法，但不同的是 <code>await()</code> 不会阻塞主线程，只是会挂起协程，当<code>requestData()</code>执行完返回结果后，<code>processData()</code>的逻辑会恢复执行，在此时间段，主线程可以去执行其他的逻辑流，并不会阻塞在此处，比如此处会去执行函数 <code>doSomethingElse2()</code>，逻辑执行流如下：</p>
+    <span class="token keyword">fun</span> <span class="token function">doSomethingElse2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"doSomethingElse2"</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>这种写法有点类似于 <strong>Future</strong>，<code>Deferred.await()</code>方法如同<code>Future.get()</code>方法，但不同的是 <code>await()</code> 不会阻塞主线程，只是会挂起协程，当<code>requestData()</code>执行完返回结果后，<code>processData()</code>的逻辑会恢复执行，在此时间段，主线程可以去执行其他的逻辑流，并不会阻塞在此处，比如此处会去执行函数 <code>doSomethingElse2()</code>，逻辑执行流如下：</p>
 <p><img src="/img/coroutine_flow.jpg" alt=""></p>
 <p>由于协程不会阻塞主线程，所以主线程执行顺序有两种可能，如果在调用<code>dataDeferred.await()</code>之后 1s (此处使用<code>Thread.sleep(1000)</code>)后还没有返回结果就执行<code>doSomethingElse2()</code>, 反之先执行 <code>processData()</code>。</p>
 <h2 id="Kotlin协程代码实现细节"><a href="#Kotlin协程代码实现细节" class="headerlink" title="Kotlin协程代码实现细节"></a>Kotlin协程代码实现细节</h2><p>由上述的例子我们知道了协程的逻辑执行流，我们来想一想这中间大概是怎么实现的，先思考这段话：</p>
@@ -572,68 +577,71 @@
 <p><img src="/img/IMG_1205.JPG" alt=""></p>
 <p>首先还是从上述例子中的代码为入口分析整个执行流程：</p>
 <h3 id="协程的启动"><a href="#协程的启动" class="headerlink" title="协程的启动"></a>协程的启动</h3><p><strong>GlobalScope.launch()</strong></p>
-<pre><code>public fun CoroutineScope.launch(
-    context: CoroutineContext = EmptyCoroutineContext,
-    start: CoroutineStart = CoroutineStart.DEFAULT,
-    block: suspend CoroutineScope.() -&gt; Unit
-): Job {
-    val newContext = newCoroutineContext(context)
-    val coroutine = if (start.isLazy)
-        LazyStandaloneCoroutine(newContext, block) else
-        StandaloneCoroutine(newContext, active = true)
-    coroutine.start(start, coroutine, block)
-    return coroutine
-}
-</code></pre><p>第一个参数 <strong>context</strong> 是协程上下文，此处我们传入了 <strong>Main</strong> 用于主线程调度，先忽略这部分。<br>第二个参数 <strong>start</strong> 此处我们没有传值则使用默认值，代表启动方式默认值为立即执行。<br>第三个参数 <strong>block</strong> 是协程真正执行的代码块，即我们例子中的<code>launch{}</code>花括号中的代码块，此处为一个<code>suspend CoroutineScope.() -&gt; Unit</code>函数，这是怎么来的呢？我们编写代码的时候并没有这个东西，其实它由编译器生成的，我们的<code>block</code>代码块经过编译器编译后会生成一个继承<code>Continuation</code>的类，为了关注主要逻辑方便理解，去掉了一些无关代码大概代码如下:</p>
-<pre><code>final void setUpUI() {
-        BuildersKt__Builders_commonKt.launch$default(GlobalScope.INSTANCE, 
-        Dispatchers.getMain(), 
-        null,
-        // 传入的是一个 KotlinTest$setUpUI.KotlinTest$setUpUI$1 对象
-        (Function2)new KotlinTest$setUpUI.KotlinTest$setUpUI$1(this, (Continuation)null), 2, null);
-        this.doSomethingElse2();
-}
+<pre class=" language-kotlin"><code class="language-kotlin"><span class="token keyword">public</span> <span class="token keyword">fun</span> CoroutineScope<span class="token punctuation">.</span><span class="token function">launch</span><span class="token punctuation">(</span>
+    context<span class="token operator">:</span> CoroutineContext <span class="token operator">=</span> EmptyCoroutineContext<span class="token punctuation">,</span>
+    start<span class="token operator">:</span> CoroutineStart <span class="token operator">=</span> CoroutineStart<span class="token punctuation">.</span>DEFAULT<span class="token punctuation">,</span>
+    block<span class="token operator">:</span> suspend CoroutineScope<span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-></span> Unit
+<span class="token punctuation">)</span><span class="token operator">:</span> Job <span class="token punctuation">{</span>
+    <span class="token keyword">val</span> newContext <span class="token operator">=</span> <span class="token function">newCoroutineContext</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span>
+    <span class="token keyword">val</span> coroutine <span class="token operator">=</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>start<span class="token punctuation">.</span>isLazy<span class="token punctuation">)</span>
+        <span class="token function">LazyStandaloneCoroutine</span><span class="token punctuation">(</span>newContext<span class="token punctuation">,</span> block<span class="token punctuation">)</span> <span class="token keyword">else</span>
+        <span class="token function">StandaloneCoroutine</span><span class="token punctuation">(</span>newContext<span class="token punctuation">,</span> active <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
+    coroutine<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span>start<span class="token punctuation">,</span> coroutine<span class="token punctuation">,</span> block<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> coroutine
+<span class="token punctuation">}</span>
+</code></pre>
+<p>第一个参数 <strong>context</strong> 是协程上下文，此处我们传入了 <strong>Main</strong> 用于主线程调度，先忽略这部分。<br>第二个参数 <strong>start</strong> 此处我们没有传值则使用默认值，代表启动方式默认值为立即执行。<br>第三个参数 <strong>block</strong> 是协程真正执行的代码块，即我们例子中的<code>launch{}</code>花括号中的代码块，此处为一个<code>suspend CoroutineScope.() -&gt; Unit</code>函数，这是怎么来的呢？我们编写代码的时候并没有这个东西，其实它由编译器生成的，我们的<code>block</code>代码块经过编译器编译后会生成一个继承<code>Continuation</code>的类，为了关注主要逻辑方便理解，去掉了一些无关代码大概代码如下:</p>
+<pre class=" language-kotlin"><code class="language-kotlin"><span class="token keyword">final</span> void <span class="token function">setUpUI</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        BuildersKt__Builders_commonKt<span class="token punctuation">.</span>launch$<span class="token function">default</span><span class="token punctuation">(</span>GlobalScope<span class="token punctuation">.</span>INSTANCE<span class="token punctuation">,</span> 
+        Dispatchers<span class="token punctuation">.</span><span class="token function">getMain</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> 
+        <span class="token keyword">null</span><span class="token punctuation">,</span>
+        <span class="token comment" spellcheck="true">// 传入的是一个 KotlinTest$setUpUI.KotlinTest$setUpUI$1 对象</span>
+        <span class="token punctuation">(</span>Function2<span class="token punctuation">)</span>new KotlinTest$setUpUI<span class="token punctuation">.</span>KotlinTest$setUpUI$<span class="token function">1</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>Continuation<span class="token punctuation">)</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">doSomethingElse2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-final class setUpUI$1 extends SuspendLambda implements Function2{
-    public final Object invokeSuspend(Object result) {
-        switch (this.label) {
-            case 0:
-                doSomethingElse()
-                // 新建并启动 async 协程
-                Deferred async$default = BuildersKt.async$default(coroutineScope, (CoroutineContext) Dispatchers.getDefault(), null, (Function2) new 1(null), 2, null);
-                this.label = 1;
-                // 如果 async 协程还没完成为挂起状态 则直接返回，等待下次唤醒重入
-                if (async$default.await(this) == coroutine_suspended) {
-                    return coroutine_suspended;
-                }
-                break;
-            case 1:
-                val data = result;
-                processData(data)
-                break;
-        }
-    }
-}
-</code></pre><p>可以看到传入到 <code>launch</code> 函数第三个参数位置的是一个编译后生成的 <code>SuspendLambda</code> 类实例<br><code>SuspendLambda</code> 本质上是一个 <code>Continuation</code>，而 Continuation 是一个有着恢复操作的接口，刚好对应了我们上面例子中提到的<strong>终止-恢复</strong>的<strong>恢复执行逻辑</strong></p>
-<pre><code>/**
+<span class="token keyword">final</span> <span class="token keyword">class</span> setUpUI$<span class="token number">1</span> extends SuspendLambda implements Function2<span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">final</span> Object <span class="token function">invokeSuspend</span><span class="token punctuation">(</span>Object result<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">switch</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>label<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            case <span class="token number">0</span><span class="token operator">:</span>
+                <span class="token function">doSomethingElse</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token comment" spellcheck="true">// 新建并启动 async 协程</span>
+                Deferred async$default <span class="token operator">=</span> BuildersKt<span class="token punctuation">.</span>async$<span class="token function">default</span><span class="token punctuation">(</span>coroutineScope<span class="token punctuation">,</span> <span class="token punctuation">(</span>CoroutineContext<span class="token punctuation">)</span> Dispatchers<span class="token punctuation">.</span><span class="token function">getDefault</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>Function2<span class="token punctuation">)</span> new <span class="token function">1</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">this</span><span class="token punctuation">.</span>label <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+                <span class="token comment" spellcheck="true">// 如果 async 协程还没完成为挂起状态 则直接返回，等待下次唤醒重入</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>async$default<span class="token punctuation">.</span><span class="token function">await</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span> <span class="token operator">==</span> coroutine_suspended<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">return</span> coroutine_suspended<span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+            case <span class="token number">1</span><span class="token operator">:</span>
+                <span class="token keyword">val</span> <span class="token keyword">data</span> <span class="token operator">=</span> result<span class="token punctuation">;</span>
+                <span class="token function">processData</span><span class="token punctuation">(</span><span class="token keyword">data</span><span class="token punctuation">)</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>可以看到传入到 <code>launch</code> 函数第三个参数位置的是一个编译后生成的 <code>SuspendLambda</code> 类实例<br><code>SuspendLambda</code> 本质上是一个 <code>Continuation</code>，而 Continuation 是一个有着恢复操作的接口，刚好对应了我们上面例子中提到的<strong>终止-恢复</strong>的<strong>恢复执行逻辑</strong></p>
+<pre class=" language-kotlin"><code class="language-kotlin"><span class="token comment" spellcheck="true">/**
  * 在一个挂起点之后可以返回类型T值的续集continuation的接口
  * Interface representing a continuation after a suspension point that returns value of type `T`.
- */
-@SinceKotlin(&quot;1.3&quot;)
-public interface Continuation&lt;in T&gt; {
-    /**
+ */</span>
+<span class="token annotation builtin">@SinceKotlin</span><span class="token punctuation">(</span><span class="token string">"1.3"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> Continuation<span class="token operator">&lt;</span><span class="token keyword">in</span> T<span class="token operator">></span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">/**
      * Context of the coroutine that corresponds to this continuation.
-     */
-    // todo: shall we provide default impl with EmptyCoroutineContext?
-    public val context: CoroutineContext
+     */</span>
+    <span class="token comment" spellcheck="true">// todo: shall we provide default impl with EmptyCoroutineContext?</span>
+    <span class="token keyword">public</span> <span class="token keyword">val</span> context<span class="token operator">:</span> CoroutineContext
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * Resumes the execution of the corresponding coroutine passing successful or failed [result] as the
      * return value of the last suspension point.
-     */
-    public fun resumeWith(result: Result&lt;T&gt;)
-}
-</code></pre><p><code>SuspendLambda</code> 继承结构如下</p>
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">fun</span> <span class="token function">resumeWith</span><span class="token punctuation">(</span>result<span class="token operator">:</span> Result<span class="token operator">&lt;</span>T<span class="token operator">></span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><code>SuspendLambda</code> 继承结构如下</p>
 <blockquote>
 <p><code>SuspendLambda</code> &gt; <code>ContinuationImpl</code> &gt; <code>BaseContinuationImpl</code> &gt; <code>Continuation</code></p>
 </blockquote>
@@ -641,130 +649,137 @@ public interface Continuation&lt;in T&gt; {
 <p><code>coroutine.start(start, coroutine, block)</code><br>-&gt; <code>CoroutineStart.start(block, receiver, this)</code><br>-&gt; <code>CoroutineStart.invoke(block: suspend () -&gt; T, completion: Continuation&lt;T&gt;)</code><br>-&gt; <code>block.startCoroutineCancellable(completion)</code><br>-&gt; <code>createCoroutineUnintercepted(completion).intercepted().resumeCancellable(Unit)</code></p>
 <p>最后走到<br><code>createCoroutineUnintercepted(completion).intercepted().resumeCancellable(Unit)</code></p>
 <p>这里创建了一个协程，并链式调用 <code>intercepted</code>、<code>resumeCancellable</code> 方法，利用协程上下文中的 <code>ContinuationInterceptor</code> 对协程的执行进行拦截，<code>intercepted</code> 实际上调用的是 <code>ContinuationImpl</code> 的 <code>intercepted</code> 方法</p>
-<pre><code>internal abstract class ContinuationImpl(
-    completion: Continuation&lt;Any?&gt;?,
-    private val _context: CoroutineContext?
-) : BaseContinuationImpl(completion) {
-    ...
-    public fun intercepted(): Continuation&lt;Any?&gt; =
+<pre class=" language-kotlin"><code class="language-kotlin"><span class="token keyword">internal</span> <span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token function">ContinuationImpl</span><span class="token punctuation">(</span>
+    completion<span class="token operator">:</span> Continuation<span class="token operator">&lt;</span>Any<span class="token operator">?</span><span class="token operator">></span><span class="token operator">?</span><span class="token punctuation">,</span>
+    <span class="token keyword">private</span> <span class="token keyword">val</span> _context<span class="token operator">:</span> CoroutineContext<span class="token operator">?</span>
+<span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token function">BaseContinuationImpl</span><span class="token punctuation">(</span>completion<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token operator">..</span><span class="token punctuation">.</span>
+    <span class="token keyword">public</span> <span class="token keyword">fun</span> <span class="token function">intercepted</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> Continuation<span class="token operator">&lt;</span>Any<span class="token operator">?</span><span class="token operator">></span> <span class="token operator">=</span>
         intercepted
-            ?: (context[ContinuationInterceptor]?.interceptContinuation(this) ?: this)
-                .also { intercepted = it }
-    ...
-}
-</code></pre><p><code>context[ContinuationInterceptor]?.interceptContinuation</code>调用的是 <code>CoroutineDispatcher</code> 的 <code>interceptContinuation</code> 方法</p>
-<pre><code>public final &lt;T&gt; Continuation&lt;T&gt; interceptContinuation(@NotNull final Continuation&lt;? super T&gt; continuation) {
-        Intrinsics.checkParameterIsNotNull(continuation, &quot;continuation&quot;);
-        return new DispatchedContinuation&lt;T&gt;(this, continuation);
-    }
-</code></pre><p>最终创建了一个 <code>DispatchedContinuation</code> 可分发的协程实例，我们继续看<code>resumeCancellable</code> 方法</p>
-<pre><code>internal fun &lt;T&gt; Continuation&lt;T&gt;.resumeCancellable(value: T) = when (this) {
-    // 判断是否是DispatchedContinuation 根据我们前面的代码追踪 这里是DispatchedContinuation
-    is DispatchedContinuation -&gt; resumeCancellable(value)
-    else -&gt; resume(value)
-}
+            <span class="token operator">?:</span> <span class="token punctuation">(</span>context<span class="token punctuation">[</span>ContinuationInterceptor<span class="token punctuation">]</span><span class="token operator">?</span><span class="token punctuation">.</span><span class="token function">interceptContinuation</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span> <span class="token operator">?:</span> <span class="token keyword">this</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">also</span> <span class="token punctuation">{</span> intercepted <span class="token operator">=</span> it <span class="token punctuation">}</span>
+    <span class="token operator">..</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><code>context[ContinuationInterceptor]?.interceptContinuation</code>调用的是 <code>CoroutineDispatcher</code> 的 <code>interceptContinuation</code> 方法</p>
+<pre class=" language-kotlin"><code class="language-kotlin"><span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token operator">&lt;</span>T<span class="token operator">></span> Continuation<span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token function">interceptContinuation</span><span class="token punctuation">(</span><span class="token annotation builtin">@NotNull</span> <span class="token keyword">final</span> Continuation<span class="token operator">&lt;</span><span class="token operator">?</span> <span class="token keyword">super</span> T<span class="token operator">></span> continuation<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Intrinsics<span class="token punctuation">.</span><span class="token function">checkParameterIsNotNull</span><span class="token punctuation">(</span>continuation<span class="token punctuation">,</span> <span class="token string">"continuation"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> new DispatchedContinuation<span class="token operator">&lt;</span>T<span class="token operator">></span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> continuation<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>最终创建了一个 <code>DispatchedContinuation</code> 可分发的协程实例，我们继续看<code>resumeCancellable</code> 方法</p>
+<pre class=" language-kotlin"><code class="language-kotlin"><span class="token keyword">internal</span> <span class="token keyword">fun</span> <span class="token operator">&lt;</span>T<span class="token operator">></span> Continuation<span class="token operator">&lt;</span>T<span class="token operator">></span><span class="token punctuation">.</span><span class="token function">resumeCancellable</span><span class="token punctuation">(</span>value<span class="token operator">:</span> T<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token keyword">when</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// 判断是否是DispatchedContinuation 根据我们前面的代码追踪 这里是DispatchedContinuation</span>
+    <span class="token keyword">is</span> DispatchedContinuation <span class="token operator">-></span> <span class="token function">resumeCancellable</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>
+    <span class="token keyword">else</span> <span class="token operator">-></span> <span class="token function">resume</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 
-inline fun resumeCancellable(value: T) {
-        // 判断是否需要线程调度 
-        // 由于我们之前使用的是 `GlobalScope.launch(Main)` Android主线程调度器所以这里为true
-        if (dispatcher.isDispatchNeeded(context)) {
-            _state = value
-            resumeMode = MODE_CANCELLABLE
-            dispatcher.dispatch(context, this)
-        } else {
-            UndispatchedEventLoop.execute(this, value, MODE_CANCELLABLE) {
-                if (!resumeCancelled()) {
-                    resumeUndispatched(value)
-                }
-            }
-        }
-    }
-</code></pre><p>最终走到 <code>dispatcher.dispatch(context, this)</code> 而这里的 <code>dispatcher</code> 就是通过工厂方法创建的 <code>HandlerDispatcher</code>  ，<code>dispatch()</code> 函数第二个参数<code>this</code>是一个<code>runnable</code>这里为 <code>DispatchedTask</code></p>
+<span class="token keyword">inline</span> <span class="token keyword">fun</span> <span class="token function">resumeCancellable</span><span class="token punctuation">(</span>value<span class="token operator">:</span> T<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 判断是否需要线程调度 </span>
+        <span class="token comment" spellcheck="true">// 由于我们之前使用的是 `GlobalScope.launch(Main)` Android主线程调度器所以这里为true</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>dispatcher<span class="token punctuation">.</span><span class="token function">isDispatchNeeded</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            _state <span class="token operator">=</span> value
+            resumeMode <span class="token operator">=</span> MODE_CANCELLABLE
+            dispatcher<span class="token punctuation">.</span><span class="token function">dispatch</span><span class="token punctuation">(</span>context<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            UndispatchedEventLoop<span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> value<span class="token punctuation">,</span> MODE_CANCELLABLE<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">resumeCancelled</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token function">resumeUndispatched</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>最终走到 <code>dispatcher.dispatch(context, this)</code> 而这里的 <code>dispatcher</code> 就是通过工厂方法创建的 <code>HandlerDispatcher</code>  ，<code>dispatch()</code> 函数第二个参数<code>this</code>是一个<code>runnable</code>这里为 <code>DispatchedTask</code></p>
 <p><strong>HandlerDispatcher</strong></p>
-<pre><code>/**
+<pre class=" language-kotlin"><code class="language-kotlin"><span class="token comment" spellcheck="true">/**
  * Implements [CoroutineDispatcher] on top of an arbitrary Android [Handler].
- */
-internal class HandlerContext private constructor(
-    private val handler: Handler,
-    private val name: String?,
-    private val invokeImmediately: Boolean
-) : HandlerDispatcher(), Delay {
-    ...
-    //  最终执行这里的 dispatch方法 而handler则是android中的 MainHandler
-    override fun dispatch(context: CoroutineContext, block: Runnable) {
-        handler.post(block)
-    }
-    ...
-}
-</code></pre><p>这里借用 Android 的主线程消息队列来在主线程中执行 <code>block Runnable</code> 而这个 <code>Runnable</code> 即为 <code>DispatchedTask</code></p>
-<pre><code>internal abstract class DispatchedTask&lt;in T&gt;(
-    @JvmField var resumeMode: Int
-) : SchedulerTask() {
-    ...
-    public final override fun run() {
-          ...
-            withCoroutineContext(context, delegate.countOrElement) {
-                if (job != null &amp;&amp; !job.isActive)
-                    // 异常情况下
-                    continuation.resumeWithException(job.getCancellationException())
-                else {
-                    val exception = getExceptionalResult(state)
-                    if (exception != null)
-                        // 异常情况下
-                        continuation.resumeWithStackTrace(exception)
-                    else
-                        // 正常情况下走到这一步
-                        continuation.resume(getSuccessfulResult(state))
-                }
-            }
-             ...
-    }
-}
+ */</span>
+<span class="token keyword">internal</span> <span class="token keyword">class</span> HandlerContext <span class="token keyword">private</span> <span class="token keyword">constructor</span><span class="token punctuation">(</span>
+    <span class="token keyword">private</span> <span class="token keyword">val</span> handler<span class="token operator">:</span> Handler<span class="token punctuation">,</span>
+    <span class="token keyword">private</span> <span class="token keyword">val</span> name<span class="token operator">:</span> String<span class="token operator">?</span><span class="token punctuation">,</span>
+    <span class="token keyword">private</span> <span class="token keyword">val</span> invokeImmediately<span class="token operator">:</span> Boolean
+<span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token function">HandlerDispatcher</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> Delay <span class="token punctuation">{</span>
+    <span class="token operator">..</span><span class="token punctuation">.</span>
+    <span class="token comment" spellcheck="true">//  最终执行这里的 dispatch方法 而handler则是android中的 MainHandler</span>
+    <span class="token keyword">override</span> <span class="token keyword">fun</span> <span class="token function">dispatch</span><span class="token punctuation">(</span>context<span class="token operator">:</span> CoroutineContext<span class="token punctuation">,</span> block<span class="token operator">:</span> Runnable<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        handler<span class="token punctuation">.</span><span class="token function">post</span><span class="token punctuation">(</span>block<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token operator">..</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>这里借用 Android 的主线程消息队列来在主线程中执行 <code>block Runnable</code> 而这个 <code>Runnable</code> 即为 <code>DispatchedTask</code></p>
+<pre class=" language-kotlin"><code class="language-kotlin"><span class="token keyword">internal</span> <span class="token keyword">abstract</span> <span class="token keyword">class</span> DispatchedTask<span class="token operator">&lt;</span><span class="token keyword">in</span> T<span class="token operator">></span><span class="token punctuation">(</span>
+    <span class="token annotation builtin">@JvmField</span> <span class="token keyword">var</span> resumeMode<span class="token operator">:</span> Int
+<span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token function">SchedulerTask</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token operator">..</span><span class="token punctuation">.</span>
+    <span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token keyword">override</span> <span class="token keyword">fun</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token operator">..</span><span class="token punctuation">.</span>
+            <span class="token function">withCoroutineContext</span><span class="token punctuation">(</span>context<span class="token punctuation">,</span> delegate<span class="token punctuation">.</span>countOrElement<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>job <span class="token operator">!=</span> <span class="token keyword">null</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>job<span class="token punctuation">.</span>isActive<span class="token punctuation">)</span>
+                    <span class="token comment" spellcheck="true">// 异常情况下</span>
+                    continuation<span class="token punctuation">.</span><span class="token function">resumeWithException</span><span class="token punctuation">(</span>job<span class="token punctuation">.</span><span class="token function">getCancellationException</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">val</span> exception <span class="token operator">=</span> <span class="token function">getExceptionalResult</span><span class="token punctuation">(</span>state<span class="token punctuation">)</span>
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span>exception <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span>
+                        <span class="token comment" spellcheck="true">// 异常情况下</span>
+                        continuation<span class="token punctuation">.</span><span class="token function">resumeWithStackTrace</span><span class="token punctuation">(</span>exception<span class="token punctuation">)</span>
+                    <span class="token keyword">else</span>
+                        <span class="token comment" spellcheck="true">// 正常情况下走到这一步</span>
+                        continuation<span class="token punctuation">.</span><span class="token function">resume</span><span class="token punctuation">(</span><span class="token function">getSuccessfulResult</span><span class="token punctuation">(</span>state<span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+             <span class="token operator">..</span><span class="token punctuation">.</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-@InlineOnly public inline fun &lt;T&gt; Continuation&lt;T&gt;.resume(value: T): Unit =
-    resumeWith(Result.success(value))
+<span class="token annotation builtin">@InlineOnly</span> <span class="token keyword">public</span> <span class="token keyword">inline</span> <span class="token keyword">fun</span> <span class="token operator">&lt;</span>T<span class="token operator">></span> Continuation<span class="token operator">&lt;</span>T<span class="token operator">></span><span class="token punctuation">.</span><span class="token function">resume</span><span class="token punctuation">(</span>value<span class="token operator">:</span> T<span class="token punctuation">)</span><span class="token operator">:</span> Unit <span class="token operator">=</span>
+    <span class="token function">resumeWith</span><span class="token punctuation">(</span>Result<span class="token punctuation">.</span><span class="token function">success</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">)</span>
 
-internal abstract class BaseContinuationImpl(...) {
-    // 实现 Continuation 的 resumeWith，并且是 final 的，不可被重写
-    public final override fun resumeWith(result: Result&lt;Any?&gt;) {
-        ...
-        val outcome = invokeSuspend(param)
-        ...
-    }
-    // 由编译生成的协程相关类来实现，例如 setUpUI$1
-    protected abstract fun invokeSuspend(result: Result&lt;Any?&gt;): Any?
-}
-</code></pre><p>最终调用到 <code>continuation.resumeWith()</code> 而 <code>resumeWith()</code> 中会调用 <code>invokeSuspend</code>，即之前编译器生成的 <code>SuspendLambda</code> 中的 <code>invokeSuspend</code> 方法</p>
-<pre><code>final class setUpUI$1 extends SuspendLambda implements Function2{
-    public final Object invokeSuspend(Object result) {
-        switch (this.label) {
-            case 0:
-                doSomethingElse()
-                // 新建并启动 async 协程
-                Deferred async$default = BuildersKt.async$default(coroutineScope, (CoroutineContext) Dispatchers.getDefault(), null, (Function2) new 1(null), 2, null);
-                this.label = 1;
-                // 如果 async 协程还没完成为挂起状态 则直接返回，等待下次唤醒重入
-                if (async$default.await(this) == coroutine_suspended) {
-                    return coroutine_suspended;
-                }
-                break;
-            case 1:
-                val data = result;
-                processData(data)
-                break;
-        }
-    }
-}
-</code></pre><blockquote>
+<span class="token keyword">internal</span> <span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token function">BaseContinuationImpl</span><span class="token punctuation">(</span><span class="token operator">..</span><span class="token punctuation">.</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// 实现 Continuation 的 resumeWith，并且是 final 的，不可被重写</span>
+    <span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token keyword">override</span> <span class="token keyword">fun</span> <span class="token function">resumeWith</span><span class="token punctuation">(</span>result<span class="token operator">:</span> Result<span class="token operator">&lt;</span>Any<span class="token operator">?</span><span class="token operator">></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token operator">..</span><span class="token punctuation">.</span>
+        <span class="token keyword">val</span> outcome <span class="token operator">=</span> <span class="token function">invokeSuspend</span><span class="token punctuation">(</span>param<span class="token punctuation">)</span>
+        <span class="token operator">..</span><span class="token punctuation">.</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment" spellcheck="true">// 由编译生成的协程相关类来实现，例如 setUpUI$1</span>
+    <span class="token keyword">protected</span> <span class="token keyword">abstract</span> <span class="token keyword">fun</span> <span class="token function">invokeSuspend</span><span class="token punctuation">(</span>result<span class="token operator">:</span> Result<span class="token operator">&lt;</span>Any<span class="token operator">?</span><span class="token operator">></span><span class="token punctuation">)</span><span class="token operator">:</span> Any<span class="token operator">?</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>最终调用到 <code>continuation.resumeWith()</code> 而 <code>resumeWith()</code> 中会调用 <code>invokeSuspend</code>，即之前编译器生成的 <code>SuspendLambda</code> 中的 <code>invokeSuspend</code> 方法</p>
+<pre class=" language-kotlin"><code class="language-kotlin"><span class="token keyword">final</span> <span class="token keyword">class</span> setUpUI$<span class="token number">1</span> extends SuspendLambda implements Function2<span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">final</span> Object <span class="token function">invokeSuspend</span><span class="token punctuation">(</span>Object result<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">switch</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>label<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            case <span class="token number">0</span><span class="token operator">:</span>
+                <span class="token function">doSomethingElse</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token comment" spellcheck="true">// 新建并启动 async 协程</span>
+                Deferred async$default <span class="token operator">=</span> BuildersKt<span class="token punctuation">.</span>async$<span class="token function">default</span><span class="token punctuation">(</span>coroutineScope<span class="token punctuation">,</span> <span class="token punctuation">(</span>CoroutineContext<span class="token punctuation">)</span> Dispatchers<span class="token punctuation">.</span><span class="token function">getDefault</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>Function2<span class="token punctuation">)</span> new <span class="token function">1</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">this</span><span class="token punctuation">.</span>label <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+                <span class="token comment" spellcheck="true">// 如果 async 协程还没完成为挂起状态 则直接返回，等待下次唤醒重入</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>async$default<span class="token punctuation">.</span><span class="token function">await</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span> <span class="token operator">==</span> coroutine_suspended<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">return</span> coroutine_suspended<span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+            case <span class="token number">1</span><span class="token operator">:</span>
+                <span class="token keyword">val</span> <span class="token keyword">data</span> <span class="token operator">=</span> result<span class="token punctuation">;</span>
+                <span class="token function">processData</span><span class="token punctuation">(</span><span class="token keyword">data</span><span class="token punctuation">)</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<blockquote>
 <p><strong>这段代码是一个状态机机制，每一个挂起点都是一种状态，协程恢复只是跳转到下一个状态，挂起点将执行过程分割成多个片段，利用状态机的机制保证各个片段按顺序执行。</strong></p>
 </blockquote>
 <p>如果没有挂起点就只有一个初始状态，类似于<code>callback</code>回调，所以对应了之前我们分析的非阻塞的异步底层实现其实也是一种<code>callback</code>回调，只不过有多个挂起点时就会有多个<code>callback</code>回调，我们把多个<code>callback</code>回调封装成了一个<strong>状态机</strong>。</p>
 <p>到这里就完成了协程的启动过程，下面我们来分析协程的终止过程 （挂起过程）</p>
 <h3 id="协程的挂起"><a href="#协程的挂起" class="headerlink" title="协程的挂起"></a>协程的挂起</h3><p>从上文可知协程的启动经历 <strong>构建协程</strong> -&gt; <strong>线程调度</strong> -&gt; <strong>协程 resume</strong> 三个过程进入到编译器生成的 <code>SuspendLambda</code> 的 <code>invokeSuspend</code> 方法中的</p>
-<pre><code>if (async$default.await(this) == coroutine_suspended) {
-        return coroutine_suspended;
-}
-</code></pre><p><code>async</code> 也是一个协程，如果状态为挂起<code>coroutine_suspended</code>，则执行流直接 return 返回，如果已达到完成状态直接跳转下一个状态 case 1 最终走完整个协程代码块。</p>
+<pre class=" language-kotlin"><code class="language-kotlin"><span class="token keyword">if</span> <span class="token punctuation">(</span>async$default<span class="token punctuation">.</span><span class="token function">await</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span> <span class="token operator">==</span> coroutine_suspended<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> coroutine_suspended<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><code>async</code> 也是一个协程，如果状态为挂起<code>coroutine_suspended</code>，则执行流直接 return 返回，如果已达到完成状态直接跳转下一个状态 case 1 最终走完整个协程代码块。</p>
 <p>这里需要注意的是：</p>
 <ul>
 <li>启动一个新的协程并不会挂起当前协程，只有当使用库函数 <code>await</code>、<code>yield</code>方法时才会将当前的协程挂起。</li>
@@ -773,95 +788,100 @@ internal abstract class BaseContinuationImpl(...) {
 <p>协程的挂起过程很简单，代码块直接返回，当前状态保存在状态机 <code>SuspendLambda</code> 中，可以想象到协程恢复的时候也是调用 <code>SuspendLambda</code> 的 <code>invokeSuspend</code> 从而进入下一个状态继续执行的。</p>
 <h3 id="协程的恢复"><a href="#协程的恢复" class="headerlink" title="协程的恢复"></a>协程的恢复</h3><p>通过前面的代码，我们大概可以想到，协程A 的恢复是在 新协程B 执行完毕后调用 协程A 的 <code>resume</code> 函数从而进入状态机恢复执行的, 这样 新协程B 就得持有 协程A 的引用，然后在执行完成后通知 协程A 恢复执行<br>事实也是如此，我们从<code>await</code>方法入手</p>
 <p><strong>DeferredCoroutine</strong></p>
-<pre><code>private open class DeferredCoroutine&lt;T&gt;(
-    parentContext: CoroutineContext,
-    active: Boolean
-) : AbstractCoroutine&lt;T&gt;(parentContext, active), Deferred&lt;T&gt;, SelectClause1&lt;T&gt; {
-    ...
-    override suspend fun await(): T = awaitInternal() as T
-    ...
-}
+<pre class=" language-kotlin"><code class="language-kotlin"><span class="token keyword">private</span> <span class="token keyword">open</span> <span class="token keyword">class</span> DeferredCoroutine<span class="token operator">&lt;</span>T<span class="token operator">></span><span class="token punctuation">(</span>
+    parentContext<span class="token operator">:</span> CoroutineContext<span class="token punctuation">,</span>
+    active<span class="token operator">:</span> Boolean
+<span class="token punctuation">)</span> <span class="token operator">:</span> AbstractCoroutine<span class="token operator">&lt;</span>T<span class="token operator">></span><span class="token punctuation">(</span>parentContext<span class="token punctuation">,</span> active<span class="token punctuation">)</span><span class="token punctuation">,</span> Deferred<span class="token operator">&lt;</span>T<span class="token operator">></span><span class="token punctuation">,</span> SelectClause1<span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token punctuation">{</span>
+    <span class="token operator">..</span><span class="token punctuation">.</span>
+    <span class="token keyword">override</span> suspend <span class="token keyword">fun</span> <span class="token function">await</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> T <span class="token operator">=</span> <span class="token function">awaitInternal</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">as</span> T
+    <span class="token operator">..</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span>
 
-internal suspend fun awaitInternal(): Any? {
-        // fast-path -- check state (avoid extra object creation)
-        while (true) { // lock-free loop on state
-            val state = this.state
-            if (state !is Incomplete) {
-                // already complete -- just return result
-                if (state is CompletedExceptionally) { // Slow path to recover stacktrace
-                    recoverAndThrow(state.cause)
-                }
-                // 已完成的话直接拆箱返回结果值
-                return state.unboxState()
+<span class="token keyword">internal</span> suspend <span class="token keyword">fun</span> <span class="token function">awaitInternal</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> Any<span class="token operator">?</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// fast-path -- check state (avoid extra object creation)</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// lock-free loop on state</span>
+            <span class="token keyword">val</span> state <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>state
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>state <span class="token operator">!</span><span class="token keyword">is</span> Incomplete<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// already complete -- just return result</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>state <span class="token keyword">is</span> CompletedExceptionally<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// Slow path to recover stacktrace</span>
+                    <span class="token function">recoverAndThrow</span><span class="token punctuation">(</span>state<span class="token punctuation">.</span>cause<span class="token punctuation">)</span>
+                <span class="token punctuation">}</span>
+                <span class="token comment" spellcheck="true">// 已完成的话直接拆箱返回结果值</span>
+                <span class="token keyword">return</span> state<span class="token punctuation">.</span><span class="token function">unboxState</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 
-            }
-            if (startInternal(state) &gt;= 0) break // break unless needs to retry
-        }
-        // 未完成走这里
-        return awaitSuspend() // slow-path
-    }
+            <span class="token punctuation">}</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">startInternal</span><span class="token punctuation">(</span>state<span class="token punctuation">)</span> <span class="token operator">>=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword">break</span> <span class="token comment" spellcheck="true">// break unless needs to retry</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">// 未完成走这里</span>
+        <span class="token keyword">return</span> <span class="token function">awaitSuspend</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// slow-path</span>
+    <span class="token punctuation">}</span>
 
-private suspend fun awaitSuspend(): Any? = suspendCoroutineUninterceptedOrReturn { uCont -&gt;
-        /*
+<span class="token keyword">private</span> suspend <span class="token keyword">fun</span> <span class="token function">awaitSuspend</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> Any<span class="token operator">?</span> <span class="token operator">=</span> suspendCoroutineUninterceptedOrReturn <span class="token punctuation">{</span> uCont <span class="token operator">-></span>
+        <span class="token comment" spellcheck="true">/*
          * Custom code here, so that parent coroutine that is using await
          * on its child deferred (async) coroutine would throw the exception that this child had
          * thrown and not a JobCancellationException.
-         */
-        val cont = AwaitContinuation(uCont.intercepted(), this)
-        cont.disposeOnCancellation(invokeOnCompletion(ResumeAwaitOnCompletion(this, cont).asHandler))
-        cont.getResult()
-}
-</code></pre><p><code>awaitSuspend()</code> 函数中有三个过程我们需要关注</p>
-<pre><code>// 1 这里拿到了调用await代码的协程
-suspendCoroutineUninterceptedOrReturn{ uCont -&gt;
-       // doSomething
-}
-// asHandler 有点事件回调的引子
-ResumeAwaitOnCompletion(this, cont).asHandler
-// 当完成时执行
-invokeOnCompletion(handler: CompletionHandler)
-</code></pre><p><code>suspendCoroutineUninterceptedOrReturn() lambda</code>直接返回了一个协程实例 <code>uCont</code>，我们大概可以确定这就是调用者协程的引用，源码里并没有看到实现，但是通过查看<code>JobSupport</code>的 class 源码发现调用<code>await</code>的时候就已经将当前协程作为参数传入了进去:</p>
-<pre><code>// 这里已经将this传入了进去
-if (async$default.await(this) == coroutine_suspended) {
-                    return coroutine_suspended;
-}
-</code></pre><p>再来看 <code>ResumeAwaitOnCompletion(this, cont).asHandler</code></p>
-<pre><code>private class ResumeAwaitOnCompletion&lt;T&gt;(
-    job: JobSupport,
-    private val continuation: CancellableContinuationImpl&lt;T&gt;
-) : JobNode&lt;JobSupport&gt;(job) {
-    override fun invoke(cause: Throwable?) {
-        ...
-        // handler 内部调用 continuation.resume 函数恢复协程执行
-        continuation.resume(state.unboxState() as T)
-        ...
-    }
-    ...
-}
-</code></pre><p>构建了一个 <code>ResumeAwaitOnCompletion</code> 对象作为 <code>JobNode</code>任务节点，同时作为一个 <code>Handler</code> 回调对象。<br><strong>invokeOnCompletion</strong></p>
-<pre><code>当前代码分支有点多，简化代码如下：
-public final override fun invokeOnCompletion(
-        onCancelling: Boolean,
-        invokeImmediately: Boolean,
-        handler: CompletionHandler
-    ): DisposableHandle {
-        loopOnState { state -&gt;
-            when (state) {
-                ... 
-                is Incomplete -&gt; {
-                    val node = nodeCache ?: makeNode(handler, onCancelling).also { nodeCache = it }
-                                    if (!addLastAtomic(state, list, node)) return@loopOnState
-                    return node
-                }
-                else -&gt; { // is complete
-                    if (invokeImmediately) handler.invokeIt((state as? CompletedExceptionally)?.cause)
-                    return NonDisposableHandle
-                }
-                ...
-            }
-        }
-    }
-</code></pre><p>如果新协程还未执行完成则将<code>handler</code>构造成一个<code>Node</code>并添加节点列表中去，函数返回 node，如果已经完成了则直接调用 <code>handler.invokeIt</code> 从而调用到 <code>Continuation.resume</code> 恢复执行。</p>
+         */</span>
+        <span class="token keyword">val</span> cont <span class="token operator">=</span> <span class="token function">AwaitContinuation</span><span class="token punctuation">(</span>uCont<span class="token punctuation">.</span><span class="token function">intercepted</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">)</span>
+        cont<span class="token punctuation">.</span><span class="token function">disposeOnCancellation</span><span class="token punctuation">(</span><span class="token function">invokeOnCompletion</span><span class="token punctuation">(</span><span class="token function">ResumeAwaitOnCompletion</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> cont<span class="token punctuation">)</span><span class="token punctuation">.</span>asHandler<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        cont<span class="token punctuation">.</span><span class="token function">getResult</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><code>awaitSuspend()</code> 函数中有三个过程我们需要关注</p>
+<pre class=" language-kotlin"><code class="language-kotlin"><span class="token comment" spellcheck="true">// 1 这里拿到了调用await代码的协程</span>
+suspendCoroutineUninterceptedOrReturn<span class="token punctuation">{</span> uCont <span class="token operator">-></span>
+       <span class="token comment" spellcheck="true">// doSomething</span>
+<span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">// asHandler 有点事件回调的引子</span>
+<span class="token function">ResumeAwaitOnCompletion</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> cont<span class="token punctuation">)</span><span class="token punctuation">.</span>asHandler
+<span class="token comment" spellcheck="true">// 当完成时执行</span>
+<span class="token function">invokeOnCompletion</span><span class="token punctuation">(</span>handler<span class="token operator">:</span> CompletionHandler<span class="token punctuation">)</span>
+</code></pre>
+<p><code>suspendCoroutineUninterceptedOrReturn() lambda</code>直接返回了一个协程实例 <code>uCont</code>，我们大概可以确定这就是调用者协程的引用，源码里并没有看到实现，但是通过查看<code>JobSupport</code>的 class 源码发现调用<code>await</code>的时候就已经将当前协程作为参数传入了进去:</p>
+<pre class=" language-kotlin"><code class="language-kotlin"><span class="token comment" spellcheck="true">// 这里已经将this传入了进去</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>async$default<span class="token punctuation">.</span><span class="token function">await</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span> <span class="token operator">==</span> coroutine_suspended<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">return</span> coroutine_suspended<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>再来看 <code>ResumeAwaitOnCompletion(this, cont).asHandler</code></p>
+<pre class=" language-kotlin"><code class="language-kotlin"><span class="token keyword">private</span> <span class="token keyword">class</span> ResumeAwaitOnCompletion<span class="token operator">&lt;</span>T<span class="token operator">></span><span class="token punctuation">(</span>
+    job<span class="token operator">:</span> JobSupport<span class="token punctuation">,</span>
+    <span class="token keyword">private</span> <span class="token keyword">val</span> continuation<span class="token operator">:</span> CancellableContinuationImpl<span class="token operator">&lt;</span>T<span class="token operator">></span>
+<span class="token punctuation">)</span> <span class="token operator">:</span> JobNode<span class="token operator">&lt;</span>JobSupport<span class="token operator">></span><span class="token punctuation">(</span>job<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">override</span> <span class="token keyword">fun</span> <span class="token function">invoke</span><span class="token punctuation">(</span>cause<span class="token operator">:</span> Throwable<span class="token operator">?</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token operator">..</span><span class="token punctuation">.</span>
+        <span class="token comment" spellcheck="true">// handler 内部调用 continuation.resume 函数恢复协程执行</span>
+        continuation<span class="token punctuation">.</span><span class="token function">resume</span><span class="token punctuation">(</span>state<span class="token punctuation">.</span><span class="token function">unboxState</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">as</span> T<span class="token punctuation">)</span>
+        <span class="token operator">..</span><span class="token punctuation">.</span>
+    <span class="token punctuation">}</span>
+    <span class="token operator">..</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>构建了一个 <code>ResumeAwaitOnCompletion</code> 对象作为 <code>JobNode</code>任务节点，同时作为一个 <code>Handler</code> 回调对象。<br><strong>invokeOnCompletion</strong></p>
+<pre class=" language-kotlin"><code class="language-kotlin"><span class="token comment" spellcheck="true">// 当前代码分支有点多，简化代码如下：</span>
+<span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token keyword">override</span> <span class="token keyword">fun</span> <span class="token function">invokeOnCompletion</span><span class="token punctuation">(</span>
+        onCancelling<span class="token operator">:</span> Boolean<span class="token punctuation">,</span>
+        invokeImmediately<span class="token operator">:</span> Boolean<span class="token punctuation">,</span>
+        handler<span class="token operator">:</span> CompletionHandler
+    <span class="token punctuation">)</span><span class="token operator">:</span> DisposableHandle <span class="token punctuation">{</span>
+        loopOnState <span class="token punctuation">{</span> state <span class="token operator">-></span>
+            <span class="token keyword">when</span> <span class="token punctuation">(</span>state<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token operator">..</span><span class="token punctuation">.</span> 
+                <span class="token keyword">is</span> Incomplete <span class="token operator">-></span> <span class="token punctuation">{</span>
+                    <span class="token keyword">val</span> node <span class="token operator">=</span> nodeCache <span class="token operator">?:</span> <span class="token function">makeNode</span><span class="token punctuation">(</span>handler<span class="token punctuation">,</span> onCancelling<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">also</span> <span class="token punctuation">{</span> nodeCache <span class="token operator">=</span> it <span class="token punctuation">}</span>
+                                    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">addLastAtomic</span><span class="token punctuation">(</span>state<span class="token punctuation">,</span> list<span class="token punctuation">,</span> node<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token label symbol">@loopOnState</span>
+                    <span class="token keyword">return</span> node
+                <span class="token punctuation">}</span>
+                <span class="token keyword">else</span> <span class="token operator">-></span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// is complete</span>
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span>invokeImmediately<span class="token punctuation">)</span> handler<span class="token punctuation">.</span><span class="token function">invokeIt</span><span class="token punctuation">(</span><span class="token punctuation">(</span>state <span class="token keyword">as</span><span class="token operator">?</span> CompletedExceptionally<span class="token punctuation">)</span><span class="token operator">?</span><span class="token punctuation">.</span>cause<span class="token punctuation">)</span>
+                    <span class="token keyword">return</span> NonDisposableHandle
+                <span class="token punctuation">}</span>
+                <span class="token operator">..</span><span class="token punctuation">.</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>如果新协程还未执行完成则将<code>handler</code>构造成一个<code>Node</code>并添加节点列表中去，函数返回 node，如果已经完成了则直接调用 <code>handler.invokeIt</code> 从而调用到 <code>Continuation.resume</code> 恢复执行。</p>
 <p>到这里已经很明显了，将调用<code>await</code>的协程构造成一个 <code>handler node</code> 节点添加到新协程的 node 列表中，待新协程执行完毕后，循环列表通知每个<code>handler</code>恢复其协程的执行，这里用列表来保存<code>handler</code> 是因为可能有许多个协程调用<code>await</code>等待这个指定协程的完成，后面就不继续贴代码了，恢复流程如下：</p>
 <p>从 <code>async</code> 协程的 <code>SuspendLambda</code> 的子类的<br><code>completion.resumeWith(outcome)</code><br>-&gt; <code>AbstractCoroutine.resumeWith(result)</code><br>-&gt; <code>JobSupport.tryFinalizeSimpleState()</code><br>-&gt; <code>JobSupport.completeStateFinalization()</code><br>-&gt; <code>state.list?.notifyCompletion(cause)</code><br>-&gt; <code>node.invoke</code></p>
 <p>到这里协程的整个调用执行流过程就分析完了，我们跟踪源码前的两个问题也得到了答案。</p>
