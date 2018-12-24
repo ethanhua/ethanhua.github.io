@@ -832,6 +832,7 @@ if (async$default.await(this) == coroutine_suspended) {
 ) : JobNode&lt;JobSupport&gt;(job) {
     override fun invoke(cause: Throwable?) {
         ...
+        // handler 内部调用 continuation.resume 函数恢复协程执行
         continuation.resume(state.unboxState() as T)
         ...
     }
